@@ -1,0 +1,45 @@
+.app-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 calc(var(--spacing-unit) * 3);
+  height: 70px;
+  background-color: var(--white-color);
+  box-shadow: var(--box-shadow);
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+}
+
+.logo h1 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-color);
+}
+
+.app-header nav {
+  display: flex;
+  gap: calc(var(--spacing-unit) * 2);
+}
+
+.app-header nav a {
+  text-decoration: none;
+  color: var(--text-color);
+  font-weight: 500;
+  padding: calc(var(--spacing-unit) * 1) calc(var(--spacing-unit) * 2);
+  border-radius: var(--border-radius);
+  transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.app-header nav a:hover {
+  background-color: var(--subtle-border-color);
+  color: var(--text-color);
+}
+
+.app-header nav a.active {
+  background-color: var(--primary-color);
+  color: var(--white-color);
+}

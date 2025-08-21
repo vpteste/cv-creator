@@ -1,0 +1,7 @@
+.cv-builder-page {
+  display: grid;
+  /* Left panel 450px, right panel takes the rest */
+  grid-template-columns: 450px 1fr;
+  /* Full height minus header (approx 70px) */
+  height: calc(100vh - 70px);
+}
