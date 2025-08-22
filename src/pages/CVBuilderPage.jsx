@@ -55,6 +55,21 @@ const CVBuilderPage = () => {
         { id: 3, name: 'Jeux de société' }
       ],
 
+      strengths: [
+        { id: 1, name: 'Travail d\'équipe' },
+        { id: 2, name: 'Résolution de problèmes' }
+      ],
+
+      achievements: [
+        { id: 1, name: 'Certification AWS' },
+        { id: 2, name: 'Projet open source' }
+      ],
+
+      certifications: [
+        { id: 1, name: 'Cisco CCNA' },
+        { id: 2, name: 'Microsoft Azure Fundamentals' }
+      ],
+
       // Customization - Initialisé avec le premier modèle
       font: initialTemplate.styles.fontFamily,
       backgroundColor: initialTemplate.styles.backgroundColor,

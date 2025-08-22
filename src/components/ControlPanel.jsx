@@ -2,7 +2,8 @@ import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
   faUser, faCog, faPalette, faFilePdf, faFileWord, 
-  faPlus, faTrash, faBriefcase, faGraduationCap, faLightbulb, faGlobe, faHeart, faEye
+  faPlus, faTrash, faBriefcase, faGraduationCap, faLightbulb, faGlobe, faHeart, faEye,
+  faStar, faTrophy, faCertificate
 } from '@fortawesome/free-solid-svg-icons';
 import TemplateSelector from './TemplateSelector';
 import './ControlPanel.css';
@@ -53,6 +54,12 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
       newItem = { id: Date.now(), name: 'Langue', level: 'Niveau' };
     } else if (section === 'interests') {
       newItem = { id: Date.now(), name: 'Centre d\'intérêt' };
+    } else if (section === 'strengths') {
+      newItem = { id: Date.now(), name: 'Point fort' };
+    } else if (section === 'achievements') {
+      newItem = { id: Date.now(), name: 'Réussite' };
+    } else if (section === 'certifications') {
+      newItem = { id: Date.now(), name: 'Certification' };
     }
     setCvData(prev => ({ ...prev, [section]: [...prev[section], newItem] }));
   };
@@ -134,7 +141,7 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
             {cvData.languages && cvData.languages.map((lang) => (
                 <div key={lang.id} className="item-group">
                     <input type="text" name="name" placeholder="Langue" value={lang.name} onChange={e => handleItemChange('languages', lang.id, e)} />
-                    <input type="text" name="level" placeholder="Niveau" value={lang.level} onChange={e => handleItemChange('languages', lang.id, e)} />
+                    <input type="number" name="level" placeholder="Niveau (1-5)" value={lang.level} onChange={e => handleItemChange('languages', lang.id, e)} min="1" max="5" />
                     <button className="remove-btn" onClick={() => handleRemoveItem('languages', lang.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
                 </div>
             ))}
@@ -147,7 +154,34 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
                     <button className="remove-btn" onClick={() => handleRemoveItem('interests', interest.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
                 </div>
             ))}
-            <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d\'intérêt</button>
+            <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d'intérêt</button>
+            <hr/>
+            <h4><FontAwesomeIcon icon={faStar} /> Points forts</h4>
+            {cvData.strengths && cvData.strengths.map((strength) => (
+                <div key={strength.id} className="item-group">
+                    <input type="text" name="name" placeholder="Point fort" value={strength.name} onChange={e => handleItemChange('strengths', strength.id, e)} />
+                    <button className="remove-btn" onClick={() => handleRemoveItem('strengths', strength.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
+                </div>
+            ))}
+            <button className="add-btn" onClick={() => handleAddItem('strengths')}><FontAwesomeIcon icon={faPlus} /> Ajouter un point fort</button>
+            <hr/>
+            <h4><FontAwesomeIcon icon={faTrophy} /> Réussites</h4>
+            {cvData.achievements && cvData.achievements.map((achievement) => (
+                <div key={achievement.id} className="item-group">
+                    <input type="text" name="name" placeholder="Réussite" value={achievement.name} onChange={e => handleItemChange('achievements', achievement.id, e)} />
+                    <button className="remove-btn" onClick={() => handleRemoveItem('achievements', achievement.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
+                </div>
+            ))}
+            <button className="add-btn" onClick={() => handleAddItem('achievements')}><FontAwesomeIcon icon={faPlus} /> Ajouter une réussite</button>
+            <hr/>
+            <h4><FontAwesomeIcon icon={faCertificate} /> Cours et Certifications</h4>
+            {cvData.certifications && cvData.certifications.map((certification) => (
+                <div key={certification.id} className="item-group">
+                    <input type="text" name="name" placeholder="Certification" value={certification.name} onChange={e => handleItemChange('certifications', certification.id, e)} />
+                    <button className="remove-btn" onClick={() => handleRemoveItem('certifications', certification.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
+                </div>
+            ))}
+            <button className="add-btn" onClick={() => handleAddItem('certifications')}><FontAwesomeIcon icon={faPlus} /> Ajouter une certification</button>
           </div>
         );
       case 'appearance':
@@ -156,7 +190,7 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
             <h3><FontAwesomeIcon icon={faPalette} /> Apparence</h3>
             <TemplateSelector templates={templates} onSelectTemplate={onSelectTemplate} />
             <hr/>
-            {selectedTemplate.id === 'modern-bicolor' ? (
+            {selectedTemplate.layout?.startsWith('two-column') ? (
               <div className="color-picker-grid">
                 <div className="form-group color-picker-item"><label>Fond Sidebar</label><input type="color" name="sidebarColor" value={cvData.sidebarColor} onChange={handleChange} /></div>
                 <div className="form-group color-picker-item"><label>Texte Sidebar</label><input type="color" name="sidebarTextColor" value={cvData.sidebarTextColor} onChange={handleChange} /></div>
