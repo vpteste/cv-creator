@@ -10,12 +10,14 @@ function App() {
   return (
     <Router>
       <Header />
-      <main className="main-content">
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/creation-cv" element={<CVBuilderPage />} />
-          <Route path="/publicite" element={<PixelAdPage />} />
-        </Routes>
+      <main className="app-main">
+        <div className="site-container">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/creation-cv" element={<CVBuilderPage />} />
+            <Route path="/publicite" element={<PixelAdPage />} />
+          </Routes>
+        </div>
       </main>
     </Router>
   );

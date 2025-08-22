@@ -1,10 +1,22 @@
-import React from 'react';
-import AccordionSection from './AccordionSection';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFilePdf, faFileWord, faPlus, faTrash } from '@fortawesome/free-solid-svg-icons';
+import { 
+  faUser, faCog, faPalette, faFilePdf, faFileWord, 
+  faPlus, faTrash, faBriefcase, faGraduationCap, faLightbulb, faGlobe, faHeart, faEye
+} from '@fortawesome/free-solid-svg-icons';
+import TemplateSelector from './TemplateSelector';
 import './ControlPanel.css';
 
-const ControlPanel = ({ cvData, setCvData }) => {
+const NavItem = ({ icon, label, isActive, onClick }) => (
+  <button className={`nav-item ${isActive ? 'active' : ''}`} onClick={onClick}>
+    <FontAwesomeIcon icon={icon} />
+    <span>{label}</span>
+  </button>
+);
+
+const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelectTemplate, onToggleMobileView }) => {
+  const [activeSection, setActiveSection] = useState('personal');
+
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
     const finalValue = type === 'number' ? parseFloat(value) : type === 'checkbox' ? checked : value;
@@ -37,6 +49,10 @@ const ControlPanel = ({ cvData, setCvData }) => {
       newItem = { id: Date.now(), degree: 'Nouveau Diplôme', school: 'École / Université', period: '2023 - 2024' };
     } else if (section === 'skills') {
       newItem = { id: Date.now(), name: 'Nouvelle compétence' };
+    } else if (section === 'languages') {
+      newItem = { id: Date.now(), name: 'Langue', level: 'Niveau' };
+    } else if (section === 'interests') {
+      newItem = { id: Date.now(), name: 'Centre d\'intérêt' };
     }
     setCvData(prev => ({ ...prev, [section]: [...prev[section], newItem] }));
   };
@@ -61,38 +77,28 @@ const ControlPanel = ({ cvData, setCvData }) => {
     pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
   };
 
-  const handleDownloadWord = async () => {
-    const { default: htmlToDocx } = await import('html-to-docx');
-    const { saveAs } = await import('file-saver');
-    const cvElement = document.getElementById('cv-preview');
-    const htmlString = `<!DOCTYPE html><html><head><meta charset="UTF-8"><style>body{font-family:${cvData.font};font-size:${cvData.bodyFontSize}pt;color:${cvData.textColor};}h1,h2,h3,h4,h5{color:${cvData.titleColor};}h1{font-size:${cvData.titleFontSize}pt;}h2{font-size:${cvData.titleFontSize*0.7}pt;}h3,h4{font-size:${cvData.titleFontSize*0.6}pt;}</style></head><body>${cvElement.innerHTML}</body></html>`;
-    try {
-      const fileBuffer = await htmlToDocx(htmlString, null, { footer: true, pageNumber: { format: 'decimal' } });
-      saveAs(fileBuffer, `${cvData.name.replace(/ /g, '_')}_CV.docx`);
-    } catch (error) {
-      console.error('Error generating DOCX:', error);
-    }
-  };
-
-  return (
-    <div className="control-panel">
-      <div className="panel-header"><h3>Panneau de Conception</h3></div>
-      <div className="panel-content">
-
-        <AccordionSection title="Informations Personnelles">
-          <div className="form-group"><label>Photo de profil</label><input type="file" accept="image/*" onChange={handlePhotoChange} /></div>
-          <div className="form-group"><label>Nom Complet</label><input type="text" name="name" value={cvData.name} onChange={handleChange} /></div>
-          <div className="form-group"><label>Titre</label><input type="text" name="title" value={cvData.title} onChange={handleChange} /></div>
-          <div className="form-group"><label>Email</label><input type="email" name="email" value={cvData.email} onChange={handleChange} /></div>
-          <div className="form-group"><label>Téléphone</label><input type="tel" name="phone" value={cvData.phone} onChange={handleChange} /></div>
-          <div className="form-group"><label>Adresse</label><input type="text" name="address" value={cvData.address} onChange={handleChange} /></div>
-        </AccordionSection>
-
-        <AccordionSection title="Sections du CV">
+  const renderContent = () => {
+    switch (activeSection) {
+      case 'personal':
+        return (
+          <div className="form-section">
+            <h3><FontAwesomeIcon icon={faUser} /> Informations Personnelles</h3>
+            <div className="form-group"><label>Photo de profil</label><input type="file" accept="image/*" onChange={handlePhotoChange} /></div>
+            <div className="form-group"><label>Nom Complet</label><input type="text" name="name" value={cvData.name} onChange={handleChange} /></div>
+            <div className="form-group"><label>Titre</label><input type="text" name="title" value={cvData.title} onChange={handleChange} /></div>
+            <div className="form-group"><label>Email</label><input type="email" name="email" value={cvData.email} onChange={handleChange} /></div>
+            <div className="form-group"><label>Téléphone</label><input type="tel" name="phone" value={cvData.phone} onChange={handleChange} /></div>
+            <div className="form-group"><label>Adresse</label><input type="text" name="address" value={cvData.address} onChange={handleChange} /></div>
+          </div>
+        );
+      case 'sections':
+        return (
+          <div className="form-section">
+            <h3><FontAwesomeIcon icon={faCog} /> Sections du CV</h3>
             <div className="checkbox-group"><input type="checkbox" id="showProfile" name="showProfile" checked={cvData.showProfile} onChange={handleChange} /><label htmlFor="showProfile">Afficher la section Profil</label></div>
             {cvData.showProfile && <div className="form-group"><label>Profil</label><textarea name="profile" value={cvData.profile} onChange={handleChange} rows="6"></textarea></div>}
             <hr/>
-            <h4>Expériences</h4>
+            <h4><FontAwesomeIcon icon={faBriefcase} /> Expériences</h4>
             {cvData.experience.map((exp) => (
                 <div key={exp.id} className="item-group">
                     <input type="text" name="title" placeholder="Titre du poste" value={exp.title} onChange={e => handleItemChange('experience', exp.id, e)} />
@@ -104,7 +110,7 @@ const ControlPanel = ({ cvData, setCvData }) => {
             ))}
             <button className="add-btn" onClick={() => handleAddItem('experience')}><FontAwesomeIcon icon={faPlus} /> Ajouter une expérience</button>
             <hr/>
-            <h4>Formations</h4>
+            <h4><FontAwesomeIcon icon={faGraduationCap} /> Formations</h4>
             {cvData.education.map((edu) => (
                 <div key={edu.id} className="item-group">
                     <input type="text" name="degree" placeholder="Diplôme" value={edu.degree} onChange={e => handleItemChange('education', edu.id, e)} />
@@ -115,7 +121,7 @@ const ControlPanel = ({ cvData, setCvData }) => {
             ))}
             <button className="add-btn" onClick={() => handleAddItem('education')}><FontAwesomeIcon icon={faPlus} /> Ajouter une formation</button>
             <hr/>
-            <h4>Compétences</h4>
+            <h4><FontAwesomeIcon icon={faLightbulb} /> Compétences</h4>
             {cvData.skills.map((skill) => (
                 <div key={skill.id} className="item-group">
                     <input type="text" name="name" placeholder="Compétence" value={skill.name} onChange={e => handleItemChange('skills', skill.id, e)} />
@@ -123,32 +129,94 @@ const ControlPanel = ({ cvData, setCvData }) => {
                 </div>
             ))}
             <button className="add-btn" onClick={() => handleAddItem('skills')}><FontAwesomeIcon icon={faPlus} /> Ajouter une compétence</button>
-        </AccordionSection>
-
-        <AccordionSection title="Personnalisation">
-            <div className="form-group"><label>Disposition de l'en-tête</label><div className="radio-group"> <input type="radio" id="left" name="headerLayout" value="left" checked={cvData.headerLayout === 'left'} onChange={handleChange}/><label htmlFor="left">Gauche</label> <input type="radio" id="center" name="headerLayout" value="center" checked={cvData.headerLayout === 'center'} onChange={handleChange}/><label htmlFor="center">Centre</label> <input type="radio" id="right" name="headerLayout" value="right" checked={cvData.headerLayout === 'right'} onChange={handleChange}/><label htmlFor="right">Droite</label></div></div>
+            <hr/>
+            <h4><FontAwesomeIcon icon={faGlobe} /> Langues</h4>
+            {cvData.languages && cvData.languages.map((lang) => (
+                <div key={lang.id} className="item-group">
+                    <input type="text" name="name" placeholder="Langue" value={lang.name} onChange={e => handleItemChange('languages', lang.id, e)} />
+                    <input type="text" name="level" placeholder="Niveau" value={lang.level} onChange={e => handleItemChange('languages', lang.id, e)} />
+                    <button className="remove-btn" onClick={() => handleRemoveItem('languages', lang.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
+                </div>
+            ))}
+            <button className="add-btn" onClick={() => handleAddItem('languages')}><FontAwesomeIcon icon={faPlus} /> Ajouter une langue</button>
+            <hr/>
+            <h4><FontAwesomeIcon icon={faHeart} /> Centres d\'intérêt</h4>
+            {cvData.interests && cvData.interests.map((interest) => (
+                <div key={interest.id} className="item-group">
+                    <input type="text" name="name" placeholder="Centre d\'intérêt" value={interest.name} onChange={e => handleItemChange('interests', interest.id, e)} />
+                    <button className="remove-btn" onClick={() => handleRemoveItem('interests', interest.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
+                </div>
+            ))}
+            <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d\'intérêt</button>
+          </div>
+        );
+      case 'appearance':
+        return (
+          <div className="form-section">
+            <h3><FontAwesomeIcon icon={faPalette} /> Apparence</h3>
+            <TemplateSelector templates={templates} onSelectTemplate={onSelectTemplate} />
+            <hr/>
+            {selectedTemplate.id === 'modern-bicolor' ? (
+              <div className="color-picker-grid">
+                <div className="form-group color-picker-item"><label>Fond Sidebar</label><input type="color" name="sidebarColor" value={cvData.sidebarColor} onChange={handleChange} /></div>
+                <div className="form-group color-picker-item"><label>Texte Sidebar</label><input type="color" name="sidebarTextColor" value={cvData.sidebarTextColor} onChange={handleChange} /></div>
+                <div className="form-group color-picker-item"><label>Fond Principal</label><input type="color" name="backgroundColor" value={cvData.backgroundColor} onChange={handleChange} /></div>
+                <div className="form-group color-picker-item"><label>Texte Principal</label><input type="color" name="textColor" value={cvData.textColor} onChange={handleChange} /></div>
+                <div className="form-group color-picker-item"><label>Titres Principaux</label><input type="color" name="headerColor" value={cvData.headerColor} onChange={handleChange} /></div>
+              </div>
+            ) : (
+              <>
+                <div className="form-group"><label>Disposition de l\'en-tête</label><div className="radio-group"> <input type="radio" id="left" name="headerLayout" value="left" checked={cvData.headerLayout === 'left'} onChange={handleChange}/><label htmlFor="left">Gauche</label> <input type="radio" id="center" name="headerLayout" value="center" checked={cvData.headerLayout === 'center'} onChange={handleChange}/><label htmlFor="center">Centre</label> <input type="radio" id="right" name="headerLayout" value="right" checked={cvData.headerLayout === 'right'} onChange={handleChange}/><label htmlFor="right">Droite</label></div></div>
+                <div className="color-picker-grid">
+                    <div className="form-group color-picker-item"><label>Fond</label><input type="color" name="backgroundColor" value={cvData.backgroundColor} onChange={handleChange} /></div>
+                    <div className="form-group color-picker-item"><label>Titres</label><input type="color" name="titleColor" value={cvData.titleColor} onChange={handleChange} /></div>
+                    <div className="form-group color-picker-item"><label>Texte</label><input type="color" name="textColor" value={cvData.textColor} onChange={handleChange} /></div>
+                    <div className="form-group color-picker-item"><label>Bandes</label><input type="color" name="bandColor" value={cvData.bandColor} onChange={handleChange} /></div>
+                </div>
+                <div className="checkbox-group"><input type="checkbox" id="showBands" name="showBands" checked={cvData.showBands} onChange={handleChange} /><label htmlFor="showBands">Bandes décoratives</label></div>
+                <div className="checkbox-group"><input type="checkbox" id="showEmojis" name="showEmojis" checked={cvData.showEmojis} onChange={handleChange} /><label htmlFor="showEmojis">Emojis dans les titres</label></div>
+              </>
+            )}
+            <hr />
             <div className="form-group"><label>Police</label><select name="font" value={cvData.font} onChange={handleChange}><option value="Inter, sans-serif">Inter</option><option value="Arial, sans-serif">Arial</option><option value="Georgia, serif">Georgia</option><option value="'Times New Roman', serif">Times New Roman</option><option value="Helvetica, sans-serif">Helvetica</option></select></div>
             <div className="form-group"><label>Taille des titres (px)</label><input type="number" name="titleFontSize" value={cvData.titleFontSize} onChange={handleChange} min="16" max="40" /></div>
             <div className="form-group"><label>Taille du texte (px)</label><input type="number" name="bodyFontSize" value={cvData.bodyFontSize} onChange={handleChange} min="12" max="18" /></div>
-            <div className="color-picker-grid">
-                <div className="form-group color-picker-item"><label>Fond</label><input type="color" name="backgroundColor" value={cvData.backgroundColor} onChange={handleChange} /></div>
-                <div className="form-group color-picker-item"><label>Titres</label><input type="color" name="titleColor" value={cvData.titleColor} onChange={handleChange} /></div>
-                <div className="form-group color-picker-item"><label>Texte</label><input type="color" name="textColor" value={cvData.textColor} onChange={handleChange} /></div>
-                <div className="form-group color-picker-item"><label>Bandes</label><input type="color" name="bandColor" value={cvData.bandColor} onChange={handleChange} /></div>
-            </div>
-            <div className="checkbox-group"><input type="checkbox" id="showBands" name="showBands" checked={cvData.showBands} onChange={handleChange} /><label htmlFor="showBands">Bandes décoratives</label></div>
             <div className="checkbox-group"><input type="checkbox" id="showIcons" name="showIcons" checked={cvData.showIcons} onChange={handleChange} /><label htmlFor="showIcons">Icônes de section</label></div>
-            <div className="checkbox-group"><input type="checkbox" id="showEmojis" name="showEmojis" checked={cvData.showEmojis} onChange={handleChange} /><label htmlFor="showEmojis">Emojis dans les titres</label></div>
-        </AccordionSection>
-
-        <AccordionSection title="Téléchargement">
-          <p className="download-info">Téléchargez votre CV dans le format de votre choix.</p>
-          <div className="download-buttons">
-            <button className="download-btn pdf" onClick={handleDownloadPdf}><FontAwesomeIcon icon={faFilePdf} /> PDF</button>
-            <button className="download-btn word" onClick={handleDownloadWord}><FontAwesomeIcon icon={faFileWord} /> Word</button>
           </div>
-        </AccordionSection>
+        );
+      case 'download':
+        return (
+          <div className="form-section">
+            <h3><FontAwesomeIcon icon={faFilePdf} /> Téléchargement</h3>
+            <p className="download-info">Téléchargez votre CV dans le format de votre choix.</p>
+            <div className="download-buttons">
+              <button className="download-btn pdf" onClick={handleDownloadPdf}><FontAwesomeIcon icon={faFilePdf} /> PDF</button>
+            </div>
+          </div>
+        );
+      default:
+        return null;
+    }
+  };
+
+  return (
+    <div className="control-panel">
+      <div className="cp-sidebar">
+        <h2 className="cp-title">CV Creator</h2>
+        <nav className="cp-nav">
+          <NavItem icon={faUser} label="Infos" isActive={activeSection === 'personal'} onClick={() => setActiveSection('personal')} />
+          <NavItem icon={faCog} label="Sections" isActive={activeSection === 'sections'} onClick={() => setActiveSection('sections')} />
+          <NavItem icon={faPalette} label="Apparence" isActive={activeSection === 'appearance'} onClick={() => setActiveSection('appearance')} />
+          <NavItem icon={faFilePdf} label="Télécharger" isActive={activeSection === 'download'} onClick={() => setActiveSection('download')} />
+        </nav>
       </div>
+      <div className="cp-content">
+        {renderContent()}
+      </div>
+      <button className="mobile-preview-btn" onClick={onToggleMobileView}>
+        <FontAwesomeIcon icon={faEye} />
+        <span>Aperçu</span>
+      </button>
     </div>
   );
 };

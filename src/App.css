@@ -1,3 +1,23 @@
+
 .app-main {
   padding-top: 70px; /* To offset the fixed header */
+  background-color: #f0f2f5; /* A neutral background for the whole page */
+}
+
+.site-container {
+  max-width: 1920px;
+  margin: 0 auto; /* Center the container */
+}
+
+.preview-panel-container {
+  flex: 1 1 50%; /* Take 50% of the space */
+  overflow-y: auto; /* Add scroll for long CVs */
+  padding: 24px;
+  background-color: #eef2f9;
+}
+
+@media (max-width: 1024px) {
+  .preview-panel-container {
+    flex-basis: auto; /* Reset flex basis */
+  }
 }

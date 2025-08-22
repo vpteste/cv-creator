@@ -1,7 +1,27 @@
+
 .cv-builder-page {
-  display: grid;
-  /* Left panel 450px, right panel takes the rest */
-  grid-template-columns: 450px 1fr;
-  /* Full height minus header (approx 70px) */
-  height: calc(100vh - 70px);
+  display: flex;
+  height: 100vh;
 }
+
+@media (max-width: 1024px) {
+  .cv-builder-page {
+    flex-direction: column;
+    height: auto;
+    margin: 0;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 767px) {
+  .mobile-view-editor .preview-panel-container {
+    display: none;
+  }
+
+  .mobile-view-preview .control-panel {
+    display: none;
+  }
+}
+

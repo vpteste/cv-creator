@@ -1,4 +1,6 @@
+
 .preview-panel-container {
+  position: relative; /* Needed for positioning the back button */
   background-color: var(--background-color);
   padding: calc(var(--spacing-unit) * 4);
   overflow-y: auto;
@@ -6,14 +8,119 @@
   justify-content: center;
 }
 
+.mobile-back-btn {
+  display: none; /* Hidden by default */
+}
+
+@media (max-width: 767px) {
+  .mobile-back-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    position: fixed;
+    top: 80px; /* Position it below the header */
+    left: 20px;
+    width: 120px;
+    height: 40px;
+    border-radius: 20px;
+    border: 1px solid var(--border-color);
+    background-color: #ffffff;
+    color: var(--text-color);
+    font-size: 0.9rem;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    cursor: pointer;
+    z-index: 1000;
+  }
+
+  .a4-preview {
+    padding-top: 60px; /* Add padding to avoid overlap with back button */
+  }
+}
+
 .a4-preview {
   width: 210mm;
   min-height: 297mm;
   background-color: var(--white-color);
   box-shadow: var(--box-shadow);
-  padding: 2cm;
+  padding: 0; /* Remove padding for full control */
   box-sizing: border-box;
   transition: all .3s ease;
+}
+
+/* --- Bicolor Layout --- */
+.cv-container-bicolor {
+  display: flex;
+  width: 100%;
+  height: 100%;
+}
+
+.sidebar {
+  width: 35%;
+  padding: 1.5cm;
+  box-sizing: border-box;
+  overflow-wrap: break-word; /* Add this to wrap long words */
+}
+
+.main-content {
+  width: 65%;
+  padding: 1.5cm;
+  box-sizing: border-box;
+}
+
+.profile-photo-bicolor {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 0 auto 1cm;
+  border: 5px solid #fff;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.profile-photo-bicolor img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.contact-info-bicolor {
+  text-align: center;
+  margin-bottom: 1.5cm;
+}
+
+.contact-info-bicolor p {
+  margin: 5px 0;
+  font-size: 14px;
+  overflow-wrap: break-word;
+}
+
+.cv-section-sidebar {
+  margin-bottom: 1.2cm;
+}
+
+.section-content-sidebar ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.skills-list-sidebar li, .languages-list-sidebar li {
+  margin-bottom: 8px;
+  font-size: 14px;
+  overflow-wrap: break-word;
+}
+
+.interests-list {
+  list-style: none;
+  padding: 0;
+  columns: 2;
+}
+
+/* --- Original Layout Styles --- */
+.a4-preview:not(:has(.cv-container-bicolor)) {
+    padding: 2cm;
 }
 
 .cv-header {
