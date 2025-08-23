@@ -1,0 +1,71 @@
+:root {
+    --accordion-border-color: #e2e8f0;
+    --accordion-header-bg: #ffffff;
+    --accordion-header-hover-bg: #f7f9fc;
+    --accordion-content-bg: #ffffff;
+    --accordion-icon-color: #4a69e2;
+}
+
+.accordion-item {
+    border: 1px solid var(--accordion-border-color);
+    border-radius: 8px;
+    margin-bottom: 16px;
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+}
+
+.accordion-item.open {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.accordion-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 16px 20px;
+    background-color: var(--accordion-header-bg);
+    border: none;
+    cursor: pointer;
+    text-align: left;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-color);
+    transition: background-color 0.2s ease;
+}
+
+.accordion-header:hover {
+    background-color: var(--accordion-header-hover-bg);
+}
+
+.accordion-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: var(--accordion-icon-color);
+}
+
+.accordion-title span {
+    color: var(--text-color);
+}
+
+.accordion-chevron {
+    transition: transform 0.3s ease;
+}
+
+.accordion-item.open .accordion-chevron {
+    transform: rotate(180deg);
+}
+
+.accordion-content {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    background-color: var(--accordion-content-bg);
+}
+
+.accordion-item.open .accordion-content {
+    max-height: 2000px; /* Adjust as needed, should be larger than any possible content */
+    padding: 20px;
+    border-top: 1px solid var(--accordion-border-color);
+}

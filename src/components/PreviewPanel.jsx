@@ -473,4 +473,5 @@ const PreviewPanel = ({ cvData, template, onToggleMobileView }) => {
   );
 };
 
+
 export default PreviewPanel;

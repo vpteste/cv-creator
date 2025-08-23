@@ -1,11 +1,12 @@
-
 .preview-panel-container {
   position: relative; /* Needed for positioning the back button */
   background-color: var(--background-color);
   padding: calc(var(--spacing-unit) * 4);
   overflow-y: auto;
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* To stack pages vertically */
+  align-items: center; /* To center pages horizontally */
+  gap: 20px; /* Space between pages */
 }
 
 .mobile-back-btn {
@@ -42,11 +43,22 @@
 .a4-preview {
   width: 210mm;
   min-height: 297mm;
+  height: 297mm; /* Fixed height for pagination */
+  position: relative; /* For page numbers */
   background-color: var(--white-color);
   box-shadow: var(--box-shadow);
   padding: 0; /* Remove padding for full control */
   box-sizing: border-box;
   transition: all .3s ease;
+  overflow: hidden; /* Hide content that overflows the fixed height */
+}
+
+.page-number {
+  position: absolute;
+  bottom: 10mm;
+  right: 15mm;
+  font-size: 12px;
+  color: #888;
 }
 
 /* --- Curve Layout --- */
@@ -625,7 +637,3 @@
 .mo-sidebar-section li {
   margin-bottom: 5px;
 }
-
-
-
-

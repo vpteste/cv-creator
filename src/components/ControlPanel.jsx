@@ -5,6 +5,7 @@ import {
   faPlus, faTrash, faBriefcase, faGraduationCap, faLightbulb, faGlobe, faHeart, faEye,
   faStar, faTrophy, faCertificate
 } from '@fortawesome/free-solid-svg-icons';
+import Accordion from './Accordion';
 import TemplateSelector from './TemplateSelector';
 import './ControlPanel.css';
 
@@ -102,86 +103,109 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
         return (
           <div className="form-section">
             <h3><FontAwesomeIcon icon={faCog} /> Sections du CV</h3>
-            <div className="checkbox-group"><input type="checkbox" id="showProfile" name="showProfile" checked={cvData.showProfile} onChange={handleChange} /><label htmlFor="showProfile">Afficher la section Profil</label></div>
-            {cvData.showProfile && <div className="form-group"><label>Profil</label><textarea name="profile" value={cvData.profile} onChange={handleChange} rows="6"></textarea></div>}
-            <hr/>
-            <h4><FontAwesomeIcon icon={faBriefcase} /> Expériences</h4>
-            {cvData.experience.map((exp) => (
-                <div key={exp.id} className="item-group">
-                    <input type="text" name="title" placeholder="Titre du poste" value={exp.title} onChange={e => handleItemChange('experience', exp.id, e)} />
-                    <input type="text" name="company" placeholder="Entreprise" value={exp.company} onChange={e => handleItemChange('experience', exp.id, e)} />
-                    <input type="text" name="period" placeholder="Période" value={exp.period} onChange={e => handleItemChange('experience', exp.id, e)} />
-                    <textarea name="description" placeholder="Description" value={exp.description} onChange={e => handleItemChange('experience', exp.id, e)} rows="3"></textarea>
-                    <button className="remove-btn" onClick={() => handleRemoveItem('experience', exp.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('experience')}><FontAwesomeIcon icon={faPlus} /> Ajouter une expérience</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faGraduationCap} /> Formations</h4>
-            {cvData.education.map((edu) => (
-                <div key={edu.id} className="item-group">
-                    <input type="text" name="degree" placeholder="Diplôme" value={edu.degree} onChange={e => handleItemChange('education', edu.id, e)} />
-                    <input type="text" name="school" placeholder="École / Université" value={edu.school} onChange={e => handleItemChange('education', edu.id, e)} />
-                    <input type="text" name="period" placeholder="Période" value={edu.period} onChange={e => handleItemChange('education', edu.id, e)} />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('education', edu.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('education')}><FontAwesomeIcon icon={faPlus} /> Ajouter une formation</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faLightbulb} /> Compétences</h4>
-            {cvData.skills.map((skill) => (
-                <div key={skill.id} className="item-group">
-                    <input type="text" name="name" placeholder="Compétence" value={skill.name} onChange={e => handleItemChange('skills', skill.id, e)} />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('skills', skill.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('skills')}><FontAwesomeIcon icon={faPlus} /> Ajouter une compétence</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faGlobe} /> Langues</h4>
-            {cvData.languages && cvData.languages.map((lang) => (
-                <div key={lang.id} className="item-group">
-                    <input type="text" name="name" placeholder="Langue" value={lang.name} onChange={e => handleItemChange('languages', lang.id, e)} />
-                    <input type="number" name="level" placeholder="Niveau (1-5)" value={lang.level} onChange={e => handleItemChange('languages', lang.id, e)} min="1" max="5" />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('languages', lang.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('languages')}><FontAwesomeIcon icon={faPlus} /> Ajouter une langue</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faHeart} /> Centres d\'intérêt</h4>
-            {cvData.interests && cvData.interests.map((interest) => (
-                <div key={interest.id} className="item-group">
-                    <input type="text" name="name" placeholder="Centre d\'intérêt" value={interest.name} onChange={e => handleItemChange('interests', interest.id, e)} />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('interests', interest.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d'intérêt</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faStar} /> Points forts</h4>
-            {cvData.strengths && cvData.strengths.map((strength) => (
-                <div key={strength.id} className="item-group">
-                    <input type="text" name="name" placeholder="Point fort" value={strength.name} onChange={e => handleItemChange('strengths', strength.id, e)} />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('strengths', strength.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('strengths')}><FontAwesomeIcon icon={faPlus} /> Ajouter un point fort</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faTrophy} /> Réussites</h4>
-            {cvData.achievements && cvData.achievements.map((achievement) => (
-                <div key={achievement.id} className="item-group">
-                    <input type="text" name="name" placeholder="Réussite" value={achievement.name} onChange={e => handleItemChange('achievements', achievement.id, e)} />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('achievements', achievement.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('achievements')}><FontAwesomeIcon icon={faPlus} /> Ajouter une réussite</button>
-            <hr/>
-            <h4><FontAwesomeIcon icon={faCertificate} /> Cours et Certifications</h4>
-            {cvData.certifications && cvData.certifications.map((certification) => (
-                <div key={certification.id} className="item-group">
-                    <input type="text" name="name" placeholder="Certification" value={certification.name} onChange={e => handleItemChange('certifications', certification.id, e)} />
-                    <button className="remove-btn" onClick={() => handleRemoveItem('certifications', certification.id)}><FontAwesomeIcon icon={faTrash} /> Supprimer</button>
-                </div>
-            ))}
-            <button className="add-btn" onClick={() => handleAddItem('certifications')}><FontAwesomeIcon icon={faPlus} /> Ajouter une certification</button>
+            
+            <div className="form-group checkbox-group">
+              <input type="checkbox" id="showProfile" name="showProfile" checked={cvData.showProfile} onChange={handleChange} />
+              <label htmlFor="showProfile">Afficher la section Profil</label>
+            </div>
+            {cvData.showProfile && 
+              <div className="form-group">
+                <label>Contenu du Profil</label>
+                <textarea name="profile" value={cvData.profile} onChange={handleChange} rows="6"></textarea>
+              </div>
+            }
+
+            <Accordion title="Expériences Professionnelles" icon={faBriefcase} defaultOpen={true}>
+              {cvData.experience.map((exp) => (
+                  <div key={exp.id} className="item-group">
+                      <button className="remove-btn" onClick={() => handleRemoveItem('experience', exp.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                      <input type="text" name="title" placeholder="Titre du poste" value={exp.title} onChange={e => handleItemChange('experience', exp.id, e)} />
+                      <input type="text" name="company" placeholder="Entreprise" value={exp.company} onChange={e => handleItemChange('experience', exp.id, e)} />
+                      <input type="text" name="period" placeholder="Période (ex: 2020 - 2023)" value={exp.period} onChange={e => handleItemChange('experience', exp.id, e)} />
+                      <textarea name="description" placeholder="Description des missions..." value={exp.description} onChange={e => handleItemChange('experience', exp.id, e)} rows="4"></textarea>
+                  </div>
+              ))}
+              <button className="add-btn" onClick={() => handleAddItem('experience')}><FontAwesomeIcon icon={faPlus} /> Ajouter une expérience</button>
+            </Accordion>
+
+            <Accordion title="Formations & Diplômes" icon={faGraduationCap}>
+              {cvData.education.map((edu) => (
+                  <div key={edu.id} className="item-group">
+                      <button className="remove-btn" onClick={() => handleRemoveItem('education', edu.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                      <input type="text" name="degree" placeholder="Nom du diplôme ou de la formation" value={edu.degree} onChange={e => handleItemChange('education', edu.id, e)} />
+                      <input type="text" name="school" placeholder="École / Université" value={edu.school} onChange={e => handleItemChange('education', edu.id, e)} />
+                      <input type="text" name="period" placeholder="Période (ex: 2018 - 2020)" value={edu.period} onChange={e => handleItemChange('education', edu.id, e)} />
+                  </div>
+              ))}
+              <button className="add-btn" onClick={() => handleAddItem('education')}><FontAwesomeIcon icon={faPlus} /> Ajouter une formation</button>
+            </Accordion>
+
+            <Accordion title="Compétences" icon={faLightbulb}>
+              {cvData.skills.map((skill) => (
+                  <div key={skill.id} className="item-group">
+                      <button className="remove-btn" onClick={() => handleRemoveItem('skills', skill.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                      <input type="text" name="name" placeholder="ex: React, Gestion de projet..." value={skill.name} onChange={e => handleItemChange('skills', skill.id, e)} />
+                  </div>
+              ))}
+              <button className="add-btn" onClick={() => handleAddItem('skills')}><FontAwesomeIcon icon={faPlus} /> Ajouter une compétence</button>
+            </Accordion>
+
+            <Accordion title="Langues" icon={faGlobe}>
+              {cvData.languages && cvData.languages.map((lang) => (
+                  <div key={lang.id} className="item-group">
+                      <button className="remove-btn" onClick={() => handleRemoveItem('languages', lang.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                      <input type="text" name="name" placeholder="Langue (ex: Anglais)" value={lang.name} onChange={e => handleItemChange('languages', lang.id, e)} />
+                      <input type="text" name="level" placeholder="Niveau (ex: Courant, C1)" value={lang.level} onChange={e => handleItemChange('languages', lang.id, e)} />
+                  </div>
+              ))}
+              <button className="add-btn" onClick={() => handleAddItem('languages')}><FontAwesomeIcon icon={faPlus} /> Ajouter une langue</button>
+            </Accordion>
+
+            <Accordion title="Sections Supplémentaires" icon={faStar}>
+                {/* Strengths */}
+                <p className="extra-section-title">Points forts</p>
+                {cvData.strengths && cvData.strengths.map((strength) => (
+                    <div key={strength.id} className="item-group">
+                        <button className="remove-btn" onClick={() => handleRemoveItem('strengths', strength.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                        <input type="text" name="name" placeholder="Point fort" value={strength.name} onChange={e => handleItemChange('strengths', strength.id, e)} />
+                    </div>
+                ))}
+                <button className="add-btn" onClick={() => handleAddItem('strengths')}><FontAwesomeIcon icon={faPlus} /> Ajouter un point fort</button>
+                <hr className="extra-section-divider"/>
+
+                {/* Achievements */}
+                <p className="extra-section-title">Réussites</p>
+                {cvData.achievements && cvData.achievements.map((achievement) => (
+                    <div key={achievement.id} className="item-group">
+                        <button className="remove-btn" onClick={() => handleRemoveItem('achievements', achievement.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                        <input type="text" name="name" placeholder="Réussite" value={achievement.name} onChange={e => handleItemChange('achievements', achievement.id, e)} />
+                    </div>
+                ))}
+                <button className="add-btn" onClick={() => handleAddItem('achievements')}><FontAwesomeIcon icon={faPlus} /> Ajouter une réussite</button>
+                <hr className="extra-section-divider"/>
+
+                {/* Certifications */}
+                <p className="extra-section-title">Cours et Certifications</p>
+                {cvData.certifications && cvData.certifications.map((certification) => (
+                    <div key={certification.id} className="item-group">
+                        <button className="remove-btn" onClick={() => handleRemoveItem('certifications', certification.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                        <input type="text" name="name" placeholder="Certification" value={certification.name} onChange={e => handleItemChange('certifications', certification.id, e)} />
+                    </div>
+                ))}
+                <button className="add-btn" onClick={() => handleAddItem('certifications')}><FontAwesomeIcon icon={faPlus} /> Ajouter une certification</button>
+                <hr className="extra-section-divider"/>
+
+                {/* Interests */}
+                <p className="extra-section-title">Centres d'intérêt</p>
+                {cvData.interests && cvData.interests.map((interest) => (
+                    <div key={interest.id} className="item-group">
+                        <button className="remove-btn" onClick={() => handleRemoveItem('interests', interest.id)}><FontAwesomeIcon icon={faTrash} /></button>
+                        <input type="text" name="name" placeholder="Centre d'intérêt" value={interest.name} onChange={e => handleItemChange('interests', interest.id, e)} />
+                    </div>
+                ))}
+                <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d'intérêt</button>
+            </Accordion>
+
           </div>
         );
       case 'appearance':
@@ -239,8 +263,8 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
         <h2 className="cp-title">CV Creator</h2>
         <nav className="cp-nav">
           <NavItem icon={faUser} label="Infos" isActive={activeSection === 'personal'} onClick={() => setActiveSection('personal')} />
-          <NavItem icon={faCog} label="Sections" isActive={activeSection === 'sections'} onClick={() => setActiveSection('sections')} />
           <NavItem icon={faPalette} label="Apparence" isActive={activeSection === 'appearance'} onClick={() => setActiveSection('appearance')} />
+          <NavItem icon={faCog} label="Sections" isActive={activeSection === 'sections'} onClick={() => setActiveSection('sections')} />
           <NavItem icon={faFilePdf} label="Télécharger" isActive={activeSection === 'download'} onClick={() => setActiveSection('download')} />
         </nav>
       </div>

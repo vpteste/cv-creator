@@ -4,6 +4,7 @@ import Header from './components/Header';
 import HomePage from './pages/HomePage';
 import CVBuilderPage from './pages/CVBuilderPage';
 import PixelAdPage from './pages/PixelAdPage';
+import OcrPage from './pages/OcrPage';
 import './App.css';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/creation-cv" element={<CVBuilderPage />} />
             <Route path="/publicite" element={<PixelAdPage />} />
+            <Route path="/ocr" element={<OcrPage />} />
           </Routes>
         </div>
       </main>
