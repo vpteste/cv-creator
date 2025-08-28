@@ -1,0 +1,48 @@
+.fake-cv {
+  width: 220px;
+  height: 310px; /* A4 aspect ratio */
+  border-radius: 8px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+  background-color: #ffffff;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+
+.fake-sidebar {
+  width: 35%;
+  height: 100%;
+  padding: 20px 10px;
+  box-sizing: border-box;
+}
+
+.fake-main {
+  width: 65%;
+  height: 100%;
+  padding: 20px 15px;
+  box-sizing: border-box;
+}
+
+.fake-line {
+  height: 8px;
+  border-radius: 4px;
+  margin-bottom: 15px;
+  background-color: #e0e0e0;
+}
+
+.fake-line.short {
+  width: 60%;
+}
+
+.fake-line.long {
+  width: 90%;
+}
+
+.fake-photo {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  margin: 0 auto 20px auto;
+  background-color: #e0e0e0;
+}

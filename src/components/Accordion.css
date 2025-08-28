@@ -1,17 +1,13 @@
-:root {
-    --accordion-border-color: #e2e8f0;
-    --accordion-header-bg: #ffffff;
-    --accordion-header-hover-bg: #f7f9fc;
-    --accordion-content-bg: #ffffff;
-    --accordion-icon-color: #4a69e2;
-}
-
 .accordion-item {
-    border: 1px solid var(--accordion-border-color);
+    border: 1px solid var(--color-border);
     border-radius: 8px;
     margin-bottom: 16px;
     overflow: hidden;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
     transition: all 0.3s ease-in-out;
+    background-color: var(--color-card-background);
 }
 
 .accordion-item.open {
@@ -24,48 +20,62 @@
     align-items: center;
     width: 100%;
     padding: 16px 20px;
-    background-color: var(--accordion-header-bg);
+    background-color: transparent; /* Use parent background */
     border: none;
     cursor: pointer;
     text-align: left;
     font-size: 1.1rem;
     font-weight: 600;
-    color: var(--text-color);
+    color: var(--color-text);
     transition: background-color 0.2s ease;
 }
 
 .accordion-header:hover {
-    background-color: var(--accordion-header-hover-bg);
+    background-color: rgba(0,0,0,0.02);
+}
+
+body.dark .accordion-header:hover {
+    background-color: rgba(255,255,255,0.05);
 }
 
 .accordion-title {
     display: flex;
     align-items: center;
     gap: 12px;
-    color: var(--accordion-icon-color);
+    color: var(--color-primary);
 }
 
 .accordion-title span {
-    color: var(--text-color);
+    color: var(--color-text);
 }
 
 .accordion-chevron {
+    -webkit-transition: transform 0.3s ease;
+    -moz-transition: transform 0.3s ease;
+    -o-transition: transform 0.3s ease;
     transition: transform 0.3s ease;
 }
 
 .accordion-item.open .accordion-chevron {
+    -webkit-transform: rotate(180deg);
+    -moz-transform: rotate(180deg);
+    -ms-transform: rotate(180deg);
+    -o-transform: rotate(180deg);
     transform: rotate(180deg);
 }
 
 .accordion-content {
     max-height: 0;
     overflow: hidden;
+    -webkit-transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    -moz-transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    -o-transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
     transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-    background-color: var(--accordion-content-bg);
+    background-color: var(--color-card-background);
 }
 
 .accordion-item.open .accordion-content {
-    max-height: 2000px; /* Adjust as needed, should be larger than any possible content */
+    max-height: 2000px; /* Adjust as needed */
     padding: 20px;
-    border-top: 1px solid var(--accordion-border-color);
+    border-top: 1px solid var(--color-border);
 }

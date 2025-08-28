@@ -1,44 +1,44 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faFileAlt, faPalette, faDownload } from '@fortawesome/free-solid-svg-icons';
+import TemplateGallery from '../components/TemplateGallery';
 import './HomePage.css';
+import '../components/HeroCVGallery.css';
+import { openMonetagLink } from '../utils/monetization';
+
+const imageFiles = ['img1.png', 'img2.png', 'img3.png', 'img4.png'];
 
 const HomePage = () => {
   return (
     <div className="home-page">
       {/* Hero Section */}
       <section className="hero-section">
+        <div className="hero-gallery">
+          <div className="gallery-track">
+            {imageFiles.map((image, index) => (
+              <img key={index} src={`/img/${image}`} alt={`CV Example ${index + 1}`} className="gallery-image" />
+            ))}
+            {imageFiles.map((image, index) => (
+              <img key={index + imageFiles.length} src={`/img/${image}`} alt={`CV Example ${index + 1}`} className="gallery-image" />
+            ))}
+          </div>
+        </div>
         <div className="hero-content">
-          <h1 className="hero-title">Créez votre CV parfait en quelques minutes</h1>
+          <h1 className="hero-title">Créez un CV qui vous démarque</h1>
           <p className="hero-subtitle">
-            Un outil simple, intuitif et personnalisable pour vous aider à décrocher le job de vos rêves.
+            Concevez et téléchargez un CV professionnel en quelques clics grâce à nos modèles personnalisables.
           </p>
-          <Link to="/creation-cv" className="cta-button">
-            Commencer la création
-          </Link>
+          <a href="#/creation-cv" className="cta-button" onClick={() => openMonetagLink()}>
+            Commencer gratuitement
+          </a>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="features-section">
-        <h2 className="section-title">Des fonctionnalités puissantes</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <FontAwesomeIcon icon={faFileAlt} className="feature-icon" />
-            <h3 className="feature-title">Édition Facile</h3>
-            <p>Remplissez simplement les champs et voyez le résultat en temps réel. Pas de complications.</p>
-          </div>
-          <div className="feature-card">
-            <FontAwesomeIcon icon={faPalette} className="feature-icon" />
-            <h3 className="feature-title">Personnalisation Complète</h3>
-            <p>Choisissez vos polices, couleurs et mises en page pour un CV qui vous ressemble vraiment.</p>
-          </div>
-          <div className="feature-card">
-            <FontAwesomeIcon icon={faDownload} className="feature-icon" />
-            <h3 className="feature-title">Export Professionnel</h3>
-            <p>Téléchargez votre CV aux formats PDF et Word, parfaitement formatés et prêts à l'emploi.</p>
-          </div>
+      {/* Template Gallery Section */}
+      <TemplateGallery />
+
+      {/* Ad Placeholder Section */}
+      <section className="ad-placeholder-section">
+        <div className="ad-placeholder">
+          <p>Espace publicitaire</p>
         </div>
       </section>
     </div>

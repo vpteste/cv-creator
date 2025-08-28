@@ -1,13 +1,28 @@
 import React, { useState, useEffect } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import ControlPanel from '../components/ControlPanel';
 import PreviewPanel from '../components/PreviewPanel';
 import { templates } from '../templates/cv-templates.js'; // Importez les modèles
 import './CVBuilderPage.css';
 
 const CVBuilderPage = () => {
+  const [searchParams] = useSearchParams();
+  const templateIdFromUrl = searchParams.get('template');
+
   // State pour l'ID du modèle sélectionné
-  const [selectedTemplateId, setSelectedTemplateId] = useState(templates[0].id);
+  const [selectedTemplateId, setSelectedTemplateId] = useState(() => {
+    return templateIdFromUrl || templates[0].id;
+  });
   const [mobileView, setMobileView] = useState('editor'); // 'editor' or 'preview'
+  const [zoom, setZoom] = useState(1);
+
+  const handleZoomIn = () => {
+    setZoom(prevZoom => Math.min(prevZoom + 0.1, 2));
+  };
+
+  const handleZoomOut = () => {
+    setZoom(prevZoom => Math.max(prevZoom - 0.1, 0.5));
+  };
 
   const [cvData, setCvData] = useState(() => {
     const initialTemplate = templates.find(t => t.id === selectedTemplateId);
@@ -128,6 +143,9 @@ const CVBuilderPage = () => {
         cvData={cvData} 
         template={selectedTemplate} 
         onToggleMobileView={toggleMobileView}
+        zoom={zoom}
+        onZoomIn={handleZoomIn}
+        onZoomOut={handleZoomOut}
       />
     </div>
   );

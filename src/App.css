@@ -1,7 +1,7 @@
 
 .app-main {
   padding-top: 70px; /* To offset the fixed header */
-  background-color: #f0f2f5; /* A neutral background for the whole page */
+  background-color: var(--color-background);
 }
 
 .site-container {

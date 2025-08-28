@@ -1,17 +1,12 @@
-
 .cv-builder-page {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 70px); /* Full height minus header */
 }
 
 @media (max-width: 1024px) {
   .cv-builder-page {
     flex-direction: column;
     height: auto;
-    margin: 0;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
   }
 }
 
@@ -24,4 +19,3 @@
     display: none;
   }
 }
-

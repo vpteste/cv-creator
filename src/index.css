@@ -1,53 +1,36 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
-  /* Color Palette */
-  --background-color: #f8f9fa;
-  --primary-color: #8ab4f8;
-  --text-color: #495057;
-  --subtle-border-color: #e9ecef;
-  --white-color: #ffffff;
-  --danger-color: #e74c3c;
+  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --line-height: 1.5;
+  --font-weight: 400;
 
-  /* Typography */
-  --font-family: 'Inter', sans-serif;
+  /* Light Theme */
+  --color-background: #ffffff;
+  --color-text: #213547;
+  --color-primary: #007bff;
+  --color-card-background: #f8f9fa;
+  --color-border: #dee2e6;
+  --color-header-background: rgba(255, 255, 255, 0.8);
+}
 
-  /* Spacing */
-  --spacing-unit: 8px;
-
-  /* Borders and Shadows */
-  --border-radius: 4px;
-  --box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+body.dark {
+  /* Dark Theme */
+  --color-background: #1a1a1a;
+  --color-text: #e6e6e6;
+  --color-primary: #0d6efd;
+  --color-card-background: #242424;
+  --color-border: #444;
+  --color-header-background: rgba(26, 26, 26, 0.8);
 }
 
 body {
-  font-family: var(--font-family);
-  color: var(--text-color);
-  background-color: var(--background-color);
   margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-a {
-  color: var(--primary-color);
-  text-decoration: none;
-  transition: color 0.2s ease-in-out;
-}
-
-a:hover {
-  color: color-mix(in srgb, var(--primary-color) 80%, black);
-}
-
-h1, h2, h3, h4, h5, h6 {
-  margin: 0;
-  font-weight: 600;
-}
-
-button {
   font-family: var(--font-family);
-  cursor: pointer;
-  border-radius: var(--border-radius);
-  border: 1px solid transparent;
-  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  line-height: var(--line-height);
+  font-weight: var(--font-weight);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  transition: background-color 0.3s, color 0.3s;
 }
+

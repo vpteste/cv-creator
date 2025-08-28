@@ -9,10 +9,10 @@ const Accordion = ({ title, icon, children, defaultOpen = false }) => {
   return (
     <div className={`accordion-item ${isOpen ? 'open' : ''}`}>
       <button className="accordion-header" onClick={() => setIsOpen(!isOpen)}>
-        <div className="accordion-title">
+        <span className="accordion-title">
           <FontAwesomeIcon icon={icon} />
           <span>{title}</span>
-        </div>
+        </span>
         <FontAwesomeIcon icon={faChevronDown} className="accordion-chevron" />
       </button>
       <div className="accordion-content">

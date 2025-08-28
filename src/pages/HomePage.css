@@ -1,111 +1,162 @@
 .home-page {
-  /* The .page-container class was removed from the JSX, so we don't need to override its styles. */
+  /* No specific styles needed here */
 }
 
 /* Hero Section */
 .hero-section {
-  padding: 6rem 2rem;
-  background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
-  color: var(--white);
+  padding: 8rem 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
-  /* We remove min-height to let the content define the height */
+  position: relative;
+  overflow: hidden;
+  background-color: var(--color-background);
+  min-height: 450px;
+}
+
+/* This overlay darkens the background gallery to make text readable */
+.hero-section::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  z-index: 1;
 }
 
 .hero-content {
   max-width: 800px;
+  position: relative;
+  z-index: 2; /* Ensure content is above the overlay */
 }
 
 .hero-title {
-  font-size: 3.2rem;
+  font-size: 3.5rem;
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
+  color: white; /* Always white */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.7);
 }
 
 .hero-subtitle {
   font-size: 1.2rem;
   font-weight: 400;
   margin-bottom: 2.5rem;
-  opacity: 0.9;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
+  color: white; /* Always white */
+  opacity: 0.9;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.7);
 }
 
 .cta-button {
-  background-color: var(--white);
-  color: var(--primary-end);
+  background-color: white;
+  color: var(--color-primary);
   padding: 1rem 2.5rem;
   border-radius: 50px;
   text-decoration: none;
   font-weight: 700;
   font-size: 1.1rem;
+  -webkit-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -moz-transition: transform 0.3s ease, box-shadow 0.3s ease;
+  -o-transition: transform 0.3s ease, box-shadow 0.3s ease;
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   display: inline-block;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  animation: rainbow-bg 5s linear infinite;
+}
+
+@keyframes rainbow-bg {
+  0% { background-color: #ffadad; color: #000; }
+  15% { background-color: #ffd6a5; }
+  30% { background-color: #fdffb6; }
+  45% { background-color: #caffbf; }
+  60% { background-color: #9bf6ff; }
+  75% { background-color: #a0c4ff; }
+  90% { background-color: #bdb2ff; }
+  100% { background-color: #ffadad; color: #000; }
 }
 
 .cta-button:hover {
+  -webkit-transform: translateY(-3px);
+  -moz-transform: translateY(-3px);
+  -ms-transform: translateY(-3px);
+  -o-transform: translateY(-3px);
   transform: translateY(-3px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
 }
 
-/* Features Section */
-.features-section {
-  padding: 5rem 2rem;
-  background-color: var(--background);
+/* Ad Placeholder Section */
+.ad-placeholder-section {
+  padding: 4rem 2rem;
+  background-color: var(--color-card-background);
+}
+
+.ad-placeholder {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 3rem;
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+  background-color: var(--color-background);
   text-align: center;
 }
 
-.section-title {
-  font-size: 2.5rem;
-  font-weight: 700;
-  margin-bottom: 3rem;
-  color: var(--text-primary);
+.ad-placeholder p {
+  font-size: 1.2rem;
+  color: var(--color-text);
+  opacity: 0.7;
+  font-weight: 500;
 }
 
-.features-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 2.5rem;
-  max-width: 1200px;
-  margin: 0 auto;
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .hero-section {
+    padding: 6rem 1.5rem;
+    min-height: auto;
+  }
+
+  .hero-title {
+    font-size: 2.5rem;
+  }
+
+  .hero-subtitle {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 0.8rem 2rem;
+    font-size: 1rem;
+  }
+
+  .ad-placeholder-section {
+    padding: 3rem 1.5rem;
+  }
+
+  .ad-placeholder {
+    padding: 2rem;
+  }
+
+  .ad-placeholder p {
+    font-size: 1rem;
+  }
 }
 
-.feature-card {
-  background-color: var(--white);
-  padding: 2.5rem;
-  border-radius: 12px;
-  box-shadow: var(--shadow-md);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-  text-align: left;
-}
+@media (max-width: 480px) {
+  .hero-section {
+    padding: 5rem 1rem;
+  }
 
-.feature-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
-}
+  .hero-title {
+    font-size: 2rem;
+  }
 
-.feature-icon {
-  font-size: 2.5rem;
-  color: var(--primary-start);
-  margin-bottom: 1.5rem;
-  background: linear-gradient(135deg, var(--primary-start), var(--primary-end));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-.feature-title {
-  font-size: 1.4rem;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: var(--text-primary);
-}
-
-.feature-card p {
-  color: var(--text-secondary);
-  line-height: 1.6;
+  .hero-subtitle {
+    font-size: 0.9rem;
+  }
 }

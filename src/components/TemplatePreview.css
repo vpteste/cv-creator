@@ -1,0 +1,69 @@
+.template-preview-container {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  overflow: hidden;
+  border: 1px solid var(--subtle-border-color);
+}
+
+.template-preview-sidebar {
+  width: 35%;
+  padding: 20px 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.template-preview-sidebar.reversed {
+  order: 2;
+}
+
+.template-preview-photo {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.3);
+  margin-bottom: 20px;
+}
+
+.template-preview-sidebar-content {
+  width: 100%;
+}
+
+.template-preview-main {
+  width: 65%;
+  padding: 20px;
+}
+
+.template-preview-header {
+  padding-bottom: 15px;
+  margin-bottom: 20px;
+  border-bottom: 2px solid;
+}
+
+.template-preview-line {
+  height: 8px;
+  background-color: currentColor;
+  opacity: 0.5;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
+
+.template-preview-line.long {
+  width: 90%;
+}
+
+.template-preview-line.medium {
+  width: 70%;
+}
+
+.template-preview-line.short {
+  width: 50%;
+}
+
+/* Specific styles for modern-orange template */
+.template-preview-container.modern-orange .template-preview-main {
+  border-left: 2px solid;
+}
+
+

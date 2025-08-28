@@ -1,33 +1,20 @@
-:root {
-  --cp-bg-color: #f7f9fc;
-  --sidebar-bg-color: #ffffff;
-  --active-nav-bg-color: #eef2f9;
-  --active-nav-text-color: #4a69e2;
-  --text-color: #334155;
-  --subtle-text-color: #64748b;
-  --border-color: #e2e8f0;
-  --input-bg-color: #ffffff;
-  --input-border-color: #cbd5e1;
-  --input-focus-border-color: #4a69e2;
-  --btn-primary-bg-color: #4a69e2;
-  --btn-primary-text-color: #ffffff;
-  --btn-secondary-bg-color: #e2e8f0;
-  --btn-secondary-text-color: #334155;
-}
-
 .control-panel {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   height: 100vh;
-  background-color: var(--cp-bg-color);
-  flex: 1 1 50%; /* Take 50% of the space */
+  background-color: var(--color-background);
+  flex: 1 1 50%;
   min-width: 500px;
+  border-right: 1px solid var(--color-border);
 }
 
 @media (max-width: 1024px) {
   .control-panel {
-    flex-basis: auto; /* Reset flex basis */
-    min-width: 100%; /* Take full width */
-    height: auto; /* Height based on content */
+    flex-basis: auto;
+    min-width: 100%;
+    height: auto;
+    border-right: none;
   }
 
   .cp-content {
@@ -37,28 +24,34 @@
 
 .cp-sidebar {
   width: 120px;
-  background-color: var(--sidebar-bg-color);
+  background-color: var(--color-card-background);
   padding: 24px 12px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   flex-direction: column;
-  border-right: 1px solid var(--border-color);
+  border-right: 1px solid var(--color-border);
 }
 
 .cp-title {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--text-color);
+  color: var(--color-text);
   text-align: center;
   margin-bottom: 32px;
 }
 
 .cp-nav {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   flex-direction: column;
   gap: 8px;
 }
 
 .nav-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,17 +63,19 @@
   cursor: pointer;
   transition: background-color 0.2s ease;
   font-size: 0.8rem;
-  color: var(--subtle-text-color);
+  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .nav-item:hover {
-  background-color: var(--active-nav-bg-color);
+  background-color: var(--color-background);
 }
 
 .nav-item.active {
-  background-color: var(--active-nav-bg-color);
-  color: var(--active-nav-text-color);
+  background-color: var(--color-background);
+  color: var(--color-primary);
   font-weight: 600;
+  opacity: 1;
 }
 
 .nav-item .svg-inline--fa {
@@ -96,8 +91,10 @@
 .form-section h3 {
   font-size: 1.25rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: var(--color-text);
   margin-bottom: 24px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -106,9 +103,11 @@
 .form-section h4 {
   font-size: 1rem;
   font-weight: 600;
-  color: var(--text-color);
+  color: var(--color-text);
   margin-top: 24px;
   margin-bottom: 16px;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -122,7 +121,8 @@
   display: block;
   font-size: 0.9rem;
   font-weight: 500;
-  color: var(--subtle-text-color);
+  color: var(--color-text);
+  opacity: 0.8;
   margin-bottom: 6px;
 }
 
@@ -135,10 +135,10 @@
   width: 100%;
   padding: 10px 12px;
   border-radius: 6px;
-  border: 1px solid var(--input-border-color);
-  background-color: var(--input-bg-color);
+  border: 1px solid var(--color-border);
+  background-color: var(--color-background);
   font-size: 1rem;
-  color: var(--text-color);
+  color: var(--color-text);
   transition: border-color 0.2s ease;
 }
 
@@ -146,18 +146,18 @@
 .form-group select:focus, 
 .form-group textarea:focus {
   outline: none;
-  border-color: var(--input-focus-border-color);
-  box-shadow: 0 0 0 2px rgba(74, 105, 226, 0.2);
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 2px rgba(13, 110, 253, 0.2);
 }
 
 .item-group {
   padding: 20px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   margin-bottom: 16px;
-  background-color: #fcfdff;
+  background-color: var(--color-background);
   box-shadow: 0 2px 4px rgba(0,0,0,0.02);
-  position: relative; /* For positioning the remove button */
+  position: relative;
 }
 
 .item-group input, .item-group textarea {
@@ -165,6 +165,8 @@
 }
 
 .add-btn, .remove-btn {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   align-items: center;
   gap: 8px;
@@ -177,15 +179,15 @@
 }
 
 .add-btn {
-  background-color: var(--btn-primary-bg-color);
-  color: var(--btn-primary-text-color);
+  background-color: var(--color-primary);
+  color: white;
   width: 100%;
   padding: 12px;
   font-weight: 600;
 }
 
 .add-btn:hover {
-  background-color: #3a58d3;
+  opacity: 0.9;
 }
 
 .remove-btn {
@@ -193,7 +195,8 @@
   top: 12px;
   right: 12px;
   background-color: transparent;
-  color: var(--subtle-text-color);
+  color: var(--color-text);
+  opacity: 0.6;
   padding: 4px;
   border-radius: 50%;
   width: 30px;
@@ -208,7 +211,14 @@
   color: #ef4444;
 }
 
+body.dark .remove-btn:hover {
+    background-color: #4d2525;
+    color: #f8d7da;
+}
+
 .download-buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   gap: 16px;
 }
@@ -221,6 +231,8 @@
   border-radius: 6px;
   border: none;
   cursor: pointer;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -229,12 +241,12 @@
 }
 
 .download-btn.pdf {
-  background-color: var(--btn-primary-bg-color);
-  color: var(--btn-primary-text-color);
+  background-color: var(--color-primary);
+  color: white;
 }
 
 .download-btn.pdf:hover {
-  background-color: #3a58d3;
+  opacity: 0.9;
 }
 
 .mobile-preview-btn {
@@ -243,6 +255,8 @@
 
 @media (max-width: 767px) {
   .mobile-preview-btn {
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -254,8 +268,8 @@
     height: 50px;
     border-radius: 25px;
     border: none;
-    background-color: var(--btn-primary-bg-color);
-    color: var(--btn-primary-text-color);
+    background-color: var(--color-primary);
+    color: white;
     font-size: 1rem;
     font-weight: 600;
     box-shadow: 0 4px 12px rgba(0,0,0,0.2);
@@ -270,7 +284,8 @@ hr {
 
 .extra-section-title {
     font-weight: 500;
-    color: var(--subtle-text-color);
+    color: var(--color-text);
+    opacity: 0.7;
     margin-top: 20px;
     margin-bottom: 8px;
 }
@@ -278,18 +293,20 @@ hr {
 .extra-section-divider {
     display: block;
     border: none;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--color-border);
     margin: 24px 0;
 }
 
 .checkbox-group {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   align-items: center;
   gap: 8px;
   padding: 10px;
-  background-color: #fff;
+  background-color: var(--color-background);
   border-radius: 8px;
-  border: 1px solid var(--border-color);
+  border: 1px solid var(--color-border);
   margin-bottom: 16px;
 }
 
@@ -301,5 +318,59 @@ hr {
 .checkbox-group label {
   margin-bottom: 0;
   font-weight: 500;
-  color: var(--text-color);
+  color: var(--color-text);
+}
+
+.color-picker-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+}
+
+.color-picker-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-direction: column;
+}
+
+.color-picker-item input[type="color"] {
+  width: 100%;
+  height: 40px;
+  padding: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+@media (max-width: 767px) {
+  .cp-sidebar {
+    width: 80px; /* Reduce sidebar width */
+    padding: 16px 8px;
+  }
+
+  .cp-title {
+    font-size: 1.2rem;
+    margin-bottom: 24px;
+  }
+
+  .nav-item span {
+    display: none; /* Hide text label by default */
+  }
+
+  .nav-item:hover span, .nav-item.active span {
+    display: block; /* Show on hover/active */
+    position: absolute;
+    left: 85px;
+    background-color: var(--color-card-background);
+    padding: 8px 12px;
+    border-radius: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    white-space: nowrap;
+    z-index: 10;
+  }
+
+  .cp-content {
+    padding: 16px;
+  }
 }

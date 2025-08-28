@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { 
-  faUser, faCog, faPalette, faFilePdf, faFileWord, 
+  faUser, faCog, faPalette, faFilePdf, faSpinner, 
   faPlus, faTrash, faBriefcase, faGraduationCap, faLightbulb, faGlobe, faHeart, faEye,
   faStar, faTrophy, faCertificate
 } from '@fortawesome/free-solid-svg-icons';
 import Accordion from './Accordion';
 import TemplateSelector from './TemplateSelector';
 import './ControlPanel.css';
+import { openMonetagLink } from '../utils/monetization';
 
 const NavItem = ({ icon, label, isActive, onClick }) => (
   <button className={`nav-item ${isActive ? 'active' : ''}`} onClick={onClick}>
@@ -18,6 +19,7 @@ const NavItem = ({ icon, label, isActive, onClick }) => (
 
 const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelectTemplate, onToggleMobileView }) => {
   const [activeSection, setActiveSection] = useState('personal');
+  const [isDownloading, setIsDownloading] = useState(false);
 
   const handleChange = (e) => {
     const { name, value, type, checked } = e.target;
@@ -70,19 +72,28 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
   };
 
   const handleDownloadPdf = async () => {
-    const { default: jsPDF } = await import('jspdf');
-    const { default: html2canvas } = await import('html2canvas');
-    const cvElement = document.getElementById('cv-preview');
-    const originalShadow = cvElement.style.boxShadow;
-    cvElement.style.boxShadow = 'none';
-    const canvas = await html2canvas(cvElement, { scale: 4, useCORS: true, logging: false });
-    cvElement.style.boxShadow = originalShadow;
-    const imgData = canvas.toDataURL('image/png');
-    const pdf = new jsPDF('p', 'mm', 'a4');
-    const pdfWidth = pdf.internal.pageSize.getWidth();
-    const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-    pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
+    openMonetagLink(); // Kept here as requested
+    setIsDownloading(true);
+    try {
+      const { default: jsPDF } = await import('jspdf');
+      const { default: html2canvas } = await import('html2canvas');
+      const cvElement = document.getElementById('cv-preview');
+      const originalShadow = cvElement.style.boxShadow;
+      cvElement.style.boxShadow = 'none';
+      const canvas = await html2canvas(cvElement, { scale: 4, useCORS: true, logging: false });
+      cvElement.style.boxShadow = originalShadow;
+      const imgData = canvas.toDataURL('image/png');
+      const pdf = new jsPDF('p', 'mm', 'a4');
+      const pdfWidth = pdf.internal.pageSize.getWidth();
+      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
+    } catch (error) {
+      console.error("Erreur lors de la génération du PDF:", error);
+      alert("Une erreur est survenue lors de la génération du PDF.");
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   const renderContent = () => {
@@ -196,14 +207,14 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
                 <hr className="extra-section-divider"/>
 
                 {/* Interests */}
-                <p className="extra-section-title">Centres d'intérêt</p>
+                <p className="extra-section-title">Centres d\'intérêt</p>
                 {cvData.interests && cvData.interests.map((interest) => (
                     <div key={interest.id} className="item-group">
                         <button className="remove-btn" onClick={() => handleRemoveItem('interests', interest.id)}><FontAwesomeIcon icon={faTrash} /></button>
-                        <input type="text" name="name" placeholder="Centre d'intérêt" value={interest.name} onChange={e => handleItemChange('interests', interest.id, e)} />
+                        <input type="text" name="name" placeholder="Centre d\'intérêt" value={interest.name} onChange={e => handleItemChange('interests', interest.id, e)} />
                     </div>
                 ))}
-                <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d'intérêt</button>
+                <button className="add-btn" onClick={() => handleAddItem('interests')}><FontAwesomeIcon icon={faPlus} /> Ajouter un centre d\'intérêt</button>
             </Accordion>
 
           </div>
@@ -212,9 +223,8 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
         return (
           <div className="form-section">
             <h3><FontAwesomeIcon icon={faPalette} /> Apparence</h3>
-            <TemplateSelector templates={templates} onSelectTemplate={onSelectTemplate} />
-            <hr/>
-            {selectedTemplate.layout?.startsWith('two-column') ? (
+            <TemplateSelector templates={templates} selectedTemplate={selectedTemplate} onSelectTemplate={onSelectTemplate} />
+            <Accordion title="Couleurs" icon={faPalette} defaultOpen={true}>
               <div className="color-picker-grid">
                 <div className="form-group color-picker-item"><label>Fond Sidebar</label><input type="color" name="sidebarColor" value={cvData.sidebarColor} onChange={handleChange} /></div>
                 <div className="form-group color-picker-item"><label>Texte Sidebar</label><input type="color" name="sidebarTextColor" value={cvData.sidebarTextColor} onChange={handleChange} /></div>
@@ -222,33 +232,28 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
                 <div className="form-group color-picker-item"><label>Texte Principal</label><input type="color" name="textColor" value={cvData.textColor} onChange={handleChange} /></div>
                 <div className="form-group color-picker-item"><label>Titres Principaux</label><input type="color" name="headerColor" value={cvData.headerColor} onChange={handleChange} /></div>
               </div>
-            ) : (
-              <>
-                <div className="form-group"><label>Disposition de l\'en-tête</label><div className="radio-group"> <input type="radio" id="left" name="headerLayout" value="left" checked={cvData.headerLayout === 'left'} onChange={handleChange}/><label htmlFor="left">Gauche</label> <input type="radio" id="center" name="headerLayout" value="center" checked={cvData.headerLayout === 'center'} onChange={handleChange}/><label htmlFor="center">Centre</label> <input type="radio" id="right" name="headerLayout" value="right" checked={cvData.headerLayout === 'right'} onChange={handleChange}/><label htmlFor="right">Droite</label></div></div>
-                <div className="color-picker-grid">
-                    <div className="form-group color-picker-item"><label>Fond</label><input type="color" name="backgroundColor" value={cvData.backgroundColor} onChange={handleChange} /></div>
-                    <div className="form-group color-picker-item"><label>Titres</label><input type="color" name="titleColor" value={cvData.titleColor} onChange={handleChange} /></div>
-                    <div className="form-group color-picker-item"><label>Texte</label><input type="color" name="textColor" value={cvData.textColor} onChange={handleChange} /></div>
-                    <div className="form-group color-picker-item"><label>Bandes</label><input type="color" name="bandColor" value={cvData.bandColor} onChange={handleChange} /></div>
-                </div>
-                <div className="checkbox-group"><input type="checkbox" id="showBands" name="showBands" checked={cvData.showBands} onChange={handleChange} /><label htmlFor="showBands">Bandes décoratives</label></div>
-                <div className="checkbox-group"><input type="checkbox" id="showEmojis" name="showEmojis" checked={cvData.showEmojis} onChange={handleChange} /><label htmlFor="showEmojis">Emojis dans les titres</label></div>
-              </>
-            )}
-            <hr />
-            <div className="form-group"><label>Police</label><select name="font" value={cvData.font} onChange={handleChange}><option value="Inter, sans-serif">Inter</option><option value="Arial, sans-serif">Arial</option><option value="Georgia, serif">Georgia</option><option value="'Times New Roman', serif">Times New Roman</option><option value="Helvetica, sans-serif">Helvetica</option></select></div>
-            <div className="form-group"><label>Taille des titres (px)</label><input type="number" name="titleFontSize" value={cvData.titleFontSize} onChange={handleChange} min="16" max="40" /></div>
-            <div className="form-group"><label>Taille du texte (px)</label><input type="number" name="bodyFontSize" value={cvData.bodyFontSize} onChange={handleChange} min="12" max="18" /></div>
-            <div className="checkbox-group"><input type="checkbox" id="showIcons" name="showIcons" checked={cvData.showIcons} onChange={handleChange} /><label htmlFor="showIcons">Icônes de section</label></div>
+            </Accordion>
+            <Accordion title="Mise en page" icon={faCog} defaultOpen={true}>
+                <div className="form-group"><label>Police</label><select name="font" value={cvData.font} onChange={handleChange}><option value="Inter, sans-serif">Inter</option><option value="Arial, sans-serif">Arial</option><option value="Georgia, serif">Georgia</option><option value="'Times New Roman', serif">Times New Roman</option><option value="Helvetica, sans-serif">Helvetica</option><option value="'Montserrat', sans-serif">Montserrat</option><option value="'Lato', sans-serif">Lato</option></select></div>
+                <div className="form-group"><label>Taille des titres (px)</label><input type="number" name="titleFontSize" value={cvData.titleFontSize} onChange={handleChange} min="16" max="40" /></div>
+                <div className="form-group"><label>Taille du texte (px)</label><input type="number" name="bodyFontSize" value={cvData.bodyFontSize} onChange={handleChange} min="12" max="18" /></div>
+                <div className="checkbox-group"><input type="checkbox" id="showIcons" name="showIcons" checked={cvData.showIcons} onChange={handleChange} /><label htmlFor="showIcons">Icônes de section</label></div>
+            </Accordion>
           </div>
         );
       case 'download':
         return (
           <div className="form-section">
             <h3><FontAwesomeIcon icon={faFilePdf} /> Téléchargement</h3>
-            <p className="download-info">Téléchargez votre CV dans le format de votre choix.</p>
+            <p className="download-info">Téléchargez votre CV au format PDF.</p>
             <div className="download-buttons">
-              <button className="download-btn pdf" onClick={handleDownloadPdf}><FontAwesomeIcon icon={faFilePdf} /> PDF</button>
+              <button className="download-btn pdf" onClick={handleDownloadPdf} disabled={isDownloading}>
+                {isDownloading ? (
+                  <><FontAwesomeIcon icon={faSpinner} spin /> Génération...</>
+                ) : (
+                  <><FontAwesomeIcon icon={faFilePdf} /> PDF</>
+                )}
+              </button>
             </div>
           </div>
         );
