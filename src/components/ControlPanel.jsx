@@ -72,27 +72,43 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
   };
 
   const handleDownloadPdf = async () => {
+    console.log('Starting PDF download...');
     openMonetagLink(); // Kept here as requested
     setIsDownloading(true);
+    const previewPanel = document.querySelector('.preview-panel-container');
+    const originalDisplay = previewPanel.style.display;
+    if (window.getComputedStyle(previewPanel).display === 'none') {
+      previewPanel.style.display = 'block';
+    }
+
     try {
       const { default: jsPDF } = await import('jspdf');
+      console.log('jsPDF loaded');
       const { default: html2canvas } = await import('html2canvas');
+      console.log('html2canvas loaded');
       const cvElement = document.getElementById('cv-preview');
       const originalShadow = cvElement.style.boxShadow;
       cvElement.style.boxShadow = 'none';
       const canvas = await html2canvas(cvElement, { scale: 4, useCORS: true, logging: false });
+      console.log('html2canvas finished');
       cvElement.style.boxShadow = originalShadow;
       const imgData = canvas.toDataURL('image/png');
+      console.log('imgData created');
       const pdf = new jsPDF('p', 'mm', 'a4');
+      console.log('pdf object created');
       const pdfWidth = pdf.internal.pageSize.getWidth();
       const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
       pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+      console.log('image added to pdf');
       pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
+      console.log('pdf saved');
     } catch (error) {
       console.error("Erreur lors de la génération du PDF:", error);
       alert("Une erreur est survenue lors de la génération du PDF.");
     } finally {
       setIsDownloading(false);
+      previewPanel.style.display = originalDisplay;
+      console.log('Finished PDF download attempt.');
     }
   };
 
