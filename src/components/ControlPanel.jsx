@@ -265,7 +265,7 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
   return (
     <div className="control-panel">
       <div className="cp-sidebar">
-        <h2 className="cp-title">CV Creator</h2>
+        <h2 className="cp-title">CV Generator</h2>
         <nav className="cp-nav">
           <NavItem icon={faUser} label="Infos" isActive={activeSection === 'personal'} onClick={() => setActiveSection('personal')} />
           <NavItem icon={faPalette} label="Apparence" isActive={activeSection === 'appearance'} onClick={() => setActiveSection('appearance')} />
