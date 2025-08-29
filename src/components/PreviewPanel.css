@@ -44,8 +44,23 @@ body.dark .preview-panel-container {
     z-index: 1000;
   }
 
+  .preview-panel-container {
+    padding: 1rem;
+  }
+
+  .a4-wrapper {
+    padding: 0;
+  }
+
   .a4-preview {
-    padding-top: 60px; /* Add padding to avoid overlap with back button */
+    padding-top: 0;
+    transform: scale(1);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    width: 100%;
+    height: auto;
+    min-height: unset;
+    padding-bottom: 141.4%;
+    overflow: hidden;
   }
 }
 
@@ -93,15 +108,14 @@ body.dark .preview-panel-container {
 
 .a4-preview {
   width: 210mm;
-  min-height: 297mm;
-  height: 297mm; /* Fixed height for pagination */
-  position: relative; /* For page numbers */
+  height: 297mm;
+  position: relative;
   background-color: white;
   box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-  padding: 0; /* Remove padding for full control */
+  padding: 0;
   box-sizing: border-box;
   transition: all .3s ease;
-  overflow: hidden; /* Hide content that overflows the fixed height */
+  overflow: hidden;
 }
 
 body.dark .a4-preview {
