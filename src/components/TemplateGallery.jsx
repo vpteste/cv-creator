@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { templates } from '../templates/cv-templates';
 import TemplatePreview from './TemplatePreview';
 import './TemplateGallery.css';
-import { openMonetagLink } from '../utils/monetization';
 
 const TemplateGallery = () => {
   return (
@@ -15,7 +14,6 @@ const TemplateGallery = () => {
             to={`/creation-cv?template=${template.id}`} 
             key={template.id} 
             className="template-card"
-            onClick={() => openMonetagLink()}
           >
             {template.isNew && <span className="new-badge">Nouveau</span>}
             <div className="template-preview">
