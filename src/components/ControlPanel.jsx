@@ -73,38 +73,65 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
 
   const handleDownloadPdf = async () => {
     console.log('Starting PDF download...');
-    openMonetagLink(); // Kept here as requested
+    openMonetagLink();
     setIsDownloading(true);
     const previewPanel = document.querySelector('.preview-panel-container');
     const originalDisplay = previewPanel.style.display;
+
     if (window.getComputedStyle(previewPanel).display === 'none') {
       previewPanel.style.display = 'block';
     }
 
     try {
-      const { default: jsPDF } = await import('jspdf');
-      console.log('jsPDF loaded');
-      const { default: html2canvas } = await import('html2canvas');
-      console.log('html2canvas loaded');
       const cvElement = document.getElementById('cv-preview');
+      if (!cvElement) {
+        throw new Error("CV preview element with id 'cv-preview' not found.");
+      }
+
       const originalShadow = cvElement.style.boxShadow;
       cvElement.style.boxShadow = 'none';
-      const canvas = await html2canvas(cvElement, { scale: 4, useCORS: true, logging: false });
-      console.log('html2canvas finished');
-      cvElement.style.boxShadow = originalShadow;
+
+      let canvas;
+      try {
+        const { default: html2canvas } = await import('html2canvas');
+        console.log('html2canvas loaded');
+        canvas = await html2canvas(cvElement, {
+          scale: 4,
+          useCORS: true,
+          logging: true, // Enable logging for more details
+          imageTimeout: 15000, // Increase timeout for images
+        });
+        console.log('html2canvas finished successfully.');
+      } catch (canvasError) {
+        console.error('Error during html2canvas execution:', canvasError);
+        throw new Error('Failed to render CV to canvas. See console for details.');
+      } finally {
+        cvElement.style.boxShadow = originalShadow;
+      }
+      
       const imgData = canvas.toDataURL('image/png');
-      console.log('imgData created');
-      const pdf = new jsPDF('p', 'mm', 'a4');
-      console.log('pdf object created');
-      const pdfWidth = pdf.internal.pageSize.getWidth();
-      const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-      pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-      console.log('image added to pdf');
-      pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
-      console.log('pdf saved');
+      console.log('imgData created from canvas.');
+
+      try {
+        const { default: jsPDF } = await import('jspdf');
+        console.log('jsPDF loaded');
+        const pdf = new jsPDF('p', 'mm', 'a4');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        
+        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
+        console.log('Image added to PDF.');
+        
+        pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
+        console.log('PDF saved.');
+      } catch (pdfError) {
+        console.error('Error during jsPDF execution:', pdfError);
+        throw new Error('Failed to generate or save the PDF. See console for details.');
+      }
+
     } catch (error) {
-      console.error("Erreur lors de la génération du PDF:", error);
-      alert("Une erreur est survenue lors de la génération du PDF.");
+      console.error("Erreur détaillée lors de la génération du PDF:", error.message, error.stack);
+      alert(`Une erreur est survenue: ${error.message}`);
     } finally {
       setIsDownloading(false);
       previewPanel.style.display = originalDisplay;
