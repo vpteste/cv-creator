@@ -1,0 +1,71 @@
+.job-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--card-bg-color);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.job-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.job-card-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+  background-color: #ffffff; /* Add a white background for logos that might be transparent */
+}
+
+.job-card-content {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.job-card-content h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.job-card-content h3 a {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.job-card-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.job-company {
+  font-weight: bold;
+  font-size: 0.9rem;
+  margin: 0 0 0.25rem 0;
+}
+
+.job-location {
+  font-size: 0.9rem;
+  color: var(--text-secondary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.job-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.job-tag {
+  background-color: var(--tag-bg-color, #e0e0e0);
+  color: var(--tag-text-color, #333);
+  padding: 0.25rem 0.5rem;
+  border-radius: 4px;
+  font-size: 0.75rem;
+}

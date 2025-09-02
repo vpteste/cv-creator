@@ -62,14 +62,8 @@ body.dark .error-message {
 
 .content-grid {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: 1fr 1fr !important; /* 2 columns on all screen sizes, forced */
   gap: 2.5rem;
-}
-
-@media (min-width: 768px) {
-  .content-grid {
-    grid-template-columns: 1fr 1fr;
-  }
 }
 
 .news-section h2, .jobs-section h2 {

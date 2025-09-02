@@ -1,0 +1,65 @@
+.skeleton-card {
+  background-color: var(--color-card-background);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+  overflow: hidden; /* Important for the animation */
+  position: relative; /* Important for the animation pseudo-element */
+}
+
+.skeleton-image {
+  height: 180px;
+  background-color: var(--color-skeleton-base);
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.skeleton-content {
+  padding: 0;
+}
+
+.skeleton-title {
+  height: 24px;
+  background-color: var(--color-skeleton-base);
+  border-radius: 4px;
+  margin-bottom: 1rem;
+  width: 60%;
+}
+
+.skeleton-text {
+  height: 16px;
+  background-color: var(--color-skeleton-base);
+  border-radius: 4px;
+  margin-bottom: 0.75rem;
+}
+
+.skeleton-text.short {
+  width: 80%;
+}
+
+/* Shimmer Animation */
+.skeleton-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  height: 100%;
+  width: 150%;
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--color-skeleton-shimmer) 50%,
+    transparent 100%
+  );
+  animation: shimmer 1.5s infinite;
+}
+
+@keyframes shimmer {
+  0% {
+    left: -150%;
+  }
+  100% {
+    left: 150%;
+  }
+}

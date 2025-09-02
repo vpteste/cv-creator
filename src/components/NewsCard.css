@@ -1,0 +1,61 @@
+.news-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem;
+  background-color: var(--card-bg-color);
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.news-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.news-card-image {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+.news-card-content {
+  flex-grow: 1;
+  min-width: 0; /* Prevents text overflow issues in flexbox */
+}
+
+.news-card-content h3 {
+  margin: 0 0 0.25rem 0;
+  font-size: 1.1rem;
+}
+
+.news-card-content h3 a {
+  text-decoration: none;
+  color: var(--text-color);
+  transition: color 0.3s ease;
+}
+
+.news-card-content h3 a:hover {
+  color: var(--primary-color);
+}
+
+.news-card-source {
+  font-size: 0.8rem;
+  color: var(--text-secondary-color);
+  margin: 0 0 0.5rem 0;
+}
+
+.news-card-description {
+  font-size: 0.9rem;
+  color: var(--text-color);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Limit to 2 lines */
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

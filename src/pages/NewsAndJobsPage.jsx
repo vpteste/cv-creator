@@ -2,6 +2,45 @@ import React, { useState, useEffect } from 'react';
 import './NewsAndJobsPage.css';
 import NewsList from '../components/NewsList';
 import JobList from '../components/JobList';
+import SkeletonCard from '../components/SkeletonCard';
+
+// --- Configuration des Actualités ---
+const NEWS_SOURCES = [
+  { category: 'Sport', url: 'http://news.abidjan.net/rss/sport.xml' },
+  { category: 'Technologie', url: 'http://news.abidjan.net/rss/ntic.xml' },
+];
+const CORS_PROXY = 'https://corsproxy.io/?';
+
+// --- Données Fictives pour les Offres d'Emploi ---
+const FAKE_JOB_DATA = [
+  {
+    id: 'fake-job-1',
+    title: 'Développeur React Senior',
+    company_name: 'Tech Solutions Abidjan',
+    location: "Abidjan, Côte d'Ivoire",
+    url: '#',
+    tags: ['React', 'JavaScript', 'Senior'],
+    imageUrl: 'https://dummyimage.com/100x100/007bff/ffffff.png&text=Emploi'
+  },
+  {
+    id: 'fake-job-2',
+    title: 'Chef de Projet Digital',
+    company_name: 'Marketing Pro CI',
+    location: "Abidjan, Côte d'Ivoire",
+    url: '#',
+    tags: ['Gestion de projet', 'Marketing', 'Digital'],
+    imageUrl: 'https://dummyimage.com/100x100/007bff/ffffff.png&text=Emploi'
+  },
+  {
+    id: 'fake-job-3',
+    title: 'Comptable Confirmé',
+    company_name: 'Finance & Co',
+    location: "Yamoussoukro, Côte d'Ivoire",
+    url: '#',
+    tags: ['Comptabilité', 'Finance', 'SAGE'],
+    imageUrl: 'https://dummyimage.com/100x100/007bff/ffffff.png&text=Emploi'
+  },
+];
 
 const NewsAndJobsPage = () => {
   const [news, setNews] = useState([]);
@@ -9,68 +48,96 @@ const NewsAndJobsPage = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  useEffect(() => {
-    const fetchNews = async () => {
-      setLoading(true);
-      setError(null);
+  const fetchData = async () => {
+    setLoading(true);
+    setError(null);
 
-      try {
-        // We will use a CORS proxy to fetch the RSS feed to avoid CORS issues.
-        // I will use a public CORS proxy for this example.
-        const response = await fetch(`https://api.allorigins.win/raw?url=${encodeURIComponent('https://www.lemonde.fr/rss/une.xml')}`);
-        if (!response.ok) {
-          throw new Error('Failed to fetch RSS feed');
-        }
-        const data = await response.text();
-        const parser = new DOMParser();
-        const xml = parser.parseFromString(data, 'application/xml');
-        const items = xml.querySelectorAll('item');
-        
-        const newsItems = Array.from(items).map(item => {
-          const enclosure = item.querySelector('enclosure');
-          return {
-            id: item.querySelector('guid').textContent,
-            title: item.querySelector('title').textContent,
-            link: item.querySelector('link').textContent,
-            description: item.querySelector('description').textContent,
-            pubDate: item.querySelector('pubDate').textContent,
-            source: 'Le Monde',
-            imageUrl: enclosure ? enclosure.getAttribute('url') : null,
-          };
-        });
-
-        setNews(newsItems);
-      } catch (err) {
-        setError('Impossible de charger les actualités. Veuillez réessayer plus tard.');
-        console.error(err);
-        setNews([]);
+    // --- Chargement des Actualités ---
+    try {
+      const newsPromises = NEWS_SOURCES.map(source =>
+        fetch(`${CORS_PROXY}${encodeURIComponent(source.url)}`)
+          .then(response => {
+            if (!response.ok) throw new Error(`Failed to fetch ${source.category} RSS`);
+            return response.text();
+          })
+          .then(data => {
+            const parser = new DOMParser();
+            const xml = parser.parseFromString(data, 'application/xml');
+            const items = xml.querySelectorAll('item');
+            return Array.from(items).map(item => ({
+                id: item.querySelector('guid')?.textContent || item.querySelector('link')?.textContent,
+                title: item.querySelector('title')?.textContent,
+                link: item.querySelector('link')?.textContent,
+                description: item.querySelector('description')?.textContent,
+                pubDate: item.querySelector('pubDate')?.textContent,
+                source: new URL(item.querySelector('link')?.textContent).hostname,
+                imageUrl: 'https://dummyimage.com/100x100/ffc107/000000.png&text=Actualit%C3%A9',
+            }));
+          })
+      );
+      
+      const newsResults = await Promise.allSettled(newsPromises);
+      
+      if (newsResults.every(res => res.status === 'fulfilled')) {
+        const allNews = newsResults.map(res => res.value).flat();
+        allNews.sort((a, b) => new Date(b.pubDate) - new Date(a.pubDate));
+        setNews(allNews);
+      } else {
+        setError('Erreur de chargement des actualités.');
       }
 
-      setLoading(false);
-    };
+    } catch (err) {
+      console.error("Error fetching news:", err);
+      setError(prev => (prev ? prev + ' ' : '') + 'Erreur de chargement des actualités.');
+    }
 
-    fetchNews();
+    // --- Chargement des Offres d'Emploi Fictives ---
+    setJobs(FAKE_JOB_DATA);
+
+    setLoading(false);
+  };
+
+  useEffect(() => {
+    fetchData();
+    const intervalId = setInterval(fetchData, 30 * 60 * 1000);
+    return () => clearInterval(intervalId);
   }, []);
 
   const renderContent = () => {
-    if (loading) {
-      return <div className="loading-spinner">Chargement des actualités...</div>;
+    const initialLoading = loading && news.length === 0 && jobs.length === 0;
+
+    if (initialLoading) {
+      return (
+        <div className="content-grid">
+          <section className="news-section">
+            <h2>Actualités de Côte d'Ivoire</h2>
+            <div className="news-list">
+              {[...Array(3)].map((_, i) => <SkeletonCard key={i} type="news" />)}
+            </div>
+          </section>
+          <section className="jobs-section">
+            <h2>Offres d'emploi en Côte d'Ivoire</h2>
+            <div className="jobs-list">
+              {[...Array(3)].map((_, i) => <SkeletonCard key={i} type="job" />)}
+            </div>
+          </section>
+        </div>
+      );
     }
-    if (error) {
+
+    if (error && news.length === 0) {
       return <div className="error-message">{error}</div>;
     }
-    if (news.length === 0 && jobs.length === 0) {
-        return <div className="info-message">Aucune actualité ou offre d'emploi n'a été trouvée.</div>;
-    }
+
     return (
       <div className="content-grid">
         <section className="news-section">
-          <h2>Dernières Actualités</h2>
+          <h2>Actualités de Côte d'Ivoire</h2>
           {news.length > 0 ? <NewsList news={news} /> : <p>Aucune actualité trouvée.</p>}
         </section>
         <section className="jobs-section">
-          <h2>Offres d'emploi</h2>
-          {jobs.length > 0 ? <JobList jobs={jobs} /> : <p>Aucune offre d'emploi trouvée pour le moment.</p>}
+          <h2>Offres d'emploi en Côte d'Ivoire</h2>
+          {jobs.length > 0 ? <JobList jobs={jobs} /> : <p>Aucune offre d'emploi trouvée.</p>}
         </section>
       </div>
     );
@@ -80,7 +147,7 @@ const NewsAndJobsPage = () => {
     <div className="news-jobs-page">
       <div className="page-header">
         <h1>Actualités et Emplois</h1>
-        <p>Découvrez les dernières nouvelles et offres d'emploi.</p>
+        <p>Les dernières nouvelles et opportunités professionnelles en Côte d'Ivoire.</p>
       </div>
       {renderContent()}
     </div>
