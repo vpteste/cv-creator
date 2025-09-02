@@ -82,31 +82,63 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
       previewPanel.style.display = 'block';
     }
 
+    let clonedElement;
+
     try {
       const cvElement = document.getElementById('cv-preview');
       if (!cvElement) {
         throw new Error("CV preview element with id 'cv-preview' not found.");
       }
 
-      const originalShadow = cvElement.style.boxShadow;
-      cvElement.style.boxShadow = 'none';
+      clonedElement = cvElement.cloneNode(true);
+      clonedElement.classList.add('pdf-generation');
+
+      // Template-specific fixes for PDF generation
+      if (selectedTemplate.id === 'modern-orange') {
+        clonedElement.style.border = 'none';
+      }
+
+      // Force styles on sidebar text elements for pdf generation
+      const sidebarClone = clonedElement.querySelector('.sidebar');
+      if (sidebarClone) {
+        const textElements = sidebarClone.querySelectorAll('h1, h2, h3, h4, h5, p, li, span, strong');
+        textElements.forEach(el => {
+          el.style.color = cvData.sidebarTextColor;
+        });
+      }
+
+      // Apply styles directly to the cloned element for PDF generation
+      clonedElement.style.setProperty('--sidebar-color', cvData.sidebarColor);
+      clonedElement.style.setProperty('--sidebar-text-color', cvData.sidebarTextColor);
+      clonedElement.style.setProperty('--background-color', cvData.backgroundColor);
+      clonedElement.style.setProperty('--text-color', cvData.textColor);
+      clonedElement.style.setProperty('--header-color', cvData.headerColor);
+      clonedElement.style.fontFamily = cvData.font;
+      
+      clonedElement.style.position = 'absolute';
+      clonedElement.style.left = '-9999px';
+      clonedElement.style.top = '0px';
+      
+      document.body.appendChild(clonedElement);
+
+      // Brief delay to ensure styles are applied
+      await new Promise(resolve => setTimeout(resolve, 500));
 
       let canvas;
       try {
         const { default: html2canvas } = await import('html2canvas');
         console.log('html2canvas loaded');
-        canvas = await html2canvas(cvElement, {
+        canvas = await html2canvas(clonedElement, {
           scale: 4,
           useCORS: true,
-          logging: true, // Enable logging for more details
-          imageTimeout: 15000, // Increase timeout for images
+          logging: true,
+          imageTimeout: 15000,
+          backgroundColor: null,
         });
         console.log('html2canvas finished successfully.');
       } catch (canvasError) {
         console.error('Error during html2canvas execution:', canvasError);
         throw new Error('Failed to render CV to canvas. See console for details.');
-      } finally {
-        cvElement.style.boxShadow = originalShadow;
       }
       
       const imgData = canvas.toDataURL('image/png');
@@ -117,12 +149,28 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
         console.log('jsPDF loaded');
         const pdf = new jsPDF('p', 'mm', 'a4');
         const pdfWidth = pdf.internal.pageSize.getWidth();
-        const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        const canvasWidth = canvas.width;
+        const canvasHeight = canvas.height;
+        const ratio = canvasHeight / canvasWidth;
+        const imgHeight = pdfWidth * ratio;
+
+        let heightLeft = imgHeight;
+        let position = 0;
+
+        pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+        heightLeft -= pdfHeight;
+
+        while (heightLeft > 0) {
+          position = heightLeft - imgHeight;
+          pdf.addPage();
+          pdf.addImage(imgData, 'PNG', 0, position, pdfWidth, imgHeight);
+          heightLeft -= pdfHeight;
+        }
         
-        pdf.addImage(imgData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-        console.log('Image added to PDF.');
+        console.log('Image added to PDF across multiple pages if necessary.');
         
-        pdf.save(`${cvData.name.replace(/ /g, '_')}_CV.pdf`);
+        pdf.save(`${cvData.name.replace(/ /g, '_') || 'cv'}_CV.pdf`);
         console.log('PDF saved.');
       } catch (pdfError) {
         console.error('Error during jsPDF execution:', pdfError);
@@ -133,6 +181,9 @@ const ControlPanel = ({ cvData, setCvData, templates, selectedTemplate, onSelect
       console.error("Erreur détaillée lors de la génération du PDF:", error.message, error.stack);
       alert(`Une erreur est survenue: ${error.message}`);
     } finally {
+      if (clonedElement) {
+        document.body.removeChild(clonedElement);
+      }
       setIsDownloading(false);
       previewPanel.style.display = originalDisplay;
       console.log('Finished PDF download attempt.');
