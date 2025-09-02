@@ -25,6 +25,16 @@ const CVBuilderPage = () => {
   };
 
   const [cvData, setCvData] = useState(() => {
+    try {
+      const savedData = localStorage.getItem('cvData');
+      if (savedData) {
+        return JSON.parse(savedData);
+      }
+    } catch (error) {
+      console.error("Failed to parse CV data from localStorage", error);
+    }
+
+    // If no saved data or parsing fails, return default data
     const initialTemplate = templates.find(t => t.id === selectedTemplateId);
     return {
       // Personal Information
@@ -121,6 +131,15 @@ const CVBuilderPage = () => {
       }));
     }
   }, [selectedTemplateId]);
+
+  // Save to localStorage on data change
+  useEffect(() => {
+    try {
+      localStorage.setItem('cvData', JSON.stringify(cvData));
+    } catch (error) {
+      console.error("Failed to save CV data to localStorage", error);
+    }
+  }, [cvData]);
 
   // Trouvez l'objet de modèle complet à passer à l'aperçu
   const selectedTemplate = templates.find(t => t.id === selectedTemplateId);
