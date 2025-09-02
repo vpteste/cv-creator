@@ -1,0 +1,152 @@
+.tips-page {
+  max-width: 1100px;
+  margin: 2rem auto;
+  padding: 2rem;
+  animation: fadeInTips 0.6s ease-in-out;
+  /* Giving the page a darker, techy background */
+  background: #0f0c29;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  background: linear-gradient(to right, #24243e, #302b63, #0f0c29);
+  border-radius: 15px;
+}
+
+@keyframes fadeInTips {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.tips-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.tips-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  /* A more vibrant, techy color */
+  color: #4dd0e1; /* Cyan */
+  text-shadow: 0 0 10px rgba(77, 208, 225, 0.5);
+}
+
+.tips-header p {
+  font-size: 1.1rem;
+  color: #e0e0e0; /* Lighter text for dark background */
+  opacity: 0.9;
+}
+
+.tips-page-content {
+  display: flex;
+  gap: 2rem;
+}
+
+.tips-grid {
+  flex: 3; /* Takes up 3/4 of the space */
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.affiliate-banner-sidebar {
+  flex: 1; /* Takes up 1/4 of the space */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+}
+
+.affiliate-banner-sidebar img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Responsive stacking for tablets and mobile */
+@media (max-width: 992px) {
+  .tips-page-content {
+    flex-direction: column;
+  }
+
+  .affiliate-banner-sidebar {
+    margin-top: 2rem;
+  }
+}
+
+.tip-card {
+  /* Glassmorphism effect */
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 15px;
+  padding: 2rem;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  position: relative; /* For the glowing border */
+  overflow: hidden; /* To contain the pseudo-element */
+}
+
+.tip-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border-radius: 15px;
+    border: 2px solid transparent;
+    background: linear-gradient(45deg, #4dd0e1, #81d4fa) border-box;
+    -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: destination-out;
+    mask-composite: exclude;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* The hover animation the user requested */
+.tip-card:hover {
+  transform: translateY(-8px);
+}
+
+.tip-card:hover::before {
+    opacity: 1;
+}
+
+.tip-card-icon {
+  font-size: 2.5rem;
+  color: #4dd0e1; /* Cyan */
+  margin-bottom: 1.5rem;
+  display: inline-block;
+  padding: 1rem;
+  background: rgba(0,0,0,0.2);
+  border-radius: 50%;
+  width: 70px;
+  height: 70px;
+  line-height: 40px; /* Vertically center icon */
+  transition: color 0.3s ease;
+}
+
+.tip-card:hover .tip-card-icon {
+    color: #fff;
+}
+
+.tip-card-content h3 {
+  font-size: 1.4rem;
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.tip-card-content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #e0e0e0;
+  opacity: 0.8;
+}

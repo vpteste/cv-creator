@@ -40,6 +40,7 @@ const Header = () => {
         <NavLink to="/" end onClick={() => setIsMenuOpen(false)}>Accueil</NavLink>
         <NavLink to="/creation-cv" onClick={() => setIsMenuOpen(false)}>Créer CV</NavLink>
         <NavLink to="/actualites-emplois" onClick={() => setIsMenuOpen(false)}>Actualités & Emplois</NavLink>
+        <NavLink to="/conseils" onClick={() => setIsMenuOpen(false)}>Conseils</NavLink>
       </nav>
       <div className="nav-right-section">
         <ThemeToggleButton />
