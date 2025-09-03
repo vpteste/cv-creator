@@ -23,6 +23,9 @@ async function getAiGeneratedLetter(prompt) {
 }
 
 export default async (request, context) => {
+  // Log the incoming request method for debugging
+  console.log("Received request method:", request.method);
+
   // Handle preflight OPTIONS request for CORS
   if (request.method === 'OPTIONS') {
     return new Response(null, {
