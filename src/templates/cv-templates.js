@@ -117,20 +117,5 @@ export const templates = [
       sidebarColor: '#F8F8F8', // Gris clair
       sidebarTextColor: '#333333'
     }
-  },
-  {
-    id: 'cv-jaune-moutarde',
-    name: 'CV Jaune Moutarde',
-    isNew: true,
-    previewImage: null, // Add a preview image path if you have one
-    layout: 'cv-jaune-moutarde',
-    styles: {
-      fontFamily: "'Montserrat', sans-serif",
-      backgroundColor: '#FFFFFF',
-      textColor: '#333333',
-      headerColor: '#333333', 
-      sidebarColor: '#F0F0F0',
-      sidebarTextColor: '#333333'
-    }
   }
 ];
