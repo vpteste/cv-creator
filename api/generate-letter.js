@@ -23,8 +23,16 @@ async function getAiGeneratedLetter(prompt) {
   // Simulate a network delay
   await new Promise(resolve => setTimeout(resolve, 1500));
 
-  const simulatedText = `Madame, Monsieur,\n\nSuite à votre annonce, je vous adresse ma candidature pour le poste de ${prompt.jobTitle}.
-Travailler chez ${prompt.companyName} serait pour moi une opportunité formidable de mettre à profit mes compétences.\n\n${prompt.additionalInfo || 'Je suis particulièrement motivé par les défis techniques et l'innovation.'}\n\nJe me tiens à votre disposition pour un entretien.\n\nVeuillez agréer, Madame, Monsieur, mes salutations distinguées.`;
+    const simulatedText = `Madame, Monsieur,
+
+Suite à votre annonce, je vous adresse ma candidature pour le poste de ${prompt.jobTitle}.
+Travailler chez ${prompt.companyName} serait pour moi une opportunité formidable de mettre à profit mes compétences.
+
+${prompt.additionalInfo || 'Je suis particulièrement motivé par les défis techniques et l'innovation.'}
+
+Je me tiens à votre disposition pour un entretien.
+
+Veuillez agréer, Madame, Monsieur, mes salutations distinguées.`;
 
   return simulatedText;
 }
