@@ -22,25 +22,37 @@ async function getAiGeneratedLetter(prompt) {
   return simulatedText;
 }
 
-export default async function handler(request, response) {
+export default async (request, context) => {
   if (request.method !== 'POST') {
-    return response.status(405).json({ message: 'Method Not Allowed' });
+    return new Response(JSON.stringify({ message: 'Method Not Allowed' }), {
+      status: 405,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
 
   try {
-    const { jobTitle, companyName, additionalInfo } = request.body;
+    const { jobTitle, companyName, additionalInfo } = await request.json();
 
     if (!jobTitle || !companyName) {
-      return response.status(400).json({ message: 'Missing required fields: jobTitle and companyName' });
+      return new Response(JSON.stringify({ message: 'Missing required fields' }), {
+        status: 400,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
     const prompt = { jobTitle, companyName, additionalInfo };
     const letterBody = await getAiGeneratedLetter(prompt);
 
-    return response.status(200).json({ letter: letterBody });
+    return new Response(JSON.stringify({ letter: letterBody }), {
+      status: 200,
+      headers: { 'Content-Type': 'application/json' },
+    });
 
   } catch (error) {
     console.error("Error in generate-letter function:", error);
-    return response.status(500).json({ message: 'Internal Server Error' });
+    return new Response(JSON.stringify({ message: 'Internal Server Error' }), {
+      status: 500,
+      headers: { 'Content-Type': 'application/json' },
+    });
   }
-}
+};
