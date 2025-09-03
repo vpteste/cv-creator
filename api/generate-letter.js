@@ -23,6 +23,18 @@ async function getAiGeneratedLetter(prompt) {
 }
 
 export default async (request, context) => {
+  // Handle preflight OPTIONS request for CORS
+  if (request.method === 'OPTIONS') {
+    return new Response(null, {
+      status: 204, // No Content
+      headers: {
+        'Access-Control-Allow-Origin': '*', // In production, you should restrict this to your site's domain
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Access-Control-Allow-Headers': 'Content-Type',
+      },
+    });
+  }
+
   if (request.method !== 'POST') {
     return new Response(JSON.stringify({ message: 'Method Not Allowed' }), {
       status: 405,
