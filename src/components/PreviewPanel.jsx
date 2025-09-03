@@ -1,6 +1,6 @@
 import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faBriefcase, faGraduationCap, faLightbulb, faEnvelope, faPhone, faMapMarkerAlt, faGlobe, faHeart, faArrowLeft, faStar, faTrophy, faCertificate } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faBriefcase, faGraduationCap, faLightbulb, faEnvelope, faPhone, faMapMarkerAlt, faGlobe, faHeart, faArrowLeft, faStar, faTrophy, faCertificate, faCog, faHandshake } from '@fortawesome/free-solid-svg-icons';
 import './PreviewPanel.css';
 
 const LanguageBar = ({ name, level }) => (
@@ -267,7 +267,211 @@ const PreviewPanel = ({ cvData, template, onToggleMobileView, zoom, onZoomIn, on
           </div>
         </div>
       );
-    } else if (template && template.layout === 'modern-orange') {
+    } else if (template && template.layout === 'two-column-right-sidebar') {
+      return (
+        <div className="a4-wrapper" style={{ transform: `scale(${zoom})` }}>
+          <div id="cv-preview" className="a4-preview" style={bodyStyle}>
+            <div className="cv-container-bicolor">
+              <main className="main-content" style={{ color: textColor, width: '65%' }}>
+                <div style={{ textAlign: 'left', marginBottom: '40px' }}>
+                  <h1 style={{ color: headerColor, fontSize: '36px', fontWeight: 'bold', margin: '0' }}>{name}</h1>
+                  <h2 style={{ color: textColor, fontSize: '20px', fontWeight: 'normal', margin: '5px 0' }}>{title}</h2>
+                </div>
+                {showProfile && <CvSection title="À PROPOS DE MOI" icon={faUser} showIcons={showIcons} titleColor={headerColor} titleFontSize={titleFontSize}><p>{profile}</p></CvSection>}
+                <CvSection title="EXPÉRIENCE" icon={faBriefcase} showIcons={showIcons} titleColor={headerColor} titleFontSize={titleFontSize}>
+                  {experience.map(exp => (
+                    <div key={exp.id} className="item-entry" style={{ display: 'flex', marginBottom: '15px' }}>
+                      <div style={{ width: '100px', color: '#888' }}>{exp.period}</div>
+                      <div style={{ flex: 1 }}>
+                        <h4 style={{color: headerColor, fontSize: '16px', fontWeight: 'bold'}}>{exp.company}</h4>
+                        <h5 style={{ fontStyle: 'italic', margin: '2px 0 5px 0' }}>{exp.title}</h5>
+                        <p style={{ fontSize: '14px' }}>{exp.description}</p>
+                      </div>
+                    </div>
+                  ))}
+                </CvSection>
+                <CvSection title="FORMATION" icon={faGraduationCap} showIcons={showIcons} titleColor={headerColor} titleFontSize={titleFontSize}>
+                  {education.map(edu => (
+                    <div key={edu.id} className="item-entry" style={{ display: 'flex', marginBottom: '15px' }}>
+                      <div style={{ width: '100px', color: '#888' }}>{edu.period}</div>
+                      <div style={{ flex: 1 }}>
+                        <h4 style={{color: headerColor, fontSize: '16px', fontWeight: 'bold'}}>{edu.degree}</h4>
+                        <h5 style={{ fontStyle: 'italic', margin: '2px 0 5px 0' }}>{edu.school}</h5>
+                      </div>
+                    </div>
+                  ))}
+                </CvSection>
+                <div style={{ 
+                  position: 'absolute', 
+                  left: '-20px', 
+                  bottom: '150px',
+                  transform: 'rotate(-90deg)',
+                  transformOrigin: 'left top',
+                  color: '#ccc',
+                  fontSize: '10px',
+                  whiteSpace: 'nowrap'
+                }}>
+                  Images non incluses
+                </div>
+              </main>
+              <aside className="sidebar" style={{ backgroundColor: sidebarColor, color: sidebarTextColor, width: '35%', padding: '30px' }}>
+                {photo && (
+                  <div style={{ width: '150px', height: '150px', borderRadius: '50%', overflow: 'hidden', margin: '0 auto 30px auto' }}>
+                    <img src={photo} alt="Profile" style={{ width: '100%', height: '100%', objectFit: 'cover' }}/>
+                  </div>
+                )}
+                <CvSection title="CONTACT" icon={faPhone} showIcons={false} titleColor={sidebarTextColor} layout="sidebar">
+                  <div className="contact-info-sidebar" style={{ fontSize: '14px' }}>
+                    <p><FontAwesomeIcon icon={faPhone} style={{ marginRight: '10px' }} /> {phone}</p>
+                    <p><FontAwesomeIcon icon={faEnvelope} style={{ marginRight: '10px' }} /> {email}</p>
+                    <p><FontAwesomeIcon icon={faGlobe} style={{ marginRight: '10px' }} /> {address} </p>
+                    <p><FontAwesomeIcon icon={faMapMarkerAlt} style={{ marginRight: '10px' }} /> {address}</p>
+                  </div>
+                </CvSection>
+                {skills && skills.length > 0 &&
+                  <CvSection title="COMPÉTENCES" icon={faLightbulb} showIcons={showIcons} titleColor={sidebarTextColor} layout="sidebar">
+                    <ul className="skills-list-sidebar" style={{ listStyle: 'none', padding: 0 }}>
+                      {skills.map(skill => <li key={skill.id} style={{ marginBottom: '5px' }}>{skill.name}</li>)}
+                    </ul>
+                  </CvSection>
+                }
+                {languages && languages.length > 0 &&
+                  <CvSection title="LANGUES" icon={faGlobe} showIcons={showIcons} titleColor={sidebarTextColor} layout="sidebar">
+                    <ul className="skills-list-sidebar" style={{ listStyle: 'none', padding: 0 }}>
+                      {languages.map(lang => <li key={lang.id} style={{ marginBottom: '5px' }}>{lang.name} ({lang.level})</li>)}
+                    </ul>
+                  </CvSection>
+                }
+                {interests && interests.length > 0 &&
+                  <CvSection title="CENTRES D'INTÉRÊT" icon={faHeart} showIcons={showIcons} titleColor={sidebarTextColor} layout="sidebar">
+                    <ul className="skills-list-sidebar" style={{ listStyle: 'none', padding: 0 }}>
+                      {interests.map(i => <li key={i.id} style={{ marginBottom: '5px' }}>{i.name}</li>)}
+                    </ul>
+                  </CvSection>
+                }
+                {strengths && strengths.length > 0 &&
+                  <CvSection title="POINTS FORTS" icon={faStar} showIcons={showIcons} titleColor={sidebarTextColor} layout="sidebar">
+                    <ul className="skills-list-sidebar" style={{ listStyle: 'none', padding: 0 }}>
+                      {strengths.map(s => <li key={s.id} style={{ marginBottom: '5px' }}>{s.name}</li>)}
+                    </ul>
+                  </CvSection>
+                }
+                {achievements && achievements.length > 0 &&
+                  <CvSection title="RÉUSSITES" icon={faTrophy} showIcons={showIcons} titleColor={sidebarTextColor} layout="sidebar">
+                    <ul className="skills-list-sidebar" style={{ listStyle: 'none', padding: 0 }}>
+                      {achievements.map(a => <li key={a.id} style={{ marginBottom: '5px' }}>{a.name}</li>)}
+                    </ul>
+                  </CvSection>
+                }
+                {certifications && certifications.length > 0 &&
+                  <CvSection title="CERTIFICATIONS" icon={faCertificate} showIcons={showIcons} titleColor={sidebarTextColor} layout="sidebar">
+                    <ul className="skills-list-sidebar" style={{ listStyle: 'none', padding: 0 }}>
+                      {certifications.map(c => <li key={c.id} style={{ marginBottom: '5px' }}>{c.name}</li>)}
+                    </ul>
+                  </CvSection>
+                }
+              </aside>
+            </div>
+          </div>
+        </div>
+      );
+    } else if (template && template.layout === 'cv-jaune-moutarde') {
+      return (
+        <div className="a4-wrapper" style={{ transform: `scale(${zoom})` }}>
+          <div id="cv-preview" className="a4-preview cv-jaune-moutarde-layout" style={{...bodyStyle, backgroundColor: backgroundColor}}>
+            {/* Colonne de Gauche */}
+            <div className="cv-jm-left-column" style={{ backgroundColor: sidebarColor, color: sidebarTextColor }}>
+              <div className="cv-jm-photo-container" style={{ backgroundColor: headerColor }}>
+                {photo && <img src={photo} alt="Profile" />}
+              </div>
+              <div className="cv-jm-left-section">
+                <h3 className="cv-jm-left-title" style={{ backgroundColor: headerColor, color: sidebarTextColor }}>PROFIL</h3>
+                <p>{profile}</p>
+              </div>
+              <div className="cv-jm-left-section">
+                <h3 className="cv-jm-left-title" style={{ backgroundColor: headerColor, color: sidebarTextColor }}>INFORMATIONS DE CONTACT</h3>
+                <div className="cv-jm-contact-list">
+                  <p><FontAwesomeIcon icon={faPhone} /> {phone}</p>
+                  <p><FontAwesomeIcon icon={faEnvelope} /> {email}</p>
+                  <p><FontAwesomeIcon icon={faMapMarkerAlt} /> {address}</p>
+                </div>
+              </div>
+            </div>
+
+            {/* Colonne de Droite */}
+            <div className="cv-jm-right-column" style={{ color: textColor }}>
+              <div className="cv-jm-timeline" style={{ backgroundColor: headerColor }}></div>
+              
+              {/* Skills Section */}
+              <div className="cv-jm-right-section">
+                <div className="cv-jm-right-title-container">
+                  <div className="cv-jm-timeline-marker" style={{ backgroundColor: headerColor, border: `3px solid ${backgroundColor}`}}>
+                    <FontAwesomeIcon icon={faCog} className="cv-jm-timeline-icon" style={{ color: sidebarTextColor }} />
+                  </div>
+                  <h3 className="cv-jm-right-title" style={{color: headerColor}}>COMPÉTENCES</h3>
+                </div>
+                <div className="cv-jm-skills-container">
+                  {skills.map(skill => <span key={skill.id} className="cv-jm-skill-tag" style={{backgroundColor: sidebarColor, color: sidebarTextColor}}>{skill.name}</span>)}
+                </div>
+              </div>
+
+              {/* Education Section */}
+              <div className="cv-jm-right-section">
+                <div className="cv-jm-right-title-container">
+                  <div className="cv-jm-timeline-marker" style={{ backgroundColor: headerColor, border: `3px solid ${backgroundColor}`}}>
+                    <FontAwesomeIcon icon={faGraduationCap} className="cv-jm-timeline-icon" style={{ color: sidebarTextColor }} />
+                  </div>
+                  <h3 className="cv-jm-right-title" style={{color: headerColor}}>FORMATION</h3>
+                </div>
+                {education.map(edu => (
+                  <div key={edu.id} className="cv-jm-education-item">
+                    <span className="cv-jm-education-year" style={{ backgroundColor: headerColor, color: sidebarTextColor }}>{edu.period}</span>
+                    <h4 style={{fontWeight: 'bold', margin: '5px 0'}}>{edu.degree}</h4>
+                    <p>{edu.school}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Experience Section */}
+              <div className="cv-jm-right-section">
+                <div className="cv-jm-right-title-container">
+                  <div className="cv-jm-timeline-marker" style={{ backgroundColor: headerColor, border: `3px solid ${backgroundColor}`}}>
+                    <FontAwesomeIcon icon={faBriefcase} className="cv-jm-timeline-icon" style={{ color: sidebarTextColor }} />
+                  </div>
+                  <h3 className="cv-jm-right-title" style={{color: headerColor}}>EXPÉRIENCE</h3>
+                </div>
+                {experience.map(exp => (
+                  <div key={exp.id} className="cv-jm-experience-item">
+                    <h4 style={{fontWeight: 'bold'}}>{exp.title}</h4>
+                    <p style={{fontStyle: 'italic', margin: '2px 0'}}>{exp.company}</p>
+                    <p>{exp.description}</p>
+                  </div>
+                ))}
+              </div>
+
+              {/* Reference Section */}
+              <div className="cv-jm-right-section">
+                <div className="cv-jm-right-title-container">
+                  <div className="cv-jm-timeline-marker" style={{ backgroundColor: headerColor, border: `3px solid ${backgroundColor}`}}>
+                    <FontAwesomeIcon icon={faHandshake} className="cv-jm-timeline-icon" style={{ color: sidebarTextColor }} />
+                  </div>
+                  <h3 className="cv-jm-right-title" style={{color: headerColor}}>RÉFÉRENCES</h3>
+                </div>
+                <p>Références disponibles sur demande.</p>
+              </div>
+
+            </div>
+
+            {/* Bannière de Nom (par-dessus les colonnes) */}
+            <div className="cv-jm-name-banner" style={{ backgroundColor: headerColor }}>
+              <h1 style={{ color: sidebarTextColor }}>{name}</h1>
+              <h2 style={{ color: textColor }}>{title}</h2>
+              {education && education.length > 0 && <p style={{ color: textColor }}>{education[0].degree} | Google Graphic Designer Certification</p>}
+            </div>
+          </div>
+        </div>
+      );
+    } else if (template && template.layout === 'cv-jaune-moutarde') {
       const { borderColor, bandColor, headerColor, showEmojis, backgroundColor, textColor, font, bodyFontSize } = cvData;
 
       return (

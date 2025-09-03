@@ -1,0 +1,131 @@
+body .fab-container {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  z-index: 1050;
+  display: flex;
+  flex-direction: column-reverse;
+  align-items: center;
+}
+
+body .fab-main, body .fab-action {
+  border-radius: 50% !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  cursor: pointer !important;
+  transition: all 0.3s ease-in-out !important;
+  color: var(--color-text) !important;
+  position: relative !important;
+  overflow: hidden !important;
+}
+
+body .fab-main {
+  width: 60px !important;
+  height: 60px !important;
+  background: 
+    radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.5), rgba(255, 255, 255, 0) 50%),
+    rgba(255, 255, 255, 0.15) !important;
+  border: 1.5px solid rgba(255, 255, 255, 0.4) !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+
+body .fab-action {
+  width: 48px !important;
+  height: 48px !important;
+  background: 
+    radial-gradient(circle at 50% 0, rgba(255, 255, 255, 0.4), rgba(255, 255, 255, 0) 60%),
+    rgba(255, 255, 255, 0.1) !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15) !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-bottom: 15px !important;
+}
+
+/* Shine effect */
+body .fab-main::before, body .fab-action::before {
+  content: '' !important;
+  position: absolute !important;
+  top: -50% !important;
+  left: -50% !important;
+  width: 200% !important;
+  height: 200% !important;
+  background: linear-gradient(
+    100deg,
+    rgba(255, 255, 255, 0) 30%,
+    rgba(255, 255, 255, 0.5) 50%,
+    rgba(255, 255, 255, 0) 70%
+  ) !important;
+  transform: rotate(30deg) !important;
+  opacity: 0 !important;
+  transition: opacity 0.5s ease, top 0.5s ease !important;
+}
+
+body .fab-main:hover::before, body .fab-action:hover::before {
+  opacity: 1 !important;
+  top: 0 !important;
+  left: 0 !important;
+}
+
+body .fab-main:hover {
+  transform: scale(1.1) !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3) !important;
+}
+
+body .fab-action:hover {
+  transform: scale(1.15) !important;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.25) !important;
+}
+
+body .fab-main .fab-icon {
+  font-size: 24px !important;
+  transition: transform 0.3s ease !important;
+  z-index: 1 !important;
+}
+
+body .fab-container.open .fab-main .fab-icon {
+  transform: rotate(45deg) !important;
+}
+
+body .fab-actions {
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: center !important;
+  margin-bottom: 15px !important;
+  transition: all 0.3s ease-in-out !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transform: translateY(10px) !important;
+}
+
+body .fab-container.open .fab-actions {
+  opacity: 1 !important;
+  visibility: visible !important;
+  transform: translateY(0) !important;
+}
+
+body .fab-action .tooltip {
+  position: absolute !important;
+  right: 120% !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  background-color: rgba(0, 0, 0, 0.7) !important;
+  color: white !important;
+  padding: 5px 10px !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  white-space: nowrap !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  transition: opacity 0.3s ease !important;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15) !important;
+}
+
+body .fab-action:hover .tooltip {
+  opacity: 1 !important;
+  visibility: visible !important;
+}

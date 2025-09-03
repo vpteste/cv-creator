@@ -736,3 +736,167 @@ body.dark .a4-preview {
 .mo-sidebar-section li {
   margin-bottom: 5px;
 }
+
+/* --- CV Jaune Moutarde Layout --- */
+.cv-jaune-moutarde-layout {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  position: relative;
+}
+
+.cv-jm-left-column {
+  width: 33%;
+  background-color: #F0F0F0;
+  padding: 2rem;
+  text-align: center;
+}
+
+.cv-jm-right-column {
+  width: 67%;
+  background-color: #FFFFFF;
+  padding: 2rem;
+  position: relative;
+}
+
+.cv-jm-name-banner {
+  position: absolute;
+  top: 180px; /* Adjust as needed */
+  left: 0;
+  width: 100%;
+  background-color: #FFD700; /* Mustard Yellow */
+  padding: 1rem 0;
+  text-align: center;
+  z-index: 10;
+}
+
+.cv-jm-name-banner h1 {
+  color: white;
+  font-size: 28px;
+  margin: 0;
+  font-weight: 900;
+  letter-spacing: 2px;
+}
+
+.cv-jm-name-banner h2 {
+    color: #333;
+    font-size: 14px;
+    margin: 5px 0;
+}
+
+.cv-jm-name-banner p {
+    color: #333;
+    font-size: 12px;
+    margin: 0;
+}
+
+.cv-jm-photo-container {
+  background-color: #FFD700; /* Mustard Yellow */
+  padding: 5px;
+  border-radius: 15px;
+  margin: 2rem auto 0;
+  width: 150px;
+  height: 150px;
+}
+
+.cv-jm-photo-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+}
+
+.cv-jm-left-section {
+  margin-top: 100px; /* Space for the banner */
+  text-align: left;
+}
+
+.cv-jm-left-title {
+  background-color: #FFD700;
+  padding: 2px 8px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: inline-block;
+}
+
+.cv-jm-contact-list p {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin: 8px 0;
+}
+
+.cv-jm-timeline {
+  position: absolute;
+  left: 2rem;
+  top: 2rem;
+  bottom: 2rem;
+  width: 2px;
+  background-color: #FFD700;
+}
+
+.cv-jm-right-section {
+  padding-left: 2rem; /* Space from timeline */
+  margin-bottom: 2rem;
+}
+
+.cv-jm-right-title-container {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 1rem;
+}
+
+.cv-jm-timeline-marker {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background-color: #FFD700;
+  border: 3px solid white;
+  position: absolute;
+  left: -9px; /* (20/2) - 1 */
+  z-index: 5;
+}
+
+.cv-jm-timeline-icon {
+  position: absolute;
+  left: -5px; /* Adjust to center the icon */
+  top: 4px;
+  color: #333;
+  z-index: 6;
+  font-size: 12px;
+}
+
+.cv-jm-right-title {
+  font-size: 22px;
+  font-weight: 900;
+  margin-left: 25px;
+}
+
+.cv-jm-skills-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.cv-jm-skill-tag {
+  background-color: #f0f0f0;
+  padding: 5px 15px;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.cv-jm-education-item, .cv-jm-experience-item {
+  margin-bottom: 1rem;
+}
+
+.cv-jm-education-year {
+  background-color: #FFD700;
+  padding: 2px 8px;
+  font-size: 12px;
+  font-weight: bold;
+  display: inline-block;
+  margin-bottom: 5px;
+}
+
