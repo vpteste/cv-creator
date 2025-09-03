@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage';
 import CVBuilderPage from './pages/CVBuilderPage';
 import NewsAndJobsPage from './pages/NewsAndJobsPage';
 import TipsPage from './pages/TipsPage'; // Import the new page
+import CoverLetterBuilderPage from './pages/CoverLetterBuilderPage';
 import { ThemeProvider } from './components/ThemeContext';
 import './App.css';
 
@@ -18,6 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/creation-cv" element={<CVBuilderPage />} />
+              <Route path="/lettre-de-motivation" element={<CoverLetterBuilderPage />} />
               <Route path="/actualites-emplois" element={<NewsAndJobsPage />} />
               <Route path="/conseils" element={<TipsPage />} /> {/* Add the new route */}
             </Routes>

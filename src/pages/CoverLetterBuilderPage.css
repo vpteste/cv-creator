@@ -1,0 +1,5 @@
+.cl-error-message {
+    color: var(--error-color, #e53e3e);
+    text-align: center;
+    margin-top: 1rem;
+}
