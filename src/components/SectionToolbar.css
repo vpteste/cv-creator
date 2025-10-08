@@ -1,0 +1,44 @@
+.section-toolbar {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  display: flex;
+  opacity: 0;
+  transform: translate(-50%, 50%) scale(0.8);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  z-index: 100;
+  pointer-events: none; /* Prevent interaction when hidden */
+}
+
+/* The parent container will get this class on hover */
+.section-container:hover .section-toolbar {
+  opacity: 1;
+  transform: translate(-50%, 50%) scale(1);
+  pointer-events: auto; /* Allow interaction when visible */
+}
+
+.section-toolbar button {
+  background: var(--primary-color, #667eea);
+  border: 2px solid white;
+  cursor: pointer;
+  color: white;
+  font-size: 18px;
+  padding: 0;
+  border-radius: 50%;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  transition: all 0.2s ease-in-out;
+}
+
+.section-toolbar button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.2);
+}
+
+body.dark .section-toolbar button {
+    border-color: #2d3748; /* A dark border for dark mode */
+}

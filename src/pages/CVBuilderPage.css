@@ -1,21 +1,17 @@
 .cv-builder-page {
   display: flex;
-  height: calc(100vh - 70px); /* Full height minus header */
+  height: 100vh;
+  overflow: hidden;
 }
 
 @media (max-width: 1024px) {
-  .cv-builder-page {
-    flex-direction: column;
-    height: auto;
-  }
+  /* Add specific tablet styles here if needed */
 }
 
 @media (max-width: 767px) {
-  .mobile-view-editor .preview-panel-container {
-    display: none;
-  }
-
-  .mobile-view-preview .control-panel {
+  .cv-builder-page.mobile-view-preview .settings-panel,
+  .cv-builder-page.mobile-view-preview .floating-actions-container,
+  .cv-builder-page.mobile-view-preview .settings-toggle-button {
     display: none;
   }
 }
