@@ -19,7 +19,7 @@ function App() {
             <Routes>
               <Route path="/" element={<HomePage />} />
               <Route path="/creation-cv" element={<CVBuilderPage />} />
-              {/* <Route path="/lettre-de-motivation" element={<CoverLetterBuilderPage />} /> */}
+              <Route path="/lettre-de-motivation" element={<CoverLetterBuilderPage />} />
               <Route path="/actualites-emplois" element={<NewsAndJobsPage />} />
               <Route path="/conseils" element={<TipsPage />} /> {/* Add the new route */}
             </Routes>

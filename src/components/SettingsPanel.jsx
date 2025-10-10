@@ -12,7 +12,10 @@ const SettingsPanel = ({
   onAddItem,
   onRemoveItem,
   pageSettings, 
-  onSettingsChange 
+  onSettingsChange,
+  template,
+  onUpdateSectionVisibility,
+  isDesktop
 }) => {
   const [activeTab, setActiveTab] = useState('apparence');
 
@@ -20,7 +23,7 @@ const SettingsPanel = ({
     <div className={`settings-panel ${isVisible ? 'visible' : ''}`}>
       <div className="panel-header">
         <h3>Personnalisation</h3>
-        <button onClick={onClose} className="close-btn">&times;</button>
+        {!isDesktop && <button onClick={onClose} className="close-btn">&times;</button>}
       </div>
       <div className="panel-tabs">
         <button 
@@ -38,7 +41,7 @@ const SettingsPanel = ({
       </div>
       <div className="panel-content">
         {activeTab === 'apparence' && (
-          <AppearanceSettings cvData={cvData} onUpdateField={onUpdateField} onApplyPalette={onApplyPalette} onAddItem={onAddItem} onRemoveItem={onRemoveItem} />
+          <AppearanceSettings cvData={cvData} onUpdateField={onUpdateField} onApplyPalette={onApplyPalette} onAddItem={onAddItem} onRemoveItem={onRemoveItem} template={template} onUpdateSectionVisibility={onUpdateSectionVisibility} />
         )}
         {activeTab === 'mise-en-page' && (
           <LayoutSettings settings={pageSettings} onSettingsChange={onSettingsChange} />

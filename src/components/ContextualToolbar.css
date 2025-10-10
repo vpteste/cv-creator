@@ -1,0 +1,27 @@
+.contextual-toolbar {
+  position: absolute;
+  background-color: #333;
+  color: white;
+  border-radius: 8px;
+  padding: 5px 10px;
+  display: flex;
+  gap: 8px;
+  z-index: 9999; /* Higher than other elements */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+  transition: opacity 0.1s ease-in-out;
+}
+
+.contextual-toolbar button {
+  background: none;
+  border: none;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  padding: 5px;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
+}
+
+.contextual-toolbar button:hover {
+  background-color: #555;
+}

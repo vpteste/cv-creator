@@ -1,39 +1,30 @@
-import React, { useState } from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus, faSave, faHistory, faTrash } from '@fortawesome/free-solid-svg-icons';
+import React from 'react';
 import './FloatingActions.css';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faSave, faUndo, faTrashAlt, faDownload, faSpinner } from '@fortawesome/free-solid-svg-icons';
 
-const FloatingActions = ({ onSave, onRestore, onReset }) => {
-  const [isOpen, setIsOpen] = useState(false);
-
-  const toggleMenu = () => {
-    setIsOpen(!isOpen);
-  };
-
-  const handleActionClick = (action) => {
-    action();
-    setIsOpen(false);
-  };
-
+const FloatingActions = ({ onSave, onRestore, onReset, onDownloadPdf, isDownloading, mobileView, isDesktop }) => {
   return (
-    <div className={`fab-container ${isOpen ? 'open' : ''}`}>
-      <div className="fab-actions">
-        <button className="fab-action" onClick={() => handleActionClick(onSave)}>
-          <FontAwesomeIcon icon={faSave} />
-          <span className="tooltip">Sauvegarder</span>
+    <div className="floating-actions-container">
+      {(isDesktop || mobileView === 'preview') && (
+        <button onClick={onDownloadPdf} className="action-button download" title="Télécharger en PDF" disabled={isDownloading}>
+          {isDownloading ? <FontAwesomeIcon icon={faSpinner} spin /> : <FontAwesomeIcon icon={faDownload} />}
         </button>
-        <button className="fab-action" onClick={() => handleActionClick(onRestore)}>
-          <FontAwesomeIcon icon={faHistory} />
-          <span className="tooltip">Restaurer</span>
-        </button>
-        <button className="fab-action" onClick={() => handleActionClick(onReset)}>
-          <FontAwesomeIcon icon={faTrash} />
-          <span className="tooltip">Effacer</span>
-        </button>
-      </div>
-      <button className="fab-main" onClick={toggleMenu}>
-        <FontAwesomeIcon icon={faPlus} className="fab-icon" />
-      </button>
+      )}
+      
+      {(isDesktop || mobileView === 'editor') && (
+        <>
+          <button onClick={onSave} className="action-button save" title="Sauvegarder">
+            <FontAwesomeIcon icon={faSave} />
+          </button>
+          <button onClick={onRestore} className="action-button restore" title="Restaurer la sauvegarde">
+            <FontAwesomeIcon icon={faUndo} />
+          </button>
+          <button onClick={onReset} className="action-button reset" title="Réinitialiser">
+            <FontAwesomeIcon icon={faTrashAlt} />
+          </button>
+        </>
+      )}
     </div>
   );
 };

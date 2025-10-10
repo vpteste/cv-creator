@@ -67,15 +67,17 @@ body.dark .accordion-header:hover {
 .accordion-content {
     max-height: 0;
     overflow: hidden;
-    -webkit-transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-    -moz-transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-    -o-transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
-    transition: max-height 0.4s ease-in-out, padding 0.4s ease-in-out;
+    -webkit-transition: max-height 0.4s ease-in-out;
+    -moz-transition: max-height 0.4s ease-in-out;
+    -o-transition: max-height 0.4s ease-in-out;
+    transition: max-height 0.4s ease-in-out;
     background-color: var(--color-card-background);
 }
 
 .accordion-item.open .accordion-content {
-    max-height: 2000px; /* Adjust as needed */
-    padding: 20px;
     border-top: 1px solid var(--color-border);
+}
+
+.accordion-content-inner {
+    padding: 20px;
 }

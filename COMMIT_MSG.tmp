@@ -1,0 +1,8 @@
+feat: Implémentation d'un moteur de template dynamique et ajout de CVs
+
+- Refonte majeure du panneau d'aperçu en un moteur de template dynamique et scalable.
+- Isolation de toutes les sections du CV (Expérience, Formation, etc.) dans des composants React indépendants et réutilisables.
+- Introduction d'un système de "plan de construction" (blueprint) pour définir la structure et le style des templates via une configuration.
+- Intégration de deux nouveaux templates complexes ("CV Colonne Sombre" et "CV Bannière Rouge") en utilisant le nouveau moteur.
+- Création d'un guide d'intégration (INTEGRATION_GUIDE.md) documentant le nouveau processus et les leçons apprises.
+- Correction de nombreux bugs liés à la génération d'ID, aux mises à jour de l'état et aux conflits CSS.

@@ -1,0 +1,33 @@
+.settings-toggle-button {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  z-index: 1300; /* Highest z-index to be on top of everything */
+  background-color: #fff;
+  border: 1px solid #dee2e6;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  font-size: 22px;
+  color: #495057;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+  transition: all 0.3s ease-in-out;
+}
+
+.settings-toggle-button:hover {
+  transform: scale(1.1) rotate(90deg);
+  color: var(--primary-color, #667eea);
+}
+
+.settings-toggle-button.panel-visible {
+  left: 315px; /* Move with the panel */
+  transform: rotate(0deg);
+}
+
+.settings-toggle-button.panel-visible:hover {
+  transform: scale(1.1) rotate(180deg);
+}

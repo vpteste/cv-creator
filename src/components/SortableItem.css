@@ -1,0 +1,33 @@
+.sortable-item-container {
+  display: flex;
+  align-items: flex-start; /* Align to the top */
+  margin-bottom: 10px;
+  border-radius: 4px;
+  position: relative;
+}
+
+.drag-handle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25px;
+  padding: 10px 0;
+  cursor: grab;
+  color: #adb5bd;
+  transition: color 0.2s ease;
+}
+
+.drag-handle:hover {
+  color: #495057;
+}
+
+.sortable-item-content {
+  flex-grow: 1;
+  padding-left: 10px;
+  border-left: 1px solid #f1f3f5;
+}
+
+/* Style when an item is being dragged */
+.sortable-item-container.dragging {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}

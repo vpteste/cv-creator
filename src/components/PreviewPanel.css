@@ -11,7 +11,7 @@
 .scroll-wrapper {
   flex-grow: 1;
   overflow-y: auto;
-  padding: 30px 10px;
+  padding: 0 10px 30px 10px; /* Removed top padding */
 }
 
 .zoom-wrapper {
@@ -111,11 +111,6 @@
   padding-top: 15px; /* Add some space for the top border */
 }
 
-/* Modern Orange Template Styles */
-.cv-container-modern-orange {
-  padding-top: 15px; /* Add some space for the top border */
-}
-
 /* Dark Sidebar Diamond (DSD) Template Styles */
 .template-dark-sidebar-diamond .sidebar {
     background-color: #0d1e37;
@@ -129,240 +124,6 @@
     color: #fff !important;
     border-bottom-color: #fff !important;
 }
-.template-dark-sidebar-diamond .profile-pic-dsd {
-    width: 120px;
-    height: 120px;
-    background-color: #a0a0a0;
-    border-radius: 50%;
-    margin: 0 auto 20px auto;
-    display: block;
-    border: 3px solid #fff;
-    object-fit: cover;
-}
-.template-dark-sidebar-diamond .contact-info-dsd p {
-    margin: 5px 0;
-    font-size: 0.9em;
-}
-.template-dark-sidebar-diamond .languages-list-dsd li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.template-dark-sidebar-diamond .languages-list-dsd .lang-icon {
-    width: 15px;
-    height: 15px;
-    border-radius: 50%;
-    background-color: #fff;
-    margin-right: 10px;
-}
-.template-dark-sidebar-diamond .skills-list .skill-item {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-}
-.template-dark-sidebar-diamond .skills-list .skill-item span {
-    flex-grow: 1;
-}
-.template-dark-sidebar-diamond .skill-bar-container {
-    width: 70%;
-    background-color: #555;
-    height: 6px;
-    border-radius: 3px;
-    margin-left: 10px;
-}
-.template-dark-sidebar-diamond .skill-bar {
-    height: 100%;
-    background-color: #fff;
-    border-radius: 3px;
-}
-.template-dark-sidebar-diamond .main-content .item-entry {
-    padding-left: 25px; /* Space for the diamond */
-}
-.template-dark-sidebar-diamond .main-content .item-entry::before {
-    content: '◆';
-    color: #0d1e37;
-    font-size: 1.2em;
-    position: absolute;
-    left: 0;
-    top: 0;
-}
-.template-dark-sidebar-diamond .main-content .item-entry h4 {
-    font-weight: bold;
-    color: #333;
-}
-.template-dark-sidebar-diamond .main-content .item-entry h5 {
-    font-style: italic;
-    color: #666;
-    font-size: 0.9em;
-}
-
-
-/* Stylish Teal Orange Template Styles */
-.template-stylish-teal-orange .sidebar {
-    position: relative;
-}
-
-/* Red Top Banner Template Styles */
-.template-red-top-banner {
-    position: relative;
-}
-.template-red-top-banner .top-red-header {
-    background-color: #e53935;
-    height: 100px;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 0;
-    z-index: 0;
-}
-.template-red-top-banner .header-main {
-    display: flex;
-    align-items: center;
-    padding: 20px 40px;
-    position: relative;
-    z-index: 1;
-    margin-bottom: 20px;
-}
-.template-red-top-banner .profile-photo-circle {
-    width: 100px;
-    height: 100px;
-    background-color: #fff;
-    border-radius: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 20px;
-    flex-shrink: 0;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    position: relative;
-    z-index: 2;
-}
-.template-red-top-banner .profile-photo-circle img {
-    width: 90px;
-    height: 90px;
-    object-fit: cover;
-    border-radius: 50%;
-    border: 2px solid #e53935;
-}
-.template-red-top-banner .header-info h1 {
-    margin: 0;
-    color: #333;
-    font-size: 2.2em;
-    text-transform: uppercase;
-}
-.template-red-top-banner .header-info p {
-    margin: 0;
-    color: #666;
-    font-size: 1.1em;
-    letter-spacing: 1px;
-}
-.template-red-top-banner .main-content {
-    display: flex;
-    width: 100%;
-}
-.template-red-top-banner .left-column {
-    width: 65%;
-    padding: 0 30px 30px 40px;
-    box-sizing: border-box;
-    border-right: 1px solid #eee;
-}
-.template-red-top-banner .right-column {
-    width: 35%;
-    background-color: #e53935;
-    color: #fff;
-    padding: 30px;
-    box-sizing: border-box;
-}
-.template-red-top-banner .cv-section {
-    margin-bottom: 30px;
-}
-.template-red-top-banner .left-column .cv-section h3 {
-    color: #e53935 !important;
-    border-bottom: 2px solid #e53935 !important;
-}
-.template-red-top-banner .left-column .cv-section h3::before {
-    content: ' ';
-    width: 10px;
-    height: 10px;
-    background-color: #e53935;
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    transform: rotate(45deg);
-}
-.template-red-top-banner .right-column .cv-section h3 {
-    color: #fff !important;
-    border-bottom: 2px solid #fff !important;
-}
-.template-red-top-banner .right-column .cv-section h3::before {
-    content: ' ';
-    width: 10px;
-    height: 10px;
-    background-color: #fff;
-    position: absolute;
-    bottom: -5px;
-    left: 0;
-    transform: rotate(45deg);
-}
-.template-red-top-banner .about-me-text {
-    background-color: #f8f8f8;
-    padding: 15px;
-    border-left: 5px solid #e53935;
-}
-.template-red-top-banner .work-item {
-    position: relative;
-    padding-left: 20px;
-}
-.template-red-top-banner .work-item::before {
-    content: '';
-    width: 10px;
-    height: 10px;
-    background-color: #e53935;
-    border-radius: 50%;
-    position: absolute;
-    left: 0;
-    top: 5px;
-}
-.template-red-top-banner .skill-list li {
-    display: flex;
-    justify-content: space-between;
-}
-.template-red-top-banner .stars {
-    color: #e53935;
-}
-.template-red-top-banner .stars .empty {
-    color: #ccc;
-}
-.template-red-top-banner .right-column .language-bar-container {
-    background-color: rgba(255, 255, 255, 0.3);
-}
-.template-red-top-banner .right-column .language-bar {
-    background-color: #fff;
-}
-.template-red-top-banner .passion-list li::before {
-    content: '•';
-    color: #fff;
-    position: absolute;
-    left: 0;
-}
-
-
-.contact-info-modern-orange {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 20px;
-  padding: 10px 0;
-  margin-bottom: 20px;
-  border-top: 1px solid #eee;
-  border-bottom: 1px solid #eee;
-  font-size: 0.9em;
-  color: #555;
-}
-
-.profile-photo {
-  flex-shrink: 0;
-}
 
 .photo-img {
   width: 100px;
@@ -370,19 +131,6 @@
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid #eee;
-}
-
-.header-main {
-  flex-grow: 1;
-}
-
-.contact-info {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
-  margin-top: 15px;
-  font-size: 0.9em;
-  color: #555;
 }
 
 .cv-body { padding: 15mm; flex-grow: 1; }
@@ -412,4 +160,336 @@
 
 .section-container {
   position: relative;
+}
+
+/* --- Template: Classique Simple (default) Photo Alignment --- */
+
+/* Default is horizontal, side-by-side */
+.cv-container-default .cv-header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 20px 15mm 15px 15mm;
+}
+
+.cv-container-default .header-section-stylish {
+  flex-grow: 1;
+}
+
+/* Position: Left (Default behavior, but explicit) */
+.cv-container-default .cv-header.photo-pos-left {
+   flex-direction: row;
+}
+.cv-container-default .cv-header.photo-pos-left .profile-pic-wrapper {
+  order: -1;
+}
+.cv-container-default .cv-header.photo-pos-left .header-section-stylish {
+  text-align: left;
+}
+
+
+/* Position: Right */
+.cv-container-default .cv-header.photo-pos-right {
+  flex-direction: row;
+}
+.cv-container-default .cv-header.photo-pos-right .profile-pic-wrapper {
+  order: 1;
+}
+.cv-container-default .cv-header.photo-pos-right .header-section-stylish {
+  text-align: right;
+}
+
+/* Position: Center */
+.cv-container-default .cv-header.photo-pos-center {
+  flex-direction: column;
+  text-align: center;
+}
+
+/* --- Template: Classique Simple (default) Tweaks --- */
+
+/* Uppercase section titles */
+.cv-container-default .cv-section h3 {
+  text-transform: uppercase;
+}
+
+/* Increase photo size */
+.cv-container-default .photo-img {
+  width: 120px;
+  height: 120px;
+}
+
+/* Reduce top padding on body */
+.cv-container-default .cv-body {
+  padding-top: 0;
+}
+
+/* --- Template: CV Colonne Sombre (dark-sidebar-diamond) Tweaks --- */
+
+/* Increase photo size */
+.template-dark-sidebar-diamond .photo-img {
+  width: 130px;
+  height: 130px;
+  border: 4px solid #ffffff; /* Add a white border to pop against the dark sidebar */
+}
+
+/* Style the skill/language bars for the dark sidebar */
+.template-dark-sidebar-diamond .sidebar .skill-bar-container {
+  background-color: rgba(255, 255, 255, 0.2); /* A semi-transparent white background */
+  border-radius: 5px;
+  height: 8px;
+  margin-top: 5px;
+}
+
+.template-dark-sidebar-diamond .sidebar .skill-bar {
+  background-color: #ffffff; /* White bar */
+  height: 100%;
+  border-radius: 5px;
+}
+
+
+
+/* Force single column for skills/languages list in the sidebar */
+.template-dark-sidebar-diamond .sidebar .skills-list {
+  columns: 1;
+}
+
+/* --- Template: CV Elégant Turquoise (stylish-teal-orange) --- */
+
+.template-stylish-teal-orange .sidebar {
+  position: relative; /* Needed for positioning child elements */
+  padding-top: 0; /* Remove padding to let banner touch the top */
+}
+
+.template-stylish-teal-orange .top-orange-banner {
+  height: 80px;
+}
+
+.template-stylish-teal-orange .profile-photo-container {
+  position: relative;
+  width: 160px;
+  height: 160px;
+  border-radius: 50%;
+  border: 5px solid #fff;
+  margin: -80px auto 20px auto; /* Pulls the photo up over the banner */
+  overflow: hidden;
+  background-color: #fff; /* Background for the placeholder */
+  z-index: 2;
+}
+
+.template-stylish-teal-orange .profile-photo {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* --- Template: CV Bannière Rouge (red-top-banner) --- */
+
+.cv-container-red-top-banner {
+  padding: 0 15mm; /* Ajoute un padding horizontal */
+}
+
+
+.template-red-top-banner .profile-photo-circle {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 6px solid #fff;
+  box-shadow: 0 0 15px rgba(0,0,0,0.2);
+}
+
+.template-red-top-banner .profile-photo-circle img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.template-red-top-banner .profile-photo-circle .photo-img {
+  width: 100%;
+  height: 100%;
+  border: none; /* Override default photo border */
+}
+
+/* --- Red Banner Header Layout --- */
+
+/* Default (Center) Position */
+.template-red-top-banner.photo-pos-center .header-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  margin-top: 20px; /* Adjusted from negative margin */
+  margin-bottom: 20px;
+}
+
+/* Left & Right Positions */
+.template-red-top-banner.photo-pos-left .header-main,
+.template-red-top-banner.photo-pos-right .header-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Vertically center photo and text block */
+  justify-content: space-between; /* Push items apart */
+  position: relative;
+  margin-top: 20px; /* Adjusted from negative margin */
+  margin-bottom: 20px;
+  padding: 0 15mm; /* Add padding to align with body */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+/* Order for Left Position */
+.template-red-top-banner.photo-pos-left .profile-photo-circle {
+  order: 1;
+}
+.template-red-top-banner.photo-pos-left .header-info {
+  order: 2;
+  text-align: left;
+}
+
+/* Order for Right Position */
+.template-red-top-banner.photo-pos-right .profile-photo-circle {
+  order: 2;
+}
+.template-red-top-banner.photo-pos-right .header-info {
+  order: 1;
+  text-align: right;
+}
+
+/* --- Template: CV Bannière Rouge (red-top-banner) Tweaks --- */
+
+/* Set padding for the main body */
+.template-red-top-banner .banner-body {
+  padding: 20px 15mm; /* 20px top/bottom, 15mm left/right for A4 feel */
+}
+
+/* --- Template: CV Elégant Bleu Nuit Tweaks --- */
+
+/* Uppercase section titles */
+.cv-container-cv-elegant-bleu-nuit .cv-section h3 {
+  text-transform: uppercase;
+}
+
+/* Increase photo size */
+.cv-container-cv-elegant-bleu-nuit .photo-img {
+  width: 140px;
+  height: 140px;
+}
+
+/* Override for CV Elegant Bleu Nuit Hobbies */
+.cv-container-cv-elegant-bleu-nuit .sidebar .hobby-item-text {
+  background-color: #f0f0f0; /* Restore light background */
+  color: #333333; /* Use a dark grey/black for text */
+}
+
+
+
+/* --- Print-specific styles for PDF Generation --- */
+@media print {
+  /* Tell the browser that the body is the print container */
+  body {
+    width: 210mm;
+    height: 297mm;
+  }
+
+  /* Hide unnecessary UI elements when printing */
+  .settings-panel, .floating-actions, .mobile-view-toggle, .settings-toggle-button, .contextual-toolbar {
+    display: none !important;
+  }
+
+  /* Ensure the CV container takes up the full page */
+  .a4-preview {
+    box-shadow: none;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    height: auto;
+  }
+
+  /* Avoid breaking pages inside these elements */
+  .cv-section, .item-entry, .reference-item, .award-item {
+    page-break-inside: avoid;
+  }
+
+  /* Encourage breaking pages BEFORE a major section title */
+  .cv-section h3 {
+    page-break-before: auto; /* Let the browser decide, but it's a good hint */
+    page-break-after: avoid; /* Don't break right after a title */
+  }
+
+  /* Hide drag-and-drop handles in the PDF */
+  .drag-handle {
+    display: none !important;
+  }
+
+  /* Helper class to hide elements during PDF generation */
+  .is-generating-pdf .drag-handle {
+    display: none !important;
+  }
+}
+
+/* --- Template: CV Contemporain (elegant-parisien) --- */
+
+.template-elegant-parisien .header-main {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 30px;
+  padding: 20px 15mm 20px 15mm;
+  border-bottom: 1px solid #eee;
+}
+
+.template-elegant-parisien .profile-photo-container {
+  flex-shrink: 0; /* Prevent photo from shrinking */
+}
+
+.template-elegant-parisien .photo-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+}
+
+.template-elegant-parisien .header-info {
+  text-align: left;
+}
+
+/* Reduce space between name/title and info tags */
+.template-elegant-parisien .header-info .name-title {
+  margin-bottom: 8px;
+}
+
+.template-elegant-parisien .header-info .job-title-header {
+  margin-top: 0;
+  margin-bottom: 20px; /* Space before the info tags */
+}
+
+/* Reduce empty space above the main content */
+.template-elegant-parisien .cv-body {
+  padding-top: 20px; /* Reduce from default 15mm */
+}
+
+/* --- Template: CV Contemporain (elegant-parisien) Tweaks --- */
+
+/* Force single-column layout for skills list */
+.template-elegant-parisien .skills-section ul {
+  columns: 1;
+  -webkit-columns: 1;
+  -moz-columns: 1;
+}
+
+/* --- Loading Overlay --- */
+.loading-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 100;
+  transition: opacity 0.2s ease-in-out;
 }

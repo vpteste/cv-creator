@@ -1,5 +1,6 @@
 import React from 'react';
 import './AppearanceSettings.css';
+import { sectionTitles } from '../templates/cv-templates.js';
 
 // A reusable component for color inputs
 const ColorInput = ({ label, name, value, onUpdateField }) => (
@@ -41,7 +42,7 @@ const SwitchInput = ({ label, name, checked, onUpdateField }) => (
   </div>
 );
 
-const AppearanceSettings = ({ cvData, onUpdateField, onApplyPalette, onAddItem, onRemoveItem }) => {
+const AppearanceSettings = ({ cvData, onUpdateField, onApplyPalette, onAddItem, onRemoveItem, template, onUpdateSectionVisibility }) => {
   const handleFontChange = (e) => {
     onUpdateField('font', e.target.value);
   };
@@ -92,7 +93,7 @@ const AppearanceSettings = ({ cvData, onUpdateField, onApplyPalette, onAddItem, 
           <label>Position</label>
           <div className="position-buttons">
             <button className={cvData.photoPosition === 'left' ? 'active' : ''} onClick={() => onUpdateField('photoPosition', 'left')}>Gauche</button>
-            <button className={cvData.photoPosition === 'top' ? 'active' : ''} onClick={() => onUpdateField('photoPosition', 'top')}>Haut</button>
+            <button className={cvData.photoPosition === 'center' ? 'active' : ''} onClick={() => onUpdateField('photoPosition', 'center')}>Milieu</button>
             <button className={cvData.photoPosition === 'right' ? 'active' : ''} onClick={() => onUpdateField('photoPosition', 'right')}>Droite</button>
           </div>
         </div>
@@ -146,19 +147,36 @@ const AppearanceSettings = ({ cvData, onUpdateField, onApplyPalette, onAddItem, 
       <div className="setting-group">
         <label>Gestion des Sections</label>
         <SwitchInput label="Afficher le profil" name="showProfile" checked={cvData.showProfile} onUpdateField={onUpdateField} />
+        <SwitchInput label="Afficher la photo" name="showPhoto" checked={cvData.showPhoto} onUpdateField={onUpdateField} />
+        
+        <label className="sub-label">Visibilité des Sections</label>
+        {
+          template && [...new Set(Object.values(template.structure).flat().map(s => typeof s === 'string' ? s : s.section))]
+            .filter(s => !['photo', 'header', 'contact', 'infoTags'].includes(s))
+            .map(sectionId => (
+              <SwitchInput 
+                key={sectionId}
+                label={sectionTitles[sectionId] || sectionId}
+                name={`visibility-${sectionId}`}
+                checked={cvData.sectionVisibility ? (cvData.sectionVisibility[sectionId] ?? true) : true}
+                onUpdateField={(name, checked) => onUpdateSectionVisibility(sectionId, checked)}
+              />
+            ))
+        }
       </div>
 
       <div className="setting-group">
-        <label>Hobbies</label>
+        <label>Hobbies (Icônes)</label>
         <div className="hobby-picker">
           {['♫', '🎮', '📸', '📚', '✈', '🎨', '🚴', '🍲'].map(icon => (
-            <button key={icon} className="hobby-icon-button" onClick={() => onAddItem('hobbies', { name: icon })}>
+            <button key={icon} className="hobby-icon-button" onClick={() => onAddItem('hobbies', { name: icon, isIcon: true })}>
               {icon}
             </button>
           ))}
         </div>
         <div className="selected-hobbies">
-          {cvData.hobbies && cvData.hobbies.map(hobby => (
+          {/* Filter for icon hobbies and map over them */}
+          {(cvData.hobbies || []).filter(h => h.isIcon).map(hobby => (
             <div key={hobby.id} className="selected-hobby-item">
               <span>{hobby.name}</span>
               <button onClick={() => onRemoveItem('hobbies', hobby.id)}>&times;</button>

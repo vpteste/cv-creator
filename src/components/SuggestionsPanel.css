@@ -1,0 +1,86 @@
+/* SuggestionsPanel.css */
+.suggestions-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050; /* Higher than the floating bubble */
+}
+
+.suggestions-panel {
+  background: white;
+  color: #333;
+  padding: 20px 30px;
+  border-radius: 8px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 90%;
+  max-width: 500px;
+  position: relative;
+  animation: slide-down 0.3s ease-out;
+}
+
+.suggestions-panel h3 {
+  margin-top: 0;
+  color: #333;
+  font-size: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+.suggestions-panel h3 svg {
+  margin-right: 10px;
+  color: #f57c00; /* Orange */
+}
+
+.suggestions-panel ul {
+  list-style-type: none;
+  padding-left: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.suggestions-panel li {
+  background-color: #f9f9f9;
+  border-left: 3px solid #81c784; /* Green */
+  padding: 10px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.suggestions-panel .no-suggestions {
+  color: #555;
+  font-style: italic;
+}
+
+.suggestions-panel .close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: transparent;
+  border: none;
+  font-size: 24px;
+  color: #999;
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.suggestions-panel .close-btn:hover {
+  color: #333;
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}

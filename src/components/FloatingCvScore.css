@@ -1,0 +1,56 @@
+/* FloatingCvScore.css */
+.floating-score-bubble {
+  position: fixed;
+  bottom: 40px;
+  right: 40px;
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(145deg, #888, #555);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 28px;
+  font-weight: bold;
+  cursor: grab;
+  user-select: none;
+  z-index: 1051; /* Higher than FAB container */
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  border: 3px solid white;
+  animation: breathe 4s ease-in-out infinite;
+}
+
+.floating-score-bubble:active {
+  cursor: grabbing;
+  animation-play-state: paused; /* Pause animation while dragging */
+}
+
+/* Color classes based on score */
+.floating-score-bubble.score-low {
+  background: linear-gradient(145deg, #e57373, #c62828); /* Red tones */
+}
+
+.floating-score-bubble.score-medium {
+  background: linear-gradient(145deg, #ffb74d, #f57c00); /* Orange tones */
+}
+
+.floating-score-bubble.score-high {
+  background: linear-gradient(145deg, #81c784, #388e3c); /* Green tones */
+}
+
+/* Breathing animation */
+@keyframes breathe {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+  }
+  100% {
+    transform: scale(1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  }
+}

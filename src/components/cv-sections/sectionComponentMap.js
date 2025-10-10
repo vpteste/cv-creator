@@ -8,22 +8,41 @@ import ReferenceSection from './ReferenceSection';
 import LevelBarSection from './LevelBarSection';
 import HeaderSection from './HeaderSection';
 import StarSkillSection from './StarSkillSection';
+import AwardsSection from './AwardsSection';
+import HobbiesSection from './HobbiesSection';
+import LanguageDotSection from './LanguageDotSection';
+import InfoTagsSection from './InfoTagsSection';
+import CategorizedSkillsSection from './CategorizedSkillsSection';
+import FlaggedLanguageSection from './FlaggedLanguageSection';
+import IconContactSection from './IconContactSection';
+import MixedHobbiesSection from './MixedHobbiesSection';
+import SidebarSkillSection from './SidebarSkillSection';
 
 export const sectionComponentMap = {
-  header: HeaderSection,
-  photo: PhotoSection,
-  contact: ContactSection,
-  experience: ExperienceSection,
-  education: EducationSection,
-  languages: LevelBarSection,
-  skills: LevelBarSection,
-  softwareSkills: StarSkillSection, // New entry for the star-based skills
-  references: ReferenceSection,
-  interests: EditableListSection,
-  strengths: EditableListSection,
-  achievements: EditableListSection,
-  certifications: EditableListSection,
-  hobbies: EditableListSection,
-  passions: EditableListSection, // Passions will use the generic list editor
-  profile: ProfileSection,
+  // Atomic components
+  Header: HeaderSection,
+  Photo: PhotoSection,
+  Contact: ContactSection,
+  Profile: ProfileSection,
+  InfoTags: InfoTagsSection,
+
+  // List-based components
+  Experience: ExperienceSection,
+  Education: EducationSection,
+  Awards: AwardsSection,
+  References: ReferenceSection,
+  
+  // Specific style components
+  DotLanguages: LanguageDotSection,
+  FlaggedLanguages: FlaggedLanguageSection,
+  LevelBarSkills: LevelBarSection,
+  CategorizedSkills: CategorizedSkillsSection,
+  StarSkills: StarSkillSection,
+  Hobbies: HobbiesSection,
+  
+  // Generic list for simple text items
+  EditableList: EditableListSection,
+  IconContact: IconContactSection,
+  MixedHobbies: MixedHobbiesSection,
+  SidebarSkills: SidebarSkillSection,
 };

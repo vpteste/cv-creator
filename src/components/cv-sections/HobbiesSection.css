@@ -1,0 +1,25 @@
+/* HobbiesSection.css */
+.hobbies-container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px; /* Spacing between all hobby items */
+}
+
+.hobby-item-text {
+  background-color: #f0f0f0; /* A light background for text items */
+  padding: 4px 10px;
+  border-radius: 15px;
+  font-size: 0.9em;
+  white-space: nowrap;
+}
+
+.hobby-item-icon {
+  font-size: 1.5em; /* Make icons a bit larger */
+}
+
+/* Specific styles for dark sidebars */
+.sidebar .hobby-item-text {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+}

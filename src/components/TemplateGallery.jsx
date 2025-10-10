@@ -18,7 +18,7 @@ const TemplateGallery = () => {
             {template.isNew && <span className="new-badge">Nouveau</span>}
             <div className="template-preview">
               {template.previewImage ? (
-                <img src={template.previewImage} alt={template.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
+                <img src={template.previewImage} alt={template.name} style={{ width: '100%', height: '100%', objectFit: 'contain' }} />
               ) : (
                 <TemplatePreview template={template} />
               )}
