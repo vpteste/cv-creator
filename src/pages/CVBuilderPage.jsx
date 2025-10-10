@@ -364,7 +364,8 @@ const CVBuilderPage = () => {
       setCvData(prevData => ({ ...prevData, ...themeColors }));
     };
   
-    const handleApplyPalette = (palette) => {    setCvData(prevData => ({
+    const handleApplyPalette = (palette) => {
+    setCvData(prevData => ({
       ...prevData, 
       backgroundColor: palette.background,
       textColor: palette.text,
@@ -461,6 +462,7 @@ const CVBuilderPage = () => {
       }
     };
   const handleDownloadPdf = async () => {
+    window.open('https://otieu.com/4/10022042', '_blank');
     toast('Préparation du PDF...');
     setIsDownloading(true);
     const cvElement = document.getElementById('cv-preview');
