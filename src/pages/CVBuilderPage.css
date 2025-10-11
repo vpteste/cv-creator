@@ -14,4 +14,8 @@
   .cv-builder-page.mobile-view-preview .settings-toggle-button {
     display: none;
   }
+
+  .cv-builder-page.mobile-view-editor .preview-panel-container {
+    display: none;
+  }
 }

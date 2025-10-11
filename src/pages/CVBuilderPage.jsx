@@ -111,19 +111,23 @@ const CVBuilderPage = () => {
   const [isTemplateLoading, setIsTemplateLoading] = useState(false);
 
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+  const isDesktop = windowWidth > 1024;
 
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener('resize', handleResize);
+
+    // Set initial and on-resize zoom
+    if (!isDesktop) {
+      const A4_WIDTH_PX = 794;
+      const mobileZoom = (window.innerWidth - 40) / A4_WIDTH_PX;
+      setZoom(mobileZoom);
+    } else {
+      setZoom(1); // Default desktop zoom
+    }
+
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  const isDesktop = windowWidth > 1024;
-
-  const A4_WIDTH_PX = 794;
-  const mobilePreviewZoom = (windowWidth - 40) / A4_WIDTH_PX;
-  const isMobilePreview = !isDesktop && mobileView === 'preview';
-  const effectiveZoom = isMobilePreview ? mobilePreviewZoom : zoom;
+  }, [windowWidth, isDesktop]);
 
   const [pageSettings, setPageSettings] = useState({
     width: 794, // A4 width in pixels at 96 DPI
@@ -360,11 +364,11 @@ const CVBuilderPage = () => {
     setToolbarState(prevState => ({ ...prevState, isVisible: false }));
   };
 
-    const handleSelectTheme = (themeColors) => {
-      setCvData(prevData => ({ ...prevData, ...themeColors }));
-    };
-  
-    const handleApplyPalette = (palette) => {
+  const handleSelectTheme = (themeColors) => {
+    setCvData(prevData => ({ ...prevData, ...themeColors }));
+  };
+
+  const handleApplyPalette = (palette) => {
     setCvData(prevData => ({
       ...prevData, 
       backgroundColor: palette.background,
@@ -373,114 +377,34 @@ const CVBuilderPage = () => {
       bandColor: palette.band,
     }));
   };
-  
-    const generateWordHtml = (cvData, template) => {
-    if (template.id !== 'default') {
-      // For now, the Word-friendly generator only supports the default template.
-      return '';
-    }
-      let html = `<div style="font-family: Arial, sans-serif; font-size: 11pt; color: #333;">
-`;
-      html += `<div style="padding-bottom: 10px; border-bottom: 2px solid #eee; margin-bottom: 20px;">
-                <p style="font-size: 28pt; font-weight: bold; margin: 0;">${cvData.name}</p>
-                <p style="font-size: 14pt; margin: 0;">${cvData.title}</p>
-              </div>`;
-      html += `<div style="margin-bottom: 20px; font-size: 10pt;">
-                <span>${cvData.email}</span> | 
-                <span>${cvData.phones?.[0]?.number}</span> | 
-                <span>${cvData.address}</span>
-              </div>`;
-      const renderSection = (title, content) => {
-        if (!content || (Array.isArray(content) && content.length === 0)) return '';
-        return `<div style="margin-bottom: 20px;">
-                  <h2 style="font-size: 14pt; text-transform: uppercase; color: #333; border-bottom: 1px solid #ccc; padding-bottom: 4px; margin-bottom: 8px;">${title}</h2>
-                  ${content}
-                </div>`;
-      };
-      html += renderSection('Profil', `<p style="margin: 0;">${cvData.profile}</p>`);
-      const expContent = cvData.experience.map(exp => 
-        `<div style="margin-bottom: 10px;">
-          <p style="font-weight: bold; margin: 0;">${exp.title} | ${exp.company}</p>
-          <p style="font-style: italic; margin: 0; color: #555;">${exp.period}</p>
-          <p style="margin: 5px 0 0 0;">${exp.description}</p>
-        </div>`
-      ).join('');
-      html += renderSection('Expériences Professionnelles', expContent);
-      const eduContent = cvData.education.map(edu => 
-        `<div style="margin-bottom: 10px;">
-          <p style="font-weight: bold; margin: 0;">${edu.degree}</p>
-          <p style="font-style: italic; margin: 0; color: #555;">${edu.school} | ${edu.period}</p>
-        </div>`
-      ).join('');
-      html += renderSection('Formation', eduContent);
-      html += `<table style="width: 100%; border-collapse: collapse;"><tr>
-                <td style="width: 50%; vertical-align: top;">
-                  ${renderSection('Compétences', `<ul>${cvData.skills.map(s => `<li>${s.name}</li>`).join('')}</ul>`)}
-                </td>
-                <td style="width: 50%; vertical-align: top;">
-                  ${renderSection('Langues', `<ul>${cvData.languages.map(l => `<li>${l.name}</li>`).join('')}</ul>`)}
-                </td>
-              </tr></table>`;
-      html += '</div>';
-      return html;
-    };
-  
-    const handleDownloadDocx = async () => {
-      setIsDownloading(true);
-      try {
-        const htmlString = generateWordHtml(cvData, selectedTemplate);
-        if (!htmlString) {
-          throw new Error('Could not generate HTML for Word document.');
-        }
-      const css = '';
-
-      console.log("CSS being sent to DOCX API:", css);
-
-      const response = await fetch('/api/generate-docx', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ html: htmlString, css }),
-        });
-        if (!response.ok) {
-          const errorText = await response.text();
-          let errorMessage = 'Failed to generate DOCX.';
-          try {
-            const errorData = JSON.parse(errorText);
-            errorMessage = errorData.error || errorMessage;
-          } catch (e) {
-            errorMessage = errorText.substring(0, 200) + '...';
-          }
-          throw new Error(errorMessage);
-        }
-        const blob = await response.blob();
-        saveAs(blob, 'cv.docx');
-      } catch (error) {
-        console.error('Error downloading DOCX:', error);
-        toast.error(`Erreur lors du téléchargement du DOCX: ${error.message}`);
-      } finally {
-        setIsDownloading(false);
-      }
-    };
+    
   const handleDownloadPdf = async () => {
     window.open('https://otieu.com/4/10022042', '_blank');
     toast('Préparation du PDF...');
     setIsDownloading(true);
-    const cvElement = document.getElementById('cv-preview');
-    if (!cvElement) {
-      alert('Erreur: Element du CV non trouvé.');
-      setIsDownloading(false);
-      return;
-    }
 
-    // Add class to hide handles and other non-printable elements
-    cvElement.classList.add('is-generating-pdf');
-
+    const originalZoom = zoom;
+    
     try {
+      // Force 100% zoom for high-quality capture
+      setZoom(1);
+      // Wait for state to apply and UI to re-render
+      await new Promise(resolve => setTimeout(resolve, 250));
+
+      const cvElement = document.getElementById('cv-preview');
+      if (!cvElement) {
+        throw new Error('Element du CV non trouvé.');
+      }
+
+      cvElement.classList.add('is-generating-pdf');
+
       const canvas = await html2canvas(cvElement, {
         scale: 2, // Higher scale for better quality
         useCORS: true,
         logging: true,
       });
+
+      cvElement.classList.remove('is-generating-pdf');
 
       const imgData = canvas.toDataURL('image/png');
       const pdf = new jsPDF({
@@ -508,9 +432,8 @@ const CVBuilderPage = () => {
         heightLeft -= pdfHeight;
       }
 
-      // Sanitize name for filename
       const name = cvData.name.replace(/[^a-z0-9]/gi, '_').toLowerCase();
-      const date = new Date().toISOString().split('T')[0]; // YYYY-MM-DD
+      const date = new Date().toISOString().split('T')[0];
       const fileName = `Cv-de-${name}-le-${date}.pdf`;
 
       pdf.save(fileName);
@@ -519,8 +442,8 @@ const CVBuilderPage = () => {
       console.error('Error downloading PDF:', error);
       toast.error(`Erreur lors du téléchargement du PDF: ${error.message}`);
     } finally {
-      // ALWAYS remove the class to make handles visible again
-      cvElement.classList.remove('is-generating-pdf');
+      // Restore original zoom and downloading state
+      setZoom(originalZoom);
       setIsDownloading(false);
     }
   };
@@ -583,7 +506,7 @@ const CVBuilderPage = () => {
         cvData={cvData} 
         template={selectedTemplate} 
         onToggleMobileView={toggleMobileView}
-        zoom={effectiveZoom}
+        zoom={zoom}
         onZoomIn={handleZoomIn}
         onZoomOut={handleZoomOut}
         onUpdateField={handleUpdateField}
@@ -597,7 +520,7 @@ const CVBuilderPage = () => {
         pageSettings={pageSettings}
         isTemplateLoading={isTemplateLoading}
       />
-      <FloatingActions onSave={handleSave} onRestore={handleRestore} onReset={handleReset} onDownloadPdf={handleDownloadPdf} onDownloadDocx={handleDownloadDocx} isDownloading={isDownloading} mobileView={mobileView} isDesktop={isDesktop} />
+      <FloatingActions onSave={handleSave} onRestore={handleRestore} onReset={handleReset} onDownloadPdf={handleDownloadPdf} isDownloading={isDownloading} mobileView={mobileView} isDesktop={isDesktop} />
       <MobileViewToggle mobileView={mobileView} onToggle={toggleMobileView} />
     </div>
   );

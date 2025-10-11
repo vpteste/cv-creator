@@ -127,3 +127,15 @@
   background-color: var(--primary-color, #667eea);
   color: white;
 }
+
+@media (max-width: 767px) {
+  .settings-panel {
+    width: 100%;
+    left: -100%; /* Hidden by default, using percentage */
+    border-right: none; /* No border needed on fullscreen mobile */
+  }
+
+  .settings-panel.visible {
+    left: 0;
+  }
+}
