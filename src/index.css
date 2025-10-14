@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 :root {
@@ -33,4 +37,3 @@ body {
   color: var(--color-text);
   transition: background-color 0.3s, color 0.3s;
 }
-

@@ -42,6 +42,8 @@ const Header = () => {
         {/* <NavLink to="/lettre-de-motivation" onClick={() => setIsMenuOpen(false)}>Lettre de Motivation</NavLink> */}
         <NavLink to="/actualites-emplois" onClick={() => setIsMenuOpen(false)}>Actualités & Emplois</NavLink>
         <NavLink to="/conseils" onClick={() => setIsMenuOpen(false)}>Conseils</NavLink>
+        <NavLink to="/convertisseur-ocr" onClick={() => setIsMenuOpen(false)}>Convertisseur OCR</NavLink>
+        <NavLink to="/remove-background" onClick={() => setIsMenuOpen(false)}>Outil IA</NavLink>
       </nav>
       <div className="nav-right-section">
         <ThemeToggleButton />
