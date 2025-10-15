@@ -1,8 +1,8 @@
 .sortable-preview-item {
   position: relative;
   width: 100%;
-  background-color: rgba(139, 195, 74, 0.05);
-  border: 1px dashed rgba(139, 195, 74, 0.5);
+  background-color: rgba(var(--color-success-rgb), 0.05);
+  border: 1px dashed var(--color-success);
   border-radius: 4px;
   margin-bottom: 10px;
   display: flex;
@@ -12,11 +12,12 @@
 .drag-handle-preview {
   padding: 0 10px;
   cursor: grab;
-  color: rgba(0, 0, 0, 0.4);
+  color: var(--color-text);
+  opacity: 0.4;
   align-self: stretch;
   display: flex;
   align-items: center;
-  background-color: rgba(139, 195, 74, 0.1);
+  background-color: rgba(var(--color-success-rgb), 0.1);
 }
 
 .drag-handle-preview:active {

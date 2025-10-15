@@ -4,8 +4,7 @@
   max-width: 900px;
   margin: 2rem auto;
   padding: 2rem;
-  font-family: 'Lato', sans-serif; /* As suggested */
-  color: #333;
+  color: var(--color-text);
 }
 
 .ocr-header {
@@ -21,11 +20,12 @@
 
 .ocr-header p {
   font-size: 1.1rem;
-  color: #666;
+  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .ocr-container {
-  background-color: #ffffff;
+  background-color: var(--color-card-background);
   border-radius: 8px;
   padding: 2rem;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
@@ -33,7 +33,7 @@
 
 /* --- Drop Zone --- */
 .drop-zone {
-  border: 2px dashed #ccc;
+  border: 2px dashed var(--color-border);
   border-radius: 8px;
   padding: 3rem;
   text-align: center;
@@ -42,23 +42,24 @@
 }
 
 .drop-zone:hover {
-  background-color: #f9f9f9;
-  border-color: #007bff; /* Primary color */
+  background-color: var(--color-background);
+  border-color: var(--color-primary);
 }
 
 .drop-zone svg {
-  color: #007bff;
+  color: var(--color-primary);
   margin-bottom: 1rem;
 }
 
 .drop-zone p {
   margin: 0.5rem 0;
   font-size: 1.1rem;
-  color: #555;
+  color: var(--color-text);
+  opacity: 0.8;
 }
 
 .cta-button {
-  background-color: #007bff;
+  background-color: var(--color-primary);
   color: white;
   border: none;
   padding: 12px 24px;
@@ -66,22 +67,24 @@
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s;
+  transition: filter 0.2s;
   margin-top: 1rem;
 }
 
 .cta-button:hover {
-  background-color: #0056b3;
+  filter: brightness(110%);
 }
 
 .cta-button:disabled {
-    background-color: #cccccc;
+    background-color: var(--color-border);
     cursor: not-allowed;
+    opacity: 0.7;
 }
 
 .file-info {
   font-size: 0.9rem;
-  color: #888;
+  color: var(--color-text);
+  opacity: 0.6;
   margin-top: 1rem !important;
 }
 
@@ -106,7 +109,7 @@
   max-width: 100%;
   max-height: 300px;
   border-radius: 8px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-border);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -125,8 +128,17 @@
 .language-selector select {
   padding: 8px 12px;
   border-radius: 5px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
+  background-color: var(--color-card-background);
+  color: var(--color-text);
   font-size: 1rem;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.language-selector select:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(174, 198, 207, 0.4);
 }
 
 /* --- Results Section --- */
@@ -145,48 +157,52 @@
 }
 
 .results-toolbar button {
-  background-color: #f0f0f0;
-  border: 1px solid #ddd;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
   padding: 8px 15px;
   border-radius: 5px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 8px;
-  transition: background-color 0.2s;
+  transition: background-color 0.2s, transform 0.2s ease, filter 0.2s ease;
 }
 
 .results-toolbar button:hover {
-  background-color: #e0e0e0;
+  background-color: var(--color-border);
+  transform: translateY(-2px);
+  filter: brightness(105%);
 }
 
 .results-toolbar .clear-button {
     margin-left: auto; /* Pushes the clear button to the right */
-    background-color: #f8d7da;
-    border-color: #f5c6cb;
-    color: #721c24;
+    background-color: var(--color-danger-background);
+    border-color: var(--color-danger);
+    color: var(--color-danger);
 }
 
 .results-toolbar .clear-button:hover {
-    background-color: #f1b0b7;
+    filter: brightness(95%);
 }
 
 .results-textarea {
   width: 100%;
   min-height: 250px;
-  border: 1px solid #ccc;
+  border: 1px solid var(--color-border);
   border-radius: 5px;
   padding: 1rem;
   font-family: monospace;
   font-size: 1rem;
   line-height: 1.5;
-  background-color: #fdfdfd;
+  background-color: var(--color-card-background);
+  color: var(--color-text);
 }
 
 .error-message {
-    color: #721c24; /* Bootstrap danger color */
-    background-color: #f8d7da; /* Bootstrap danger background */
-    border: 1px solid #f5c6cb; /* Bootstrap danger border */
+    color: var(--color-danger);
+    background-color: var(--color-danger-background);
+    border: 1px solid var(--color-danger);
     border-radius: 5px;
     padding: 1rem;
     margin-top: 2rem;

@@ -5,7 +5,7 @@
   right: 40px;
   width: 80px;
   height: 80px;
-  background: linear-gradient(145deg, #888, #555);
+  background: var(--color-primary);
   color: white;
   border-radius: 50%;
   display: flex;
@@ -16,8 +16,8 @@
   cursor: grab;
   user-select: none;
   z-index: 1051; /* Higher than FAB container */
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-  border: 3px solid white;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+  border: 3px solid var(--color-card-background);
   animation: breathe 4s ease-in-out infinite;
 }
 
@@ -26,7 +26,7 @@
   animation-play-state: paused; /* Pause animation while dragging */
 }
 
-/* Color classes based on score */
+/* Color classes based on score - these are semantic and should not change with theme */
 .floating-score-bubble.score-low {
   background: linear-gradient(145deg, #e57373, #c62828); /* Red tones */
 }
@@ -43,14 +43,14 @@
 @keyframes breathe {
   0% {
     transform: scale(1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
   50% {
     transform: scale(1.05);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
   }
   100% {
     transform: scale(1);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
   }
 }

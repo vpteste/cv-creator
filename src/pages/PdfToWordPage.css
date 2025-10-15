@@ -1,0 +1,95 @@
+/* PdfToWordPage.css */
+
+.pdf-converter-page {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 2rem;
+}
+
+.pdf-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.pdf-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.pdf-header p {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.pdf-container {
+  background-color: var(--color-card-background);
+  border-radius: 16px; /* Softer radius */
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.07);
+  min-height: 250px; /* Ensure a minimum height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pdf-drop-zone {
+  border: 2px dashed var(--color-border);
+  border-radius: 12px;
+  padding: 3rem;
+  text-align: center;
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out;
+  width: 100%;
+}
+
+.pdf-drop-zone.active {
+  background-color: var(--color-background);
+  border-color: var(--color-primary);
+}
+
+.pdf-drop-zone p {
+  margin: 0.5rem 0;
+  font-size: 1.1rem;
+  color: var(--color-text);
+  opacity: 0.8;
+}
+
+.pdf-drop-zone .info-text {
+  font-size: 0.9rem;
+  color: var(--color-text);
+  opacity: 0.6;
+  margin-top: 1rem;
+}
+
+.download-button {
+  background-color: var(--color-success);
+  color: white;
+  font-weight: bold;
+  padding: 0.75rem 1.5rem; /* 12px 24px */
+  border-radius: 8px;
+  text-decoration: none;
+  transition: filter 0.2s ease, transform 0.2s ease;
+  display: inline-block;
+}
+
+.download-button:hover {
+  filter: brightness(110%);
+  transform: translateY(-2px);
+}
+
+.success-message {
+  font-size: 1.2rem;
+  color: var(--color-success);
+  font-weight: 600;
+  margin-bottom: 1.5rem;
+}
+
+.success-actions {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}

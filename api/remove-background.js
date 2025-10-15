@@ -28,7 +28,6 @@ export default async function handler(req, res) {
     const response = await fetch('https://api.remove.bg/v1/removebg', {
       method: 'POST',
       headers: {
-        ...formData.getHeaders(),
         'X-Api-Key': apiKey,
       },
       body: formData,

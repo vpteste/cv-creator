@@ -7,6 +7,7 @@ import NewsAndJobsPage from './pages/NewsAndJobsPage';
 import TipsPage from './pages/TipsPage';
 import OcrConverterPage from './pages/OcrConverterPage'; // Import the new page
 import RemoveBgPage from './pages/RemoveBgPage';
+import PdfToWordPage from './pages/PdfToWordPage';
 import CoverLetterBuilderPage from './pages/CoverLetterBuilderPage';
 import { ThemeProvider } from './components/ThemeContext';
 import './App.css';
@@ -26,6 +27,7 @@ function App() {
               <Route path="/conseils" element={<TipsPage />} /> {/* Add the new route */}
               <Route path="/convertisseur-ocr" element={<OcrConverterPage />} />
               <Route path="/remove-background" element={<RemoveBgPage />} />
+              <Route path="/pdf-to-word" element={<PdfToWordPage />} />
             </Routes>
           </div>
         </main>

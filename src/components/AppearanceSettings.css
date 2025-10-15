@@ -1,7 +1,7 @@
 /* AppearanceSettings.css */
 
 .appearance-settings .setting-group {
-  border-bottom: 1px solid #e9ecef;
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 15px;
   margin-bottom: 15px;
 }
@@ -16,16 +16,16 @@
 .upload-photo-btn {
   width: 100%;
   padding: 12px;
-  background-color: #f1f3f5;
-  border: 2px dashed #dee2e6;
+  background-color: var(--color-background);
+  border: 2px dashed var(--color-border);
   border-radius: 8px;
   cursor: pointer;
   transition: all 0.2s ease;
 }
 
 .upload-photo-btn:hover {
-  background-color: #e9ecef;
-  border-color: #ced4da;
+  background-color: rgba(174, 198, 207, 0.1); /* Soft hover */
+  border-color: var(--color-primary);
 }
 
 .photo-preview-wrapper {
@@ -39,7 +39,7 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 3px solid #fff;
+  border: 3px solid var(--color-card-background);
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
 
@@ -47,7 +47,7 @@
   position: absolute;
   bottom: 5px;
   right: 5px;
-  background-color: rgba(245, 101, 101, 0.9);
+  background-color: var(--color-danger);
   color: white;
   border: none;
   border-radius: 50%;
@@ -72,7 +72,8 @@
 
 .position-control label {
   font-size: 13px;
-  color: #495057;
+  color: var(--color-text);
+  opacity: 0.8;
   margin-bottom: 5px;
   display: block;
   text-align: center;
@@ -81,26 +82,27 @@
 .position-buttons {
   display: flex;
   justify-content: center;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   overflow: hidden;
 }
 
 .position-buttons button {
   flex-grow: 1;
-  background: #fff;
+  background: var(--color-card-background);
   border: none;
   padding: 10px;
   cursor: pointer;
+  color: var(--color-text);
   transition: background-color 0.2s ease;
 }
 
 .position-buttons button:not(:last-child) {
-  border-right: 1px solid #ced4da;
+  border-right: 1px solid var(--color-border);
 }
 
 .position-buttons button.active {
-  background-color: var(--primary-color, #667eea);
+  background-color: var(--color-primary);
   color: white;
 }
 
@@ -111,15 +113,17 @@
 .font-select {
   width: 100%;
   padding: 8px 12px;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
-  background-color: #fff;
+  background-color: var(--color-card-background);
+  color: var(--color-text);
 }
 
 
 .color-input-group label {
   font-size: 13px;
-  color: #495057;
+  color: var(--color-text);
+  opacity: 0.8;
   margin-bottom: 5px;
   display: block;
 }
@@ -127,9 +131,10 @@
 .color-input-wrapper {
   display: flex;
   align-items: center;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   overflow: hidden;
+  background-color: var(--color-card-background);
 }
 
 .color-picker-swatch {
@@ -147,6 +152,8 @@
   padding-left: 8px;
   font-family: monospace;
   font-size: 14px;
+  background-color: transparent;
+  color: var(--color-text);
 }
 .color-picker-hex:focus {
   outline: none;
@@ -156,7 +163,8 @@
   display: block;
   font-size: 12px;
   font-weight: 600;
-  color: #868e96;
+  color: var(--color-text);
+  opacity: 0.7;
   margin-top: 20px;
   margin-bottom: 10px;
   text-transform: uppercase;
@@ -176,8 +184,8 @@
 }
 
 .palette-button {
-  border: 1px solid #dee2e6;
-  background: #fff;
+  border: 1px solid var(--color-border);
+  background: var(--color-card-background);
   padding: 8px;
   border-radius: 6px;
   cursor: pointer;
@@ -186,7 +194,7 @@
 }
 
 .palette-button:hover {
-  border-color: var(--primary-color, #667eea);
+  border-color: var(--color-primary);
   transform: translateY(-2px);
   box-shadow: 0 4px 8px rgba(0,0,0,0.05);
 }
@@ -196,6 +204,7 @@
   font-weight: 500;
   display: block;
   margin-bottom: 8px;
+  color: var(--color-text);
 }
 
 .palette-preview {
@@ -221,6 +230,7 @@
 
 .switch-input-group label {
   font-size: 14px;
+  color: var(--color-text);
 }
 
 .switch {
@@ -243,7 +253,7 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: #ccc;
+  background-color: var(--color-border);
   transition: .4s;
 }
 
@@ -254,16 +264,16 @@
   width: 20px;
   left: 4px;
   bottom: 4px;
-  background-color: white;
+  background-color: var(--color-card-background);
   transition: .4s;
 }
 
 input:checked + .slider {
-  background-color: var(--primary-color, #667eea);
+  background-color: var(--color-primary);
 }
 
 input:focus + .slider {
-  box-shadow: 0 0 1px var(--primary-color, #667eea);
+  box-shadow: 0 0 1px var(--color-primary);
 }
 
 input:checked + .slider:before {
@@ -287,18 +297,19 @@ input:checked + .slider:before {
 }
 
 .hobby-icon-button {
-  background: #f1f3f5;
-  border: 1px solid #dee2e6;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 8px;
   width: 40px;
   height: 40px;
   font-size: 20px;
   cursor: pointer;
+  color: var(--color-text);
   transition: all 0.2s ease;
 }
 
 .hobby-icon-button:hover {
-  background: #e9ecef;
+  background: rgba(174, 198, 207, 0.1); /* Soft hover */
   transform: scale(1.1);
 }
 
@@ -311,7 +322,8 @@ input:checked + .slider:before {
 .selected-hobby-item {
   display: flex;
   align-items: center;
-  background: #e9ecef;
+  background: var(--color-background);
+  border: 1px solid var(--color-border);
   border-radius: 15px;
   padding: 5px 10px;
   font-size: 18px;
@@ -319,12 +331,14 @@ input:checked + .slider:before {
 
 .selected-hobby-item span {
   margin-right: 5px;
+  color: var(--color-text);
 }
 
 .selected-hobby-item button {
   background: none;
   border: none;
-  color: #868e96;
+  color: var(--color-text);
+  opacity: 0.7;
   cursor: pointer;
   font-size: 16px;
   font-weight: bold;

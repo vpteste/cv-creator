@@ -3,16 +3,16 @@
   align-items: flex-start;
   gap: 1rem;
   padding: 1rem;
-  background-color: var(--card-bg-color);
+  background-color: var(--color-card-background);
   border-radius: 8px;
   margin-bottom: 1rem;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
   transition: box-shadow 0.3s ease, transform 0.3s ease;
 }
 
 .job-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.07);
 }
 
 .job-card-image {

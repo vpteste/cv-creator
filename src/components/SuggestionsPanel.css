@@ -5,7 +5,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(var(--color-background-rgb), 0.5);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -13,8 +14,8 @@
 }
 
 .suggestions-panel {
-  background: white;
-  color: #333;
+  background: var(--color-card-background);
+  color: var(--color-text);
   padding: 20px 30px;
   border-radius: 8px;
   box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
@@ -22,20 +23,21 @@
   max-width: 500px;
   position: relative;
   animation: slide-down 0.3s ease-out;
+  border: 1px solid var(--color-border);
 }
 
 .suggestions-panel h3 {
   margin-top: 0;
-  color: #333;
+  color: var(--color-text);
   font-size: 20px;
-  border-bottom: 1px solid #eee;
+  border-bottom: 1px solid var(--color-border);
   padding-bottom: 10px;
   margin-bottom: 15px;
 }
 
 .suggestions-panel h3 svg {
   margin-right: 10px;
-  color: #f57c00; /* Orange */
+  color: var(--color-warning);
 }
 
 .suggestions-panel ul {
@@ -46,15 +48,16 @@
 }
 
 .suggestions-panel li {
-  background-color: #f9f9f9;
-  border-left: 3px solid #81c784; /* Green */
+  background-color: var(--color-background);
+  border-left: 3px solid var(--color-success);
   padding: 10px;
   margin-bottom: 8px;
   border-radius: 4px;
 }
 
 .suggestions-panel .no-suggestions {
-  color: #555;
+  color: var(--color-text);
+  opacity: 0.8;
   font-style: italic;
 }
 
@@ -65,13 +68,14 @@
   background: transparent;
   border: none;
   font-size: 24px;
-  color: #999;
+  color: var(--color-text);
+  opacity: 0.6;
   cursor: pointer;
-  transition: color 0.2s;
+  transition: color 0.2s, opacity 0.2s;
 }
 
 .suggestions-panel .close-btn:hover {
-  color: #333;
+  opacity: 1;
 }
 
 @keyframes slide-down {

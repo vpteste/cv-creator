@@ -9,7 +9,7 @@
 }
 
 .action-button {
-  background-color: var(--primary-color, #667eea);
+  background-color: var(--color-primary);
   color: white;
   border: none;
   border-radius: 50%;
@@ -27,16 +27,17 @@
 .action-button:hover {
   transform: translateY(-2px);
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+  filter: brightness(110%);
 }
 
 .action-button.save {
-  background-color: var(--success-color, #48bb78);
+  background-color: var(--color-success);
 }
 
 .action-button.restore {
-  background-color: var(--warning-color, #f59e0b);
+  background-color: var(--color-warning);
 }
 
 .action-button.reset {
-  background-color: var(--danger-color, #f56565);
+  background-color: var(--color-danger);
 }

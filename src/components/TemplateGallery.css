@@ -14,18 +14,18 @@
 
 .template-card {
   position: relative;
-  background-color: var(--white);
+  background-color: var(--color-card-background);
   border-radius: 12px;
-  box-shadow: var(--shadow-md);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   text-decoration: none;
-  color: var(--text-primary);
+  color: var(--color-text);
   overflow: hidden; /* To keep the badge contained */
 }
 
 .template-card:hover {
   transform: translateY(-5px);
-  box-shadow: 0 15px 30px rgba(102, 126, 234, 0.2);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.07);
 }
 
 .new-badge {

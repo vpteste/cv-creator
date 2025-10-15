@@ -1,11 +1,10 @@
-
 .template-selector {
   margin-bottom: 20px;
 }
 
 .template-selector h4 {
   margin-bottom: 10px;
-  color: #333;
+  color: var(--color-text);
 }
 
 .template-options {
@@ -17,22 +16,24 @@
 .template-option {
   cursor: pointer;
   border: 2px solid transparent;
-  border-radius: 5px;
+  border-radius: 8px; /* Match other card styles */
+  padding: 4px;
   transition: border-color 0.3s ease;
 }
 
 .template-option.selected {
-  border-color: #4A90E2;
+  border-color: var(--color-primary);
 }
 
 .template-thumbnail {
-  width: 100px;
+  width: 100%; /* Make it responsive */
   height: 140px;
-  border-radius: 3px;
+  border-radius: 4px; /* Inner radius */
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: bold;
   font-size: 14px;
   box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  background-color: var(--color-card-background);
 }

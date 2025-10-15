@@ -18,8 +18,8 @@
 }
 
 .section-toolbar button {
-  background: var(--primary-color, #667eea);
-  border: 2px solid white;
+  background: var(--color-primary);
+  border: 2px solid var(--color-card-background); /* Use variable for theme-aware border */
   cursor: pointer;
   color: white;
   font-size: 18px;
@@ -39,6 +39,9 @@
   box-shadow: 0 6px 16px rgba(0,0,0,0.2);
 }
 
+/* No longer needed, handled by the variable */
+/*
 body.dark .section-toolbar button {
-    border-color: #2d3748; /* A dark border for dark mode */
+    border-color: #2d3748;
 }
+*/

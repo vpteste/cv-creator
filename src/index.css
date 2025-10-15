@@ -2,38 +2,62 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;600;700&display=swap');
 
 :root {
-  --font-family: 'Inter', system-ui, Avenir, Helvetica, Arial, sans-serif;
-  --line-height: 1.5;
+  --font-family-body: 'Lato', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --font-family-heading: 'Poppins', system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --line-height: 1.6;
   --font-weight: 400;
 
-  /* Light Theme */
-  --color-background: #ffffff;
-  --color-text: #213547;
-  --color-primary: #007bff;
-  --color-card-background: #f8f9fa;
-  --color-border: #dee2e6;
-  --color-header-background: rgba(255, 255, 255, 0.8);
+  /* Light Theme - Soft Pastel Palette */
+  --color-background: #f7f9fc; /* Very light blue-grey */
+  --color-text: #333a45; /* Dark slate grey */
+  --color-primary: #aec6cf; /* Powder Blue */
+  --color-accent: #ffb3a7; /* Soft Coral */
+  --color-danger: #f56565; /* Soft Red */
+  --color-danger-background: #fbeeee;
+  --color-success: #48bb78;
+  --color-success-rgb: 72, 187, 120;
+  --color-warning: #f59e0b;
+  --color-card-background: #ffffff;
+  --color-border: #e5e7eb;
+  --color-header-background: rgba(247, 249, 252, 0.8);
+  --color-background-rgb: 247, 249, 252;
+  --color-text-rgb: 51, 58, 69;
+  --color-card-background-rgb: 255, 255, 255;
 }
 
 body.dark {
-  /* Dark Theme */
-  --color-background: #1a1a1a;
-  --color-text: #e6e6e6;
-  --color-primary: #0d6efd;
-  --color-card-background: #242424;
-  --color-border: #444;
-  --color-header-background: rgba(26, 26, 26, 0.8);
+  /* Dark Theme - Comfy Dark Pastel */
+  --color-background: #2c3e50; /* Dark Slate Blue */
+  --color-text: #e0e5ec; /* Light grey-blue */
+  --color-primary: #aec6cf; /* Powder Blue (stands out on dark) */
+  --color-accent: #ffb3a7; /* Soft Coral (stands out on dark) */
+  --color-danger: #f56565; /* Soft Red (stands out on dark) */
+  --color-danger-background: #4d2525;
+  --color-success: #48bb78;
+  --color-success-rgb: 72, 187, 120;
+  --color-warning: #f59e0b;
+  --color-card-background: #34495e; /* Lighter Slate Blue */
+  --color-border: #4a5568; /* Grey */
+  --color-header-background: rgba(44, 62, 80, 0.85);
+  --color-background-rgb: 44, 62, 80;
+  --color-text-rgb: 224, 229, 236;
+  --color-card-background-rgb: 52, 73, 94;
 }
 
 body {
   margin: 0;
-  font-family: var(--font-family);
+  font-family: var(--font-family-body);
   line-height: var(--line-height);
   font-weight: var(--font-weight);
   background-color: var(--color-background);
   color: var(--color-text);
   transition: background-color 0.3s, color 0.3s;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-family-heading);
+  font-weight: 600;
 }

@@ -1,22 +1,26 @@
 .app-header {
-  display: -webkit-box;
-  display: -ms-flexbox;
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
   height: 70px;
-  background-color: var(--color-header-background);
-  -webkit-backdrop-filter: blur(10px);
-  backdrop-filter: blur(10px);
-  border-bottom: 1px solid var(--color-border);
+  background-color: transparent; /* Transparent by default */
+  border-bottom: 1px solid transparent; /* Transparent border by default */
   position: fixed;
   top: 0;
   left: 0;
   width: 100%;
   z-index: 1000;
   box-sizing: border-box;
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.app-header.scrolled {
+  background-color: var(--color-header-background);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
 }
 
 .logo a {
@@ -33,6 +37,7 @@
   gap: 1rem;
   flex-grow: 1;
   justify-content: center;
+  align-items: center; /* Align items vertically */
 }
 
 .main-nav a {
@@ -70,6 +75,59 @@
   cursor: pointer;
 }
 
+/* Dropdown Styles */
+.nav-item.dropdown {
+  position: relative;
+}
+
+.dropdown-toggle {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  font-weight: 500;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s;
+  cursor: pointer;
+  font-family: inherit; /* Ensure font is consistent */
+  font-size: inherit;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.dropdown-toggle:hover {
+  background-color: var(--color-card-background);
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  min-width: 240px;
+  background-color: var(--color-header-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  margin-top: 0.75rem; /* Space between button and menu */
+  z-index: 1001;
+  box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+}
+
+.dropdown-menu.open {
+  display: block;
+}
+
+.dropdown-menu a {
+  display: block;
+  width: 100%;
+  text-align: left;
+  padding: 0.75rem 1.5rem;
+}
+
+
 /* Responsive Styles */
 @media (max-width: 768px) {
   .main-nav {
@@ -96,5 +154,25 @@
 
   .mobile-menu-button {
     display: block; /* Show hamburger button */
+  }
+
+  /* Mobile Dropdown */
+  .dropdown-toggle {
+    width: 100%;
+    justify-content: center;
+  }
+  .dropdown-menu {
+    position: static;
+    transform: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+    background-color: transparent;
+    padding: 0;
+    margin-top: 0;
+  }
+  .dropdown-menu a {
+    background-color: rgba(0,0,0,0.1);
+    margin-bottom: 4px;
   }
 }

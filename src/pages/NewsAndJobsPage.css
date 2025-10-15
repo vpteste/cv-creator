@@ -1,20 +1,14 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+/* No longer needed, imported in index.css */
+/* @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap'); */
 
 .news-jobs-page {
   max-width: 1200px;
   margin: 2rem auto;
   padding: 0 2rem;
-  font-family: 'Poppins', sans-serif;
-  -webkit-animation: fadeIn 0.5s ease-in-out;
-  -moz-animation: fadeIn 0.5s ease-in-out;
-  -o-animation: fadeIn 0.5s ease-in-out;
+  /* font-family is inherited from body, headings have their own family from index.css */
   animation: fadeIn 0.5s ease-in-out;
 }
 
-@-webkit-keyframes fadeIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-10px); }
   to { opacity: 1; transform: translateY(0); }
@@ -51,13 +45,8 @@
   font-size: 1.2rem;
   padding: 1.5rem;
   border-radius: 8px;
-  color: #e74c3c;
-  background-color: #fbeeee;
-}
-
-body.dark .error-message {
-    background-color: #4d2525;
-    color: #f8d7da;
+  color: var(--color-danger);
+  background-color: var(--color-danger-background);
 }
 
 .content-grid {
@@ -91,17 +80,10 @@ body.dark .error-message {
   color: var(--color-text);
   background-color: var(--color-card-background);
   box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-  -webkit-transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s, border-color 0.3s;
-  -moz-transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s, border-color 0.3s;
-  -o-transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s, border-color 0.3s;
   transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.3s, border-color 0.3s;
 }
 
 .news-card:hover, .job-card:hover {
-  -webkit-transform: translateY(-5px);
-  -moz-transform: translateY(-5px);
-  -ms-transform: translateY(-5px);
-  -o-transform: translateY(-5px);
   transform: translateY(-5px);
   box-shadow: 0 10px 20px rgba(0,0,0,0.1);
 }

@@ -4,8 +4,8 @@
   left: -300px; /* Hidden by default */
   width: 300px;
   height: 100%;
-  background-color: #f8f9fa;
-  border-right: 1px solid #dee2e6;
+  background-color: var(--color-background);
+  border-right: 1px solid var(--color-border);
   box-shadow: 0 0 15px rgba(0,0,0,0.1);
   transition: left 0.3s ease-in-out;
   z-index: 1200;
@@ -22,8 +22,8 @@
   justify-content: space-between;
   align-items: center;
   padding: 15px 20px;
-  border-bottom: 1px solid #dee2e6;
-  background-color: #fff;
+  border-bottom: 1px solid var(--color-border);
+  background-color: var(--color-card-background);
 }
 
 .panel-header h3 {
@@ -33,7 +33,7 @@
 
 .panel-tabs {
   display: flex;
-  border-bottom: 1px solid #dee2e6;
+  border-bottom: 1px solid var(--color-border);
 }
 
 .tab-button {
@@ -44,18 +44,21 @@
   cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  color: #6c757d;
+  color: var(--color-text);
+  opacity: 0.7;
   transition: all 0.2s ease-in-out;
   border-bottom: 2px solid transparent;
 }
 
 .tab-button.active {
-  color: var(--primary-color, #667eea);
-  border-bottom-color: var(--primary-color, #667eea);
+  color: var(--color-primary);
+  opacity: 1;
+  border-bottom-color: var(--color-primary);
 }
 
 .tab-button:hover {
-  background-color: #f1f3f5;
+  background-color: rgba(174, 198, 207, 0.1); /* Soft hover */
+  opacity: 1;
 }
 
 .close-btn {
@@ -63,7 +66,8 @@
   border: none;
   font-size: 24px;
   cursor: pointer;
-  color: #6c757d;
+  color: var(--color-text);
+  opacity: 0.7;
 }
 
 .panel-content {
@@ -81,7 +85,7 @@
   font-weight: bold;
   margin-bottom: 10px;
   font-size: 14px;
-  color: #495057;
+  color: var(--color-text);
 }
 
 .input-row, .input-grid {
@@ -100,23 +104,26 @@
 .settings-panel input[type="number"] {
   width: 100%;
   padding: 8px;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
+  background-color: var(--color-background);
+  color: var(--color-text);
 }
 
 .units-selector {
   display: flex;
-  border: 1px solid #ced4da;
+  border: 1px solid var(--color-border);
   border-radius: 4px;
   overflow: hidden;
 }
 
 .units-selector button {
-  background: #fff;
+  background: var(--color-card-background);
   border: none;
   padding: 8px 10px;
   cursor: pointer;
-  border-left: 1px solid #ced4da;
+  color: var(--color-text);
+  border-left: 1px solid var(--color-border);
 }
 
 .units-selector button:first-child {
@@ -124,7 +131,7 @@
 }
 
 .units-selector button.active {
-  background-color: var(--primary-color, #667eea);
+  background-color: var(--color-primary);
   color: white;
 }
 

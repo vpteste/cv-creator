@@ -1,12 +1,21 @@
 .editable-field {
-  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+  transition: background-color 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   padding: 2px 4px;
   border-radius: 4px;
   cursor: text;
+  border: 1px solid transparent; /* Add transparent border for smooth transition */
 }
 
 .editable-field:hover {
-    background-color: rgba(0, 0, 0, 0.03);
+    background-color: rgba(174, 198, 207, 0.15);
+}
+
+/* Style for when the field is being edited */
+.editable-field:focus-within {
+    background-color: var(--color-card-background);
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 3px rgba(174, 198, 207, 0.4); /* Use a semi-transparent version of the primary color */
 }
 
 .editable-field.readonly {
