@@ -2,8 +2,28 @@ import React, { useState, useCallback } from 'react';
 import { useDropzone } from 'react-dropzone';
 import toast from 'react-hot-toast';
 import { motion, AnimatePresence } from 'framer-motion';
+import { FiFilePlus, FiRefreshCw, FiDownload } from 'react-icons/fi';
 import './PdfToWordPage.css';
 import LoadingSpinner from '../components/LoadingSpinner';
+import InstructionsGuide from '../components/InstructionsGuide';
+
+const pdfSteps = [
+  {
+    icon: <FiFilePlus size={24} />,
+    title: 'Choisissez votre fichier',
+    description: 'Cliquez ou glissez-déposez votre document au format PDF dans la zone prévue.'
+  },
+  {
+    icon: <FiRefreshCw size={24} />,
+    title: 'Conversion Automatique',
+    description: 'La conversion vers le format Word (.docx) démarre instantanément et en toute sécurité.'
+  },
+  {
+    icon: <FiDownload size={24} />,
+    title: 'Téléchargez',
+    description: 'Votre nouveau fichier Word est prêt à être téléchargé et modifié.'
+  }
+];
 
 const PdfToWordPage = () => {
   const [status, setStatus] = useState('idle'); // idle, converting, success, error
@@ -125,6 +145,9 @@ const PdfToWordPage = () => {
           </motion.div>
         </AnimatePresence>
       </div>
+
+      <InstructionsGuide steps={pdfSteps} />
+
     </motion.div>
   );
 };

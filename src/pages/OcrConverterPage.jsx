@@ -1,8 +1,27 @@
 import React, { useState, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import './OcrConverterPage.css';
-import { FiUploadCloud, FiCopy, FiDownload, FiXCircle } from 'react-icons/fi';
+import { FiUploadCloud, FiCopy, FiDownload, FiXCircle, FiType, FiPlay } from 'react-icons/fi';
 import LoadingSpinner from '../components/LoadingSpinner';
+import InstructionsGuide from '../components/InstructionsGuide';
+
+const ocrSteps = [
+  {
+    icon: <FiUploadCloud size={24} />,
+    title: 'Choisissez une image',
+    description: 'Sélectionnez une image ou un PDF depuis votre appareil. Les formats PNG, JPG et WEBP sont supportés.'
+  },
+  {
+    icon: <FiType size={24} />,
+    title: 'Sélectionnez la langue',
+    description: 'Choisissez la langue principale du document pour améliorer la précision de la reconnaissance.'
+  },
+  {
+    icon: <FiPlay size={24} />,
+    title: 'Lancez l\'extraction',
+    description: 'Cliquez sur "Extraire le Texte" et laissez la magie opérer. Le texte apparaîtra en quelques secondes.'
+  }
+];
 
 const OcrConverterPage = () => {
   const [imageFile, setImageFile] = useState(null);
@@ -72,6 +91,12 @@ const OcrConverterPage = () => {
     setError('');
   };
 
+  const handleReset = () => {
+    setError('');
+    // A more complete reset might be needed if we want to go back to upload screen
+    // For now, just clears the error.
+  };
+
   const pageVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5, ease: 'easeOut' } }
@@ -80,7 +105,7 @@ const OcrConverterPage = () => {
   return (
     <motion.div className="ocr-converter-page" initial="hidden" animate="visible" variants={pageVariants}>
       <div className="ocr-header">
-        <h1>Convertisseur d'Image en Texte</h1>
+        <h1>Convertisseur d\'Image en Texte</h1>
         <p>Extrayez le texte de vos images rapidement et gratuitement grâce à notre technologie OCR.</p>
       </div>
 
@@ -93,7 +118,7 @@ const OcrConverterPage = () => {
           ) : error ? (
             <motion.div key="error" className="error-message-box">
               <p>{error}</p>
-              <button onClick={() => setError('')} className="cta-button-secondary">Réessayer</button>
+              <button onClick={handleClear} className="cta-button-secondary">Réessayer</button>
             </motion.div>
           ) : extractedText ? (
             <motion.div key="results" initial={{opacity: 0}} animate={{opacity: 1}}>
@@ -141,6 +166,9 @@ const OcrConverterPage = () => {
           )}
         </AnimatePresence>
       </div>
+
+      <InstructionsGuide steps={ocrSteps} />
+
     </motion.div>
   );
 };
