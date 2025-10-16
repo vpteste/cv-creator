@@ -5,10 +5,11 @@ import HomePage from './pages/HomePage';
 import CVBuilderPage from './pages/CVBuilderPage';
 import NewsAndJobsPage from './pages/NewsAndJobsPage';
 import TipsPage from './pages/TipsPage';
-import OcrConverterPage from './pages/OcrConverterPage'; // Import the new page
+import OcrConverterPage from './pages/OcrConverterPage';
 import RemoveBgPage from './pages/RemoveBgPage';
 import PdfToWordPage from './pages/PdfToWordPage';
 import CoverLetterBuilderPage from './pages/CoverLetterBuilderPage';
+import MediaDownloaderPage from './pages/MediaDownloaderPage';
 import { ThemeProvider } from './components/ThemeContext';
 import './App.css';
 
@@ -24,10 +25,11 @@ function App() {
               <Route path="/creation-cv" element={<CVBuilderPage />} />
               <Route path="/lettre-de-motivation" element={<CoverLetterBuilderPage />} />
               <Route path="/actualites-emplois" element={<NewsAndJobsPage />} />
-              <Route path="/conseils" element={<TipsPage />} /> {/* Add the new route */}
+              <Route path="/conseils" element={<TipsPage />} />
               <Route path="/convertisseur-ocr" element={<OcrConverterPage />} />
               <Route path="/remove-background" element={<RemoveBgPage />} />
               <Route path="/pdf-to-word" element={<PdfToWordPage />} />
+              <Route path="/media-downloader" element={<MediaDownloaderPage />} />
             </Routes>
           </div>
         </main>

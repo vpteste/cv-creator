@@ -2,12 +2,22 @@ import React, { useState, useCallback, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiUploadCloud, FiUpload, FiDownload } from 'react-icons/fi'; // Using react-icons for professional icons
 import { FaMagic } from 'react-icons/fa';
+import ToolsLayout from '../components/ToolsLayout';
+import { openMonetagLink } from '../utils/monetization';
 
 // --- Main Page Component ---
 const RemoveBgPage = () => {
   const [state, setState] = useState('initial');
   const [uploadedImage, setUploadedImage] = useState(null);
   const [resultImage, setResultImage] = useState(null); // State for the final image URL
+  const [adTriggered, setAdTriggered] = useState(false);
+
+  const handlePageInteraction = () => {
+    if (!adTriggered) {
+      openMonetagLink();
+      setAdTriggered(true);
+    }
+  };
 
   // --- State Transitions ---
   useEffect(() => {
@@ -147,32 +157,32 @@ const handleDownload = () => {
   );
 
   return (
-    <div className="font-nunito min-h-screen w-full bg-gradient-to-r from-lavender via-sky-blue to-mint bg-[length:200%_200%] animate-gradient-bg text-gray-800 flex flex-col items-center p-4 sm:p-8 overflow-x-hidden">
-      
+    <ToolsLayout>
+      <div className="remove-bg-page text-gray-800 p-4 sm:p-8" onClick={handlePageInteraction}>
+        <main className="flex-grow flex flex-col items-center justify-center text-center w-full">
+          <div className="w-full max-w-2xl">
+            <AnimatePresence>
+              {(state === 'initial' || state === 'drag-over') && (
+                <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
+                  <h1 className="text-4xl sm:text-5xl font-bold mb-3">Supprimez l'arrière-plan.</h1>
+                  <h2 className="text-lg sm:text-xl text-gray-600 mb-10">La douceur en plus. Importez votre image et laissez notre magie opérer.</h2>
+                </motion.div>
+              )}
+            </AnimatePresence>
+            {renderMainComponent()}
+          </div>
+        </main>
 
-      <main className="flex-grow flex flex-col items-center justify-center text-center w-full">
-        <div className="w-full max-w-2xl">
-          <AnimatePresence>
-            {(state === 'initial' || state === 'drag-over') && (
-              <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }}>
-                <h1 className="text-4xl sm:text-5xl font-bold mb-3">Supprimez l'arrière-plan.</h1>
-                <h2 className="text-lg sm:text-xl text-gray-600 mb-10">La douceur en plus. Importez votre image et laissez notre magie opérer.</h2>
-              </motion.div>
-            )}
-          </AnimatePresence>
-          {renderMainComponent()}
-        </div>
-      </main>
-
-      <section id="how-it-works" className="w-full max-w-6xl mx-auto mt-20 sm:mt-32 py-16">
-        <h3 className="text-3xl font-bold text-center mb-12">Comment ça marche ?</h3>
-        <div className="grid md:grid-cols-3 gap-8 text-center">
-          <motion.div whileHover={{ y: -5 }} className="bg-white/40 backdrop-blur-lg rounded-2xl p-8 shadow-md border border-white/20"><div className="flex justify-center items-center mb-4"><FiUpload className="text-3xl text-blue-500"/></div><h4 className="text-xl font-bold mb-2">1. Uploadez votre Fichier</h4><p className="text-gray-600">Choisissez une image depuis votre appareil ou glissez-la simplement dans la zone.</p></motion.div>
-          <motion.div whileHover={{ y: -5 }} className="bg-white/40 backdrop-blur-lg rounded-2xl p-8 shadow-md border border-white/20"><div className="flex justify-center items-center mb-4"><FaMagic className="text-3xl text-purple-500"/></div><h4 className="text-xl font-bold mb-2">2. La Magie Opère</h4><p className="text-gray-600">Notre intelligence artificielle analyse et supprime l'arrière-plan avec précision.</p></motion.div>
-          <motion.div whileHover={{ y: -5 }} className="bg-white/40 backdrop-blur-lg rounded-2xl p-8 shadow-md border border-white/20"><div className="flex justify-center items-center mb-4"><FiDownload className="text-3xl text-green-500"/></div><h4 className="text-xl font-bold mb-2">3. Téléchargez et Créez</h4><p className="text-gray-600">Récupérez votre image en haute définition avec un fond transparent.</p></motion.div>
-        </div>
-      </section>
-    </div>
+        <section id="how-it-works" className="w-full max-w-6xl mx-auto mt-20 sm:mt-32 py-16">
+          <h3 className="text-3xl font-bold text-center mb-12">Comment ça marche ?</h3>
+          <div className="grid md:grid-cols-3 gap-8 text-center">
+            <motion.div whileHover={{ y: -5 }} className="bg-white/40 backdrop-blur-lg rounded-2xl p-8 shadow-md border border-white/20"><div className="flex justify-center items-center mb-4"><FiUpload className="text-3xl text-blue-500"/></div><h4 className="text-xl font-bold mb-2">1. Uploadez votre Fichier</h4><p className="text-gray-600">Choisissez une image depuis votre appareil ou glissez-la simplement dans la zone.</p></motion.div>
+            <motion.div whileHover={{ y: -5 }} className="bg-white/40 backdrop-blur-lg rounded-2xl p-8 shadow-md border border-white/20"><div className="flex justify-center items-center mb-4"><FaMagic className="text-3xl text-purple-500"/></div><h4 className="text-xl font-bold mb-2">2. La Magie Opère</h4><p className="text-gray-600">Notre intelligence artificielle analyse et supprime l'arrière-plan avec précision.</p></motion.div>
+            <motion.div whileHover={{ y: -5 }} className="bg-white/40 backdrop-blur-lg rounded-2xl p-8 shadow-md border border-white/20"><div className="flex justify-center items-center mb-4"><FiDownload className="text-3xl text-green-500"/></div><h4 className="text-xl font-bold mb-2">3. Téléchargez et Créez</h4><p className="text-gray-600">Récupérez votre image en haute définition avec un fond transparent.</p></motion.div>
+          </div>
+        </section>
+      </div>
+    </ToolsLayout>
   );
 };
 

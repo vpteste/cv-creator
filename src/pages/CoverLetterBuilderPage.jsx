@@ -3,6 +3,7 @@ import { faDownload, faMagic } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { openMonetagLink } from '../utils/monetization';
 import './CoverLetterBuilderPage.css';
 
 const CoverLetterBuilderPage = () => {
@@ -20,6 +21,14 @@ const CoverLetterBuilderPage = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isDownloading, setIsDownloading] = useState(false);
   const [error, setError] = useState(null);
+  const [adTriggered, setAdTriggered] = useState(false);
+
+  const handlePageInteraction = () => {
+    if (!adTriggered) {
+      openMonetagLink();
+      setAdTriggered(true);
+    }
+  };
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -72,7 +81,7 @@ const CoverLetterBuilderPage = () => {
   };
 
   return (
-    <div className="cover-letter-builder-page">
+    <div className="cover-letter-builder-page" onClick={handlePageInteraction}>
       <div className="cl-control-panel">
         <h2 className="cl-main-title">Générateur de Lettre IA</h2>
         <div className="cl-generation-form">

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPencilAlt, faPalette, faFilePdf, faLightbulb } from '@fortawesome/free-solid-svg-icons';
+import { openMonetagLink } from '../utils/monetization';
 import './TipsPage.css';
 
 const TipCard = ({ icon, title, children }) => (
@@ -16,8 +17,16 @@ const TipCard = ({ icon, title, children }) => (
 );
 
 const TipsPage = () => {
+  const [adTriggered, setAdTriggered] = useState(false);
+
+  const handlePageInteraction = () => {
+    if (!adTriggered) {
+      openMonetagLink();
+      setAdTriggered(true);
+    }
+  };
   return (
-    <div className="tips-page">
+    <div className="tips-page" onClick={handlePageInteraction}>
       <div className="tips-header">
         <h1>Conseils & Astuces</h1>
         <p>Le guide pour créer un CV parfait qui se démarque.</p>

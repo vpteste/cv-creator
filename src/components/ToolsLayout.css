@@ -1,0 +1,53 @@
+/* ToolsLayout.css */
+.tools-layout-container {
+  display: grid;
+  grid-template-columns: 160px 1fr 160px;
+  grid-template-rows: auto 1fr auto;
+  grid-template-areas:
+    ". header ."
+    "left-ad main-content right-ad"
+    "footer-ad footer-ad footer-ad";
+  gap: 2rem;
+  padding: 0 1rem; /* Add some padding to the sides */
+  max-width: 1600px; /* Max width for very large screens */
+  margin: 0 auto;
+}
+
+.tools-content {
+  grid-area: main-content;
+  min-width: 0; /* Prevents content from overflowing grid */
+}
+
+.ad-sidebar-left {
+  grid-area: left-ad;
+  display: flex;
+  justify-content: center;
+}
+
+.ad-sidebar-right {
+  grid-area: right-ad;
+  display: flex;
+  justify-content: center;
+}
+
+.ad-footer-banner {
+  grid-area: footer-ad;
+  display: flex;
+  justify-content: center;
+  padding: 2rem 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1200px) {
+  .tools-layout-container {
+    grid-template-columns: 1fr; /* Stack everything in one column */
+    grid-template-areas:
+      "main-content"
+      "footer-ad";
+    padding: 0;
+  }
+
+  .ad-sidebar {
+    display: none; /* Hide sidebars on smaller screens */
+  }
+}

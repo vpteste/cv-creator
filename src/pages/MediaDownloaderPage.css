@@ -1,0 +1,163 @@
+/* MediaDownloaderPage.css */
+
+.media-downloader-page {
+  max-width: 800px;
+  margin: 2rem auto;
+  padding: 2rem;
+  color: var(--color-text);
+}
+
+.md-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.md-header h1 {
+  font-size: 2.5rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.md-header p {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  opacity: 0.7;
+}
+
+.md-container {
+  background-color: var(--color-card-background);
+  border-radius: 8px;
+  padding: 2.5rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  /* --service-color is injected via inline style */
+}
+
+/* --- Service Switcher --- */
+.service-switcher {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  background-color: var(--color-background);
+  border-radius: 8px;
+  padding: 0.5rem;
+}
+
+.switch-button {
+  flex: 1;
+  padding: 0.75rem 1rem;
+  border: none;
+  background-color: transparent;
+  color: var(--color-text);
+  opacity: 0.6;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 6px;
+}
+
+.switch-button.active {
+  background-color: var(--color-card-background);
+  color: var(--service-color, var(--color-primary));
+  opacity: 1;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.md-input-group {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  padding: 0.5rem;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.md-input-group:focus-within {
+  border-color: var(--service-color, var(--color-primary));
+  box-shadow: 0 0 0 3px var(--service-color, var(--color-primary-light));
+}
+
+.md-input-group .yt-icon,
+.md-input-group .tt-icon {
+  font-size: 1.5rem;
+  color: var(--service-color, var(--color-text));
+  margin: 0 1rem;
+  transition: color 0.3s ease;
+}
+
+.md-input-group input {
+  flex-grow: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 1.1rem;
+  padding: 0.5rem 0;
+  color: var(--color-text);
+}
+
+.md-input-group button {
+  background-color: var(--service-color, var(--color-primary));
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-left: 0.5rem;
+}
+
+.md-input-group button:hover {
+  filter: brightness(110%);
+}
+
+.md-input-group button:disabled {
+  background-color: var(--color-border);
+  cursor: not-allowed;
+}
+
+.md-results {
+  margin-top: 2rem;
+  min-height: 100px; /* Reserve space for results */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.success-panel {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+  padding: 2rem;
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  background-color: var(--color-background);
+}
+
+.success-panel .video-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.success-panel .download-button {
+  background-color: var(--color-success);
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 5px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  text-decoration: none;
+}
+
+.success-panel .download-button:hover {
+  filter: brightness(110%);
+}

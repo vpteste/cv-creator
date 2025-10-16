@@ -64,7 +64,7 @@ const Header = () => {
   return (
     <header className={`app-header ${isScrolled ? 'scrolled' : ''}`}>
       <div className="logo">
-        <Link to="/">CV-Pro</Link>
+        <Link to="/">E-SERVICES</Link>
       </div>
       <nav className={`main-nav ${isMenuOpen ? 'active' : ''}`} ref={navRef}>
         <NavLink to="/" end onClick={closeAllMenus}>Accueil</NavLink>
@@ -81,6 +81,7 @@ const Header = () => {
             <NavLink to="/pdf-to-word" onClick={closeAllMenus}>Convertisseur PDF &gt; Word</NavLink>
             <NavLink to="/convertisseur-ocr" onClick={closeAllMenus}>Convertisseur OCR</NavLink>
             <NavLink to="/remove-background" onClick={closeAllMenus}>Suppresseur d'arrière-plan</NavLink>
+            <NavLink to="/media-downloader" onClick={closeAllMenus}>Téléchargeur Média</NavLink>
           </div>
         </div>
       </nav>

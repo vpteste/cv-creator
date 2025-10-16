@@ -6,6 +6,8 @@ import { FiFilePlus, FiRefreshCw, FiDownload } from 'react-icons/fi';
 import './PdfToWordPage.css';
 import LoadingSpinner from '../components/LoadingSpinner';
 import InstructionsGuide from '../components/InstructionsGuide';
+import ToolsLayout from '../components/ToolsLayout';
+import { openMonetagLink } from '../utils/monetization';
 
 const pdfSteps = [
   {
@@ -29,6 +31,14 @@ const PdfToWordPage = () => {
   const [status, setStatus] = useState('idle'); // idle, converting, success, error
   const [downloadUrl, setDownloadUrl] = useState(null);
   const [errorMessage, setErrorMessage] = useState('');
+  const [adTriggered, setAdTriggered] = useState(false);
+
+  const handlePageInteraction = () => {
+    if (!adTriggered) {
+      openMonetagLink();
+      setAdTriggered(true);
+    }
+  };
 
   const onDrop = useCallback(async (acceptedFiles) => {
     const file = acceptedFiles[0];
@@ -127,28 +137,31 @@ const PdfToWordPage = () => {
   };
 
   return (
-    <motion.div 
-      className="pdf-converter-page"
-      initial="hidden"
-      animate="visible"
-      variants={pageVariants}
-    >
-      <div className="pdf-header">
-        <h1>Convertisseur PDF vers Word</h1>
-        <p>Transformez vos documents PDF en fichiers Word (.docx) modifiables en un seul clic.</p>
-      </div>
+    <ToolsLayout>
+      <motion.div 
+        className="pdf-converter-page"
+        initial="hidden"
+        animate="visible"
+        variants={pageVariants}
+        onClick={handlePageInteraction}
+      >
+        <div className="pdf-header">
+          <h1>Convertisseur PDF vers Word</h1>
+          <p>Transformez vos documents PDF en fichiers Word (.docx) modifiables en un seul clic.</p>
+        </div>
 
-      <div className="pdf-container">
-        <AnimatePresence mode="wait">
-          <motion.div key={status} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-            {renderContent()}
-          </motion.div>
-        </AnimatePresence>
-      </div>
+        <div className="pdf-container">
+          <AnimatePresence mode="wait">
+            <motion.div key={status} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+              {renderContent()}
+            </motion.div>
+          </AnimatePresence>
+        </div>
 
-      <InstructionsGuide steps={pdfSteps} />
+        <InstructionsGuide steps={pdfSteps} />
 
-    </motion.div>
+      </motion.div>
+    </ToolsLayout>
   );
 };
 

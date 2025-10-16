@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FiFileText, FiMaximize, FiCrop } from 'react-icons/fi';
+import { FiFileText, FiMaximize, FiCrop, FiDownload, FiMail } from 'react-icons/fi';
 import './ToolsShowcase.css';
 
 const tools = [
@@ -21,6 +21,18 @@ const tools = [
     title: 'Suppresseur d\'arrière-plan',
     description: 'Effacez automatiquement l\'arrière-plan de vos photos de profil pour un rendu professionnel.',
     link: '/remove-background'
+  },
+  {
+    icon: <FiDownload size={40} />,
+    title: 'Téléchargeur Média',
+    description: 'Téléchargez des vidéos YouTube en MP3 ou des vidéos TikTok sans filigrane.',
+    link: '/media-downloader'
+  },
+  {
+    icon: <FiMail size={40} />,
+    title: 'Générateur de Lettre IA',
+    description: 'Laissez notre IA rédiger une lettre de motivation percutante et personnalisée pour vous.',
+    link: '/lettre-de-motivation'
   }
 ];
 
