@@ -1,8 +1,8 @@
 .settings-toggle-button {
   position: fixed;
-  top: 15px;
+  top: 75px; /* Positioned below the 60px editor header */
   left: 15px;
-  z-index: 1300; /* Highest z-index to be on top of everything */
+  z-index: 10001; /* Above the editor-header (10000) */
   background-color: var(--color-card-background);
   border: 1px solid var(--color-border);
   border-radius: 50%;

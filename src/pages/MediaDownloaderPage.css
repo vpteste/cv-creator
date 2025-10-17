@@ -125,6 +125,41 @@
   justify-content: center;
 }
 
+/* --- Mobile Responsiveness --- */
+@media (max-width: 640px) {
+  .media-downloader-page {
+    padding: 1rem;
+  }
+
+  .md-header h1 {
+    font-size: 2rem;
+  }
+
+  .md-container {
+    padding: 1.5rem;
+  }
+
+  .md-input-group {
+    flex-wrap: wrap; /* Allow items to wrap */
+    gap: 1rem; /* Add space between wrapped items */
+  }
+
+  .md-input-group .yt-icon,
+  .md-input-group .tt-icon {
+    display: none; /* Hide icon on mobile to save space */
+  }
+
+  .md-input-group input {
+    flex-basis: 100%; /* Make input take full width */
+    text-align: center;
+  }
+
+  .md-input-group button {
+    flex-basis: 100%; /* Make button take full width */
+    margin-left: 0;
+  }
+}
+
 .success-panel {
   display: flex;
   flex-direction: column;
