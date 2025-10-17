@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 0 2rem;
-  height: 70px;
   background-color: transparent; /* Transparent by default */
   border-bottom: 1px solid transparent; /* Transparent border by default */
   position: fixed;
@@ -128,51 +127,53 @@
 }
 
 
-/* Responsive Styles */
+/* Responsive Styles for modern overlay menu */
 @media (max-width: 768px) {
   .main-nav {
-    display: none; /* Hide nav links by default on mobile */
-    position: absolute;
-    top: 70px; /* Position below header */
+    /* Overlay styles */
+    position: fixed;
+    top: 0;
     left: 0;
-    width: 100%;
-    background-color: var(--color-header-background);
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(var(--color-background-rgb), 0.95); /* Semi-transparent background */
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    
+    /* Content alignment */
+    display: flex;
     flex-direction: column;
-    padding: 1rem 0;
-    border-bottom: 1px solid var(--color-border);
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+
+    /* Initial state (hidden) */
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-20px);
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    
+    /* Ensure it's on top */
+    z-index: 999; /* Below the header's close button */
   }
 
   .main-nav.active {
-    display: flex; /* Show when active */
+    /* Visible state */
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
   }
 
   .main-nav a {
-    text-align: center;
-    padding: 1rem;
-    width: 100%;
+    /* Link styling in overlay */
+    font-size: 1.5rem; /* Larger font for overlay */
+    font-weight: 600;
+    padding: 0.5rem 1rem;
   }
 
   .mobile-menu-button {
     display: block; /* Show hamburger button */
-  }
-
-  /* Mobile Dropdown */
-  .dropdown-toggle {
-    width: 100%;
-    justify-content: center;
-  }
-  .dropdown-menu {
-    position: static;
-    transform: none;
-    border: none;
-    box-shadow: none;
-    width: 100%;
-    background-color: transparent;
-    padding: 0;
-    margin-top: 0;
-  }
-  .dropdown-menu a {
-    background-color: rgba(0,0,0,0.1);
-    margin-bottom: 4px;
+    z-index: 1001; /* Ensure it's above the nav overlay */
+    position: relative; /* Needed for z-index to work properly */
   }
 }

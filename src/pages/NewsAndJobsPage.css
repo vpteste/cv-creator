@@ -20,7 +20,8 @@
 }
 
 .page-header h1 {
-  font-size: 2.8rem;
+  /* Fluid Font Size */
+  font-size: clamp(2.2rem, 5vw + 1rem, 2.8rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: var(--color-text);
@@ -51,7 +52,7 @@
 
 .content-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr !important; /* 2 columns on all screen sizes, forced */
+  grid-template-columns: 1fr 1fr;
   gap: 2.5rem;
 }
 
@@ -125,3 +126,15 @@
   opacity: 0.8;
   font-size: 0.95rem;
 }
+
+/* --- Responsive Grid --- */
+@media (max-width: 768px) {
+  .content-grid {
+    grid-template-columns: 1fr; /* Single column on mobile */
+  }
+
+  .news-jobs-page {
+    padding: 0 1rem;
+  }
+}
+

@@ -13,7 +13,7 @@
 }
 
 .ocr-header h1 {
-  font-size: 2.5rem;
+  font-size: clamp(1.8rem, 5vw + 1rem, 2.5rem);
   font-weight: 700;
   margin-bottom: 0.5rem;
 }
@@ -279,4 +279,47 @@
 .cta-button-secondary:hover {
     background-color: var(--color-primary);
     color: white;
+}
+
+/* Desktop layout for preview */
+@media (min-width: 769px) {
+  .preview-content {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 3rem;
+  }
+}
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .ocr-converter-page {
+    margin: 1rem 0;
+    padding: 0.5rem;
+  }
+
+  .ocr-header {
+    margin-bottom: 2rem;
+  }
+
+  .ocr-header h1 {
+    font-size: 1.8rem;
+  }
+  
+  .ocr-header p {
+    font-size: 1rem;
+  }
+
+  .ocr-container,
+  .drop-zone {
+    padding: 1rem;
+  }
+
+  .results-toolbar {
+    flex-wrap: wrap;
+    justify-content: flex-start;
+  }
+
+  .results-toolbar .clear-button {
+    margin-left: 0;
+  }
 }

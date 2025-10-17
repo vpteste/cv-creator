@@ -1,5 +1,5 @@
 .app-main {
-  padding-top: 70px; /* To offset the fixed header */
+  padding-top: 60px; /* Adjusted for potentially smaller header */
   background-color: var(--color-background);
 }
 
@@ -49,4 +49,49 @@
 .cta-button-secondary:hover {
   background-color: var(--color-primary);
   color: white;
+}
+
+/* Editor Page Header */
+.editor-header {
+  background-color: var(--color-header-background, rgba(255,255,255,0.8));
+  padding: 0 1.5rem;
+  display: flex;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 10000; /* Ensure it's on top of all builder components */
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--color-border);
+  height: 60px; /* Fixed height */
+}
+
+.back-to-home-button {
+  background-color: #000;
+  color: white; /* Start with white */
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  transition: color 0.2s ease;
+  animation: blink-animation 3s infinite; /* Make animation longer to see all colors */
+}
+
+.back-to-home-button:hover {
+  color: var(--color-accent);
+}
+
+@keyframes blink-animation {
+  0%, 100% {
+    color: orange;
+  }
+  33% {
+    color: white;
+  }
+  66% {
+    color: green;
+  }
 }

@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import TemplateGallery from '../components/TemplateGallery';
 import ToolsShowcase from '../components/ToolsShowcase'; // Import the new component
+import AdPlaceholder from '../components/AdPlaceholder';
 import './HomePage.css';
 import '../components/HeroCVGallery.css';
 import { openMonetagLink } from '../utils/monetization';
@@ -77,9 +78,7 @@ const HomePage = () => {
         whileInView="visible"
         viewport={{ once: true, amount: 0.1 }}
       >
-        <div className="ad-placeholder">
-          <p>Espace publicitaire</p>
-        </div>
+        <AdPlaceholder type="banner" />
       </motion.section>
     </div>
   );

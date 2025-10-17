@@ -5,39 +5,71 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faBars, faTimes, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 import './Header.css';
 
+const NavDropdown = ({ title, children, closeMobileMenu }) => {
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
+  const dropdownRef = useRef(null);
+
+  const closeDropdown = () => {
+    setIsDropdownOpen(false);
+  };
+
+  const handleLinkClick = () => {
+    closeDropdown();
+    closeMobileMenu();
+  };
+
+  // Close dropdown when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+        setIsDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  return (
+    <div className="nav-item dropdown" ref={dropdownRef}>
+      <button 
+        className="dropdown-toggle" 
+        onClick={() => setIsDropdownOpen(!isDropdownOpen)}
+        aria-haspopup="true"
+        aria-expanded={isDropdownOpen}
+      >
+        {title} <FontAwesomeIcon icon={faChevronDown} size="xs" />
+      </button>
+      <div className={`dropdown-menu ${isDropdownOpen ? 'open' : ''}`}>
+        {React.Children.map(children, child => 
+          React.cloneElement(child, { onClick: handleLinkClick })
+        )}
+      </div>
+    </div>
+  );
+};
+
+
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [isToolsMenuOpen, setIsToolsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const navRef = useRef(null);
-  const toolsMenuRef = useRef(null);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleToolsMenu = () => {
-    setIsToolsMenuOpen(!isToolsMenuOpen);
-  };
-
   const closeAllMenus = () => {
     setIsMenuOpen(false);
-    setIsToolsMenuOpen(false);
   };
 
-  // Close menus when clicking outside
+  // Close menu when clicking outside
   useEffect(() => {
     const handleClickOutside = (event) => {
-      // Close mobile menu
       if (navRef.current && !navRef.current.contains(event.target)) {
         const menuButton = document.querySelector('.mobile-menu-button');
         if (menuButton && !menuButton.contains(event.target)) {
           setIsMenuOpen(false);
         }
-      }
-      // Close tools dropdown
-      if (toolsMenuRef.current && !toolsMenuRef.current.contains(event.target)) {
-        setIsToolsMenuOpen(false);
       }
     };
 
@@ -72,18 +104,13 @@ const Header = () => {
         <NavLink to="/actualites-emplois" onClick={closeAllMenus}>Actualités & Emplois</NavLink>
         <NavLink to="/conseils" onClick={closeAllMenus}>Conseils</NavLink>
         
-        <div className="nav-item dropdown" ref={toolsMenuRef}>
-          <button className="dropdown-toggle" onClick={toggleToolsMenu}>
-            Outils IA
-            <FontAwesomeIcon icon={faChevronDown} size="xs" />
-          </button>
-          <div className={`dropdown-menu ${isToolsMenuOpen ? 'open' : ''}`}>
-            <NavLink to="/pdf-to-word" onClick={closeAllMenus}>Convertisseur PDF &gt; Word</NavLink>
-            <NavLink to="/convertisseur-ocr" onClick={closeAllMenus}>Convertisseur OCR</NavLink>
-            <NavLink to="/remove-background" onClick={closeAllMenus}>Suppresseur d'arrière-plan</NavLink>
-            <NavLink to="/media-downloader" onClick={closeAllMenus}>Téléchargeur Média</NavLink>
-          </div>
-        </div>
+        <NavDropdown title="Outils" closeMobileMenu={closeAllMenus}>
+          <NavLink to="/pdf-to-word">Pdf to word</NavLink>
+          <NavLink to="/convertisseur-ocr">Convertisseur image en texte</NavLink>
+          <NavLink to="/remove-background">Nettoyage arrière-plan</NavLink>
+          <NavLink to="/media-downloader">Convertisseur mp3~tiktok</NavLink>
+        </NavDropdown>
+
       </nav>
       <div className="nav-right-section">
         <ThemeToggleButton />

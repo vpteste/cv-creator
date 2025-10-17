@@ -3,9 +3,6 @@
   background-color: var(--color-background);
   border: 2px dashed var(--color-border);
   border-radius: 8px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
   overflow: hidden;
   max-width: 100%;
 }

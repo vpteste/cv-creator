@@ -93,3 +93,27 @@
   gap: 1rem;
   flex-wrap: wrap;
 }
+
+@media (max-width: 768px) {
+  .pdf-converter-page {
+    margin: 1rem 0;
+    padding: 1rem;
+  }
+
+  .pdf-header {
+    margin-bottom: 2rem;
+  }
+
+  .pdf-header h1 {
+    font-size: 1.8rem;
+  }
+
+  .pdf-header p {
+    font-size: 1rem;
+  }
+
+  .pdf-container,
+  .pdf-drop-zone {
+    padding: 1.5rem;
+  }
+}

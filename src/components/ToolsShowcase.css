@@ -5,7 +5,8 @@
 }
 
 .section-title {
-  font-size: 2.5rem;
+  /* Fluid font size */
+  font-size: clamp(2rem, 4vw + 1rem, 2.5rem);
   font-weight: 700;
   margin-bottom: 1rem;
   color: var(--color-text);
@@ -74,4 +75,14 @@
 
 .tool-card:hover .tool-link {
   text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .tools-showcase-section {
+    padding: 3rem 1rem;
+  }
+
+  .section-subtitle {
+    margin-bottom: 3rem;
+  }
 }

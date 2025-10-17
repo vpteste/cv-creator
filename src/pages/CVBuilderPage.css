@@ -1,6 +1,6 @@
 .cv-builder-page {
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 60px); /* Account for the fixed header */
   overflow: hidden;
 }
 

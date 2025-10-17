@@ -4,7 +4,12 @@
 
 /* Hero Section */
 .hero-section {
-  padding: 8rem 2rem;
+  /* Fluid padding */
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  padding-bottom: clamp(2.5rem, 5vw, 4rem);
+  padding-left: clamp(1rem, 4vw, 2rem);
+  padding-right: clamp(1rem, 4vw, 2rem);
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -12,10 +17,8 @@
   position: relative;
   overflow: hidden;
   background-color: var(--color-background);
-  min-height: 450px;
+  min-height: 225px;
 }
-
-/* No more overlay needed */
 
 .hero-content {
   max-width: 800px;
@@ -28,7 +31,7 @@
   backdrop-filter: blur(10px);
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.2);
-  padding: 3rem;
+  padding: clamp(1.5rem, 5vw, 3rem); /* Fluid padding */
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
 }
 
@@ -45,23 +48,25 @@
 }
 
 .hero-title {
-  font-size: 3.5rem;
+  /* Fluid font size */
+  font-size: clamp(2.25rem, 5vw + 1rem, 3.5rem);
   font-weight: 700;
   margin-bottom: 1rem;
   line-height: 1.2;
-  color: var(--color-text); /* Use theme color */
+  color: var(--color-text);
   animation: fadeInUp 0.8s ease-out forwards;
   opacity: 0; /* Start hidden for animation */
 }
 
 .hero-subtitle {
-  font-size: 1.2rem;
+  /* Fluid font size */
+  font-size: clamp(1rem, 1vw + 0.8rem, 1.2rem);
   font-weight: 400;
   margin-bottom: 2.5rem;
   max-width: 600px;
   margin-left: auto;
   margin-right: auto;
-  color: var(--color-text); /* Use theme color */
+  color: var(--color-text);
   opacity: 0.8;
   animation: fadeInUp 0.8s ease-out 0.3s forwards; /* Staggered delay */
   opacity: 0; /* Start hidden for animation */
@@ -70,11 +75,12 @@
 .cta-button {
   background-color: var(--color-primary);
   color: white;
-  padding: 1rem 2.5rem;
+  /* Fluid padding and font size */
+  padding: clamp(0.8rem, 2vw, 1rem) clamp(2rem, 4vw, 2.5rem);
+  font-size: clamp(1rem, 2vw, 1.1rem);
   border-radius: 50px;
   text-decoration: none;
   font-weight: 700;
-  font-size: 1.1rem;
   transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
   display: inline-block;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -90,14 +96,14 @@
 
 /* Ad Placeholder Section */
 .ad-placeholder-section {
-  padding: 4rem 2rem;
+  padding: 2rem 2rem;
   background-color: var(--color-card-background);
 }
 
 .ad-placeholder {
   max-width: 900px;
   margin: 0 auto;
-  padding: 3rem;
+  padding: 1.5rem 3rem; /* Vertical padding halved, horizontal kept */
   border: 2px dashed var(--color-border);
   border-radius: 12px;
   background-color: var(--color-background);
@@ -114,29 +120,15 @@
 /* Responsive Styles */
 @media (max-width: 768px) {
   .hero-section {
-    padding: 6rem 1.5rem;
     min-height: auto;
   }
 
-  .hero-title {
-    font-size: 2.5rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1rem;
-  }
-
-  .cta-button {
-    padding: 0.8rem 2rem;
-    font-size: 1rem;
-  }
-
   .ad-placeholder-section {
-    padding: 3rem 1.5rem;
+    padding: 1.5rem 1.5rem;
   }
 
   .ad-placeholder {
-    padding: 2rem;
+    padding: 1rem 2rem; /* Vertical padding halved, horizontal kept */
   }
 
   .ad-placeholder p {
@@ -145,15 +137,8 @@
 }
 
 @media (max-width: 480px) {
-  .hero-section {
-    padding: 5rem 1rem;
-  }
-
-  .hero-title {
-    font-size: 2rem;
-  }
-
-  .hero-subtitle {
-    font-size: 0.9rem;
+  .hero-content {
+    /* Further reduce padding on very small screens if needed */
+    padding: clamp(1rem, 5vw, 1.5rem);
   }
 }
